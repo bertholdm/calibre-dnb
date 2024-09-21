@@ -135,6 +135,10 @@ class DNB_DE(Source):
                     'authors': [],
                     'author_sort': None,
                     'edition': None,
+                    'editor': None,  # dtmb 2024-09-21
+                    'dimensions': None,  # dtmb 2024-09-21
+                    'extent': None,  # dtmb 2024-09-21
+                    'mediatype': None,  # dtmb 2024-09-21
                     'comments': None,
                     'idn': None,
                     'urn': None,
@@ -147,7 +151,6 @@ class DNB_DE(Source):
 
                     'alternative_xmls': [], 
                 }
-
 
 
                 ##### Field 336: "Content Type" #####
@@ -169,6 +172,12 @@ class DNB_DE(Source):
                 except:
                     pass
 
+                # dtmb 2024-09-21 begin
+                if mediatype:
+                    book['mediatype'].append(mediatype)
+                else:
+                    book['mediatype'].append('')
+                # dtmb 2024-09-21 end
 
                 ##### Field 776: "Additional Physical Form Entry" #####
                 # References from ebook's entry to paper book's entry (and vice versa)
@@ -259,6 +268,24 @@ class DNB_DE(Source):
 
                 for field in record.xpath("./marc21:datafield[@tag='245']", namespaces=ns):
                     title_parts = []
+                    # dtmb 2024-09-21 begin
+                    ind1 = ''
+                    ind2 = ''
+                    # dtmb 2024-09-21 end
+
+                    # dtmb 2024-09-21 begin
+                    # variant 1:
+                    # <datafield tag="245" ind1="0" ind2="0">
+                    #   <subfield code="a">Fliegergeschichten</subfield>
+                    #   <subfield code="n">Bd. 188.</subfield>
+                    #   <subfield code="p">Über der Hölle des Mauna Loa / Otto Behrens</subfield>
+                    # </datafield>
+                    # variant 2:
+                    # <datafield tag="245" ind1="1" ind2="0">
+                    #   <subfield code="a">&#152;Die&#156; Odyssee der PN-9</subfield>
+                    #   <subfield code="c">Fritz Moeglich. Hrsg.: Peter Supf</subfield>
+                    # </datafield>
+                    # dtmb 2024-09-21 end
 
                     code_a = []
                     for i in field.xpath("./marc21:subfield[@code='a' and string-length(text())>0]", namespaces=ns):
