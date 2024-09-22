@@ -135,10 +135,10 @@ class DNB_DE(Source):
                     'authors': [],
                     'author_sort': None,
                     'edition': None,
-                    'editor': None,  # dtmb 2024-09-21
-                    'dimensions': None,  # dtmb 2024-09-21
-                    'extent': None,  # dtmb 2024-09-21
-                    'mediatype': None,  # dtmb 2024-09-21
+                    'editor': None,
+                    'dimensions': None,
+                    'extent': None,
+                    'mediatype': None,
                     'comments': None,
                     'idn': None,
                     'urn': None,
@@ -172,12 +172,10 @@ class DNB_DE(Source):
                 except:
                     pass
 
-                # dtmb 2024-09-21 begin
                 if mediatype:
-                    book['mediatype'].append(mediatype)
+                    book['mediatype'] = mediatype
                 else:
-                    book['mediatype'].append('')
-                # dtmb 2024-09-21 end
+                    book['mediatype'] = ''
 
                 ##### Field 776: "Additional Physical Form Entry" #####
                 # References from ebook's entry to paper book's entry (and vice versa)
@@ -266,14 +264,20 @@ class DNB_DE(Source):
                 #	Series:		"The Endless Book"
                 #	Series Index:	2
 
-                for field in record.xpath("./marc21:datafield[@tag='245']", namespaces=ns):
-                    title_parts = []
-                    # dtmb 2024-09-21 begin
-                    ind1 = ''
-                    ind2 = ''
-                    # dtmb 2024-09-21 end
+                if record.xpath("./marc21:datafield[@tag='245']", namespaces=ns):
+                    ind1 = record.xpath("./marc21:datafield[@ind1]", namespaces=ns)[0].text.strip()
+                    ind2 = record.xpath("./marc21:datafield[@ind2]", namespaces=ns)[0].text.strip()
+                    if len(ind1) > 0:
+                        added_entry = not int(ind1)  # 245 Title statement 1 = added entry (Nebeneintragung)
+                    else:
+                        added_entry = False
+                    no_added_entry = not added_entry
+                    log.info("added_entry=%s" % added_entry)
 
-                    # dtmb 2024-09-21 begin
+                for field in record.xpath("./marc21:datafield[@tag='245']", namespaces=ns):
+                    log.info("field=%s" % field.text.strip())
+                    title_parts = []
+
                     # variant 1:
                     # <datafield tag="245" ind1="0" ind2="0">
                     #   <subfield code="a">Fliegergeschichten</subfield>
@@ -285,11 +289,16 @@ class DNB_DE(Source):
                     #   <subfield code="a">&#152;Die&#156; Odyssee der PN-9</subfield>
                     #   <subfield code="c">Fritz Moeglich. Hrsg.: Peter Supf</subfield>
                     # </datafield>
-                    # dtmb 2024-09-21 end
 
                     code_a = []
                     for i in field.xpath("./marc21:subfield[@code='a' and string-length(text())>0]", namespaces=ns):
                         code_a.append(i.text.strip())
+                        log.info("code_a=%s" % code_a)
+
+                    code_c = []
+                    for i in field.xpath("./marc21:subfield[@code='c' and string-length(text())>0]", namespaces=ns):
+                        code_c.append(i.text.strip())
+                        log.info("code_c=%s" % code_c)
 
                     code_n = []
                     for i in field.xpath("./marc21:subfield[@code='n' and string-length(text())>0]", namespaces=ns):
@@ -301,13 +310,34 @@ class DNB_DE(Source):
                             match = re.search("\[\.\.\.\]", i.text.strip())
                             if match:
                                 code_n.append('0')
+                    log.info("code_n=%s" % code_n)
 
                     code_p = []
                     for i in field.xpath("./marc21:subfield[@code='p' and string-length(text())>0]", namespaces=ns):
                         code_p.append(i.text.strip())
+                    log.info("code_p=%s" % code_p)
+
+                    # a = title, c = author and perhaps editor
+                    code_c_authors = None
+                    if code_a and code_c:
+                        code_c_authors_split = code_c[0].split(". Hrsg.: ")
+                        code_c_authors = code_c_authors_split[0]
+                        if len(code_c_authors_split) > 1:
+                            book['editor'] = code_c_authors_split[1]
+
+                    # a = series, n = series index, p = title and author
+                    code_p_authors = None
+                    if code_a and code_n and code_p:
+                        code_p_authors_split = code_p[0].split(" / ")
+                        code_p = [code_p_authors_split[0]]
+                        if len(code_p_authors_split) > 1:
+                            code_p_authors = code_p_authors_split[1]
 
                     # Title
-                    title_parts = code_a
+                    if code_p:
+                        title_parts = code_p
+                    else:
+                        title_parts = code_a
 
                     # Looks like we have a series
                     if code_a and code_n:
@@ -381,6 +411,13 @@ class DNB_DE(Source):
                 if secondary_authors:
                     book['authors'].extend(secondary_authors)
                     log.info("[700.a] Secondary Authors: %s" % " & ".join(secondary_authors))
+
+                ##### Field 245 and code c or p #####
+                if not book['authors']:
+                    if code_c_authors:
+                        book['authors'] = [code_c_authors]
+                    if code_p_authors:
+                        book['authors'] = [code_p_authors]
 
                 # if no "real" author was found use all involved persons as authors
                 if not book['authors']:
@@ -796,6 +833,8 @@ class DNB_DE(Source):
 
 
                 ##### Put it all together #####
+                log.info("book= %s" % book)
+
                 if self.cfg_append_edition_to_title == True and book['edition']:
                     book['title'] = book['title'] + " : " + book['edition']
 
@@ -1086,7 +1125,7 @@ class DNB_DE(Source):
                         return None
 
             # do not accept some other unwanted series names
-            # TODO: Has issues with Umlaus in regex (or series string?)
+            # TODO: Has issues with Umlauts in regex (or series string?)
             # TODO: Make user configurable
             for i in [
                 '^Roman$', '^Science-fiction$',
