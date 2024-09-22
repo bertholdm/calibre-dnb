@@ -393,6 +393,7 @@ class DNB_DE(Source):
                 ##### Field 700: "Added Entry-Personal Name" #####
 
                 # record url
+                # ToDo: evaluate xpath expression
                 book['record_url'] = ''
                 for i in record.xpath("./marc21:datafield[@tag='100']/marc21:subfield[@code='0' and "
                                       "contains(text(), 'https')]", namespaces=ns):
