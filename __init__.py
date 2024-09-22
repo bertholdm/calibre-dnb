@@ -99,7 +99,7 @@ class DNB_DE(Source):
         #authors = []
 
         # remove pseudo authors from list of authors
-        ignored_authors = ['v. a.', 'v.a.', 'va', 'diverse', 'unknown', 'unbekannt']
+        ignored_authors = ['v. a.', 'v.a.', 'va', 'diverse', 'unknown', 'unbekannt', 'anonymous']
         for i in ignored_authors:
             authors = [x for x in authors if x.lower() != i.lower()]
 
@@ -140,6 +140,7 @@ class DNB_DE(Source):
                     'extent': None,
                     'mediatype': None,
                     'comments': None,
+                    'record_url': None,
                     'idn': None,
                     'urn': None,
                     'isbn': None,
@@ -390,6 +391,16 @@ class DNB_DE(Source):
 
                 ##### Field 100: "Main Entry-Personal Name"  #####
                 ##### Field 700: "Added Entry-Personal Name" #####
+
+                # record url
+                book['record_url'] = ''
+                for i in record.xpath("./marc21:datafield[@tag='100']/marc21:subfield[@code='0' and "
+                                      "contains(text(), 'https')]", namespaces=ns):
+                    log.info("i=%s" % i.text.strip())
+                    book['record_url'] = i.text.strip()
+                    break
+                log.info("[100.0] record_url=%s" % book['record_url'])
+
                 # Get Authors ####
 
                 # primary authors
@@ -833,6 +844,10 @@ class DNB_DE(Source):
 
 
                 ##### Put it all together #####
+                if book['comments']:
+                    book['comments'].append('\nSource: ' + book['record_url'])
+                else:
+                    book['comments'] = 'Source: ' + book['record_url']
                 log.info("book= %s" % book)
 
                 if self.cfg_append_edition_to_title == True and book['edition']:
