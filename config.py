@@ -17,12 +17,14 @@ STORE_NAME = 'Options'
 KEY_GUESS_SERIES = 'guessSeries'
 KEY_APPEND_EDITION_TO_TITLE = 'appendEditionToTitle'
 KEY_FETCH_SUBJECTS = 'subjects'
+KEY_FETCH_ALL = 'fetchAll'
 
 DEFAULT_STORE_VALUES = {
     KEY_GUESS_SERIES: True,
     KEY_APPEND_EDITION_TO_TITLE: False,
     # 0:only gnd   1:prefer gnd 2:both   3:prefer non-gnd   4:only non-gnd   5:none
     KEY_FETCH_SUBJECTS: 2,
+    KEY_FETCH_ALL: False,
 }
 
 # This is where all preferences for this plugin will be stored
@@ -89,11 +91,25 @@ class ConfigWidget(DefaultConfigWidget):
             self.fetch_subjects_radios_group.addButton(radio, i)
             other_group_box_layout.addWidget(radio, 2 + i, 1, 1, 1)
 
+        # Fetch all data
+        fetchAll_label = QLabel(
+            _('Fetch all data in book record:'), self)
+        fetchAll_label.setToolTip(_('Additional, non-Calibre book data will be stored in comments.\n'))
+        other_group_box_layout.addWidget(fetchAll_label, 8, 0, 1, 1)
+
+        self.fetchAll_checkbox = QCheckBox(self)
+        self.fetchAll_checkbox.setChecked(
+            c.get(KEY_FETCH_ALL, DEFAULT_STORE_VALUES[KEY_FETCH_ALL]))
+        other_group_box_layout.addWidget(
+            self.fetchAll_checkbox, 8, 1, 1, 1)
+
+
     def commit(self):
         DefaultConfigWidget.commit(self)
         new_prefs = {}
         new_prefs[KEY_GUESS_SERIES] = self.guess_series_checkbox.isChecked()
         new_prefs[KEY_APPEND_EDITION_TO_TITLE] = self.append_edition_to_title_checkbox.isChecked()
         new_prefs[KEY_FETCH_SUBJECTS] = self.fetch_subjects_radios_group.checkedId()
+        new_prefs[KEY_FETCH_ALL] = self.fetchAll_checkbox.isChecked()
 
         plugin_prefs[STORE_NAME] = new_prefs

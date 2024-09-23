@@ -365,7 +365,8 @@ class DNB_DE(Source):
 
                     # subtitle 1: Field 245, Subfield b
                     try:
-                        title_parts.append(field.xpath("./marc21:subfield[@code='b' and string-length(text())>0]", namespaces=ns)[0].text.strip())
+                        title_parts.append(field.xpath("./marc21:subfield[@code='b' and string-length(text())>0]",
+                                                       namespaces=ns)[0].text.strip())
                     except IndexError:
                         pass
 
@@ -383,7 +384,8 @@ class DNB_DE(Source):
                         title_sort_regex = re.match('^(.*?)(' + chr(152) + '.*' + chr(156) + ')?(.*?)$', title_parts[0])
                     sortword = title_sort_regex.group(2)
                     if sortword:
-                        title_sort_parts[0] = ''.join(filter(None, [title_sort_regex.group(1).strip(), title_sort_regex.group(3).strip(), ", " + sortword]))
+                        title_sort_parts[0] = ''.join(filter(None, [title_sort_regex.group(1).strip(),
+                                                                    title_sort_regex.group(3).strip(), ", " + sortword]))
 
                     book['title_sort'] = " : ".join(title_sort_parts)
                     log.info("[245] Title_Sort: %s" % book['title_sort'])
@@ -406,7 +408,9 @@ class DNB_DE(Source):
 
                 # primary authors
                 primary_authors = []
-                for i in record.xpath("./marc21:datafield[@tag='100']/marc21:subfield[@code='4' and text()='aut']/../marc21:subfield[@code='a' and string-length(text())>0]", namespaces=ns):
+                for i in record.xpath("./marc21:datafield[@tag='100']/marc21:subfield[@code='4' and "
+                                      "text()='aut']/../marc21:subfield[@code='a' and "
+                                      "string-length(text())>0]", namespaces=ns):
                     name = re.sub(" \[.*\]$", "", i.text.strip())
                     primary_authors.append(name)
 
@@ -416,7 +420,9 @@ class DNB_DE(Source):
 
                 # secondary authors
                 secondary_authors = []
-                for i in record.xpath("./marc21:datafield[@tag='700']/marc21:subfield[@code='4' and text()='aut']/../marc21:subfield[@code='a' and string-length(text())>0]", namespaces=ns):
+                for i in record.xpath("./marc21:datafield[@tag='700']/marc21:subfield[@code='4' and "
+                                      "text()='aut']/../marc21:subfield[@code='a' and "
+                                      "string-length(text())>0]", namespaces=ns):
                     name = re.sub(" \[.*\]$", "", i.text.strip())
                     secondary_authors.append(name)
 
@@ -434,13 +440,45 @@ class DNB_DE(Source):
                 # if no "real" author was found use all involved persons as authors
                 if not book['authors']:
                     involved_persons = []
-                    for i in record.xpath("./marc21:datafield[@tag='700']/marc21:subfield[@code='a' and string-length(text())>0]", namespaces=ns):
+                    for i in record.xpath("./marc21:datafield[@tag='700']/marc21:subfield[@code='a' and "
+                                          "string-length(text())>0]", namespaces=ns):
                         name = re.sub(" \[.*\]$", "", i.text.strip())
                         involved_persons.append(name)
 
                     if involved_persons:
                         book['authors'].extend(involved_persons)
                         log.info("[700.a] Involved Persons: %s" % " & ".join(involved_persons))
+
+
+                ##### Field 249: "Weitere Titel etc. bei Zusammenstellungen"  #####
+
+                #     <datafield tag="249" ind1=" " ind2=" ">
+                #       <subfield code="a">Die Nacht von Tarent / H. D. Petersen</subfield>
+                #     </datafield>
+                for field in record.xpath("./marc21:datafield[@tag='249']", namespaces=ns):
+                    log.info("[249] field=%s" % field.text.strip())
+
+                    # Weiterer Titel bei Zusammenstellungen
+                    code_a = []
+                    for i in field.xpath("./marc21:subfield[@code='a' and string-length(text())>0]", namespaces=ns):
+                        code_a.append(i.text.strip())
+                        log.info("[249.a] code_a=%s" % code_a)
+                    # Titelzusätze zur gesamten Zusammenstellung
+                    code_b = []
+                    for i in field.xpath("./marc21:subfield[@code='b' and string-length(text())>0]", namespaces=ns):
+                        code_b.append(i.text.strip())
+                        log.info("[249.b] code_b=%s" % code_b)
+                    # Verantwortlichkeitsangabe zum weiteren Titel
+                    code_v = []
+                    for i in field.xpath("./marc21:subfield[@code='v' and string-length(text())>0]", namespaces=ns):
+                        code_va.append(i.text.strip())
+                        log.info("[249.v] code_v=%s" % code_v)
+
+                    if code_a:
+                        code_a_split = ''.join(code_a).split(" / ")
+                        if len(code_a_split) > 1:
+                            book['title']  = book['title'] + ' / ' + code_a_split[0]
+                            book['authors'].append(code_a_split[1])
 
 
                 ##### Field 856: "Electronic Location and Access" #####
@@ -845,14 +883,20 @@ class DNB_DE(Source):
 
 
                 ##### Put it all together #####
+
                 if book['comments']:
-                    book['comments'].append('\nSource: ' + book['record_url'])
+                    book['comments'].append('\n' + _('Source: ') + book['record_url'])
                 else:
-                    book['comments'] = 'Source: ' + book['record_url']
+                    book['comments'] = _('Source: ') + book['record_url']
                 log.info("book= %s" % book)
 
                 if self.cfg_append_edition_to_title == True and book['edition']:
                     book['title'] = book['title'] + " : " + book['edition']
+
+                # Avoiding Calibre's merge behavior for identical titles and authors.
+                # ((This behavior suppresses other editions of a title.)
+                if len(results) > 1:
+                    book['title'] = book['title'] + " (" + str(book['pubdate'].year) + ")"
 
                 authors = list(map(lambda i: self.remove_sorting_characters(i), book['authors']))
 

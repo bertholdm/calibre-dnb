@@ -1,0 +1,955 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ISFDB3\n"
+"POT-Creation-Date: 2024-09-23 12:54+0200\n"
+"PO-Revision-Date: 2024-09-23 12:55+0200\n"
+"Last-Translator: Michael Detambel <info@michael-detambel.de>\n"
+"Language-Team: Michael Detambel\n"
+"Language: de_DE@formal\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.5\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: __init__.py:50
+msgid "Downloads metadata from the DNB (Deutsche National Bibliothek)."
+msgstr "Lädt Metadaten aus der DNB (Deutsche National Bibliothek)."
+
+#: __init__.py:856 __init__.py:858
+#, fuzzy
+#| msgid "Source: "
+msgid "Source:"
+msgstr "Quelle: "
+
+#~ msgid "Downloads metadata and covers from ISFDB (https://www.isfdb.org/)"
+#~ msgstr "Lädt Metadaten und Buchumschläge von ISFDB (https://www.isfdb.org/)"
+
+#~ msgid "For further explanations see isfdb3.md file."
+#~ msgstr "Weitere Informationen in der Datei isfdb3.md."
+
+#~ msgid "Maximum number of search results to download:"
+#~ msgstr "Maximale Anzahl an Suchergebnissen zum Herunterladen:"
+
+#~ msgid "This setting only applies to ISBN and title / author searches. Book records with a valid ISFDB publication and/or title ID will return exactly one result."
+#~ msgstr "Diese Einstellung bezieht sich ausschließlich auf eine Suche mit Titel bzw. Autor.. Bucheinträge mit einer gültigen  SF-Leihbuch ID liefern genau ein Ergebnis."
+
+#~ msgid "Maximum number of covers to download:"
+#~ msgstr "Maximale Anzahl an Titelbildern zum Herunterladen:"
+
+#~ msgid "The maximum number of covers to download. This only applies to publication records with no cover. If there is a cover associated with the record, only that cover will be downloaded."
+#~ msgstr "Die maximale Anzahl an Titelbildern, die heruntergeladen werden.."
+
+#~ msgid "Search ISFDB publications?"
+#~ msgstr "Ausgaben in der ISFDB suchen?"
+
+#~ msgid "This only applies to title / author searches. A record with a publication ID will always return a publication."
+#~ msgstr "Diese Einstellung bezieht sich ausschließlich auf eine Suche mit Titel bzw. Autor.. Bucheinträge mit einer gültigen  SF-Leihbuch ID liefern genau ein Ergebnis."
+
+#~ msgid "Search ISFDB titles?"
+#~ msgstr "Titel in der ISFDB suchen?"
+
+#~ msgid "This only applies to title / author searches. A record with a title ID and no publication ID will always return a title."
+#~ msgstr "Diese Einstellung bezieht sich ausschließlich auf eine Suche mit Titel bzw. Autor.. Bucheinträge mit einer gültigen  SF-Leihbuch ID liefern genau ein Ergebnis."
+
+#~ msgid "Search options"
+#~ msgstr "Such-Optionen"
+
+#~ msgid "Choose one of the options for search variants."
+#~ msgstr "Wählen Sie eine der folgenden Optionen als Such-Variante."
+
+#~ msgid "Title template"
+#~ msgstr "Titelvorlage"
+
+#, python-brace-format
+#~ msgid ""
+#~ "Allowed placeholders are: {title}, {title_sort}, {authors}, {authors_sort}, {series}, {series_code}, {series_index}, {main_series}.\n"
+#~ "{series_index} can be formatted with python F-strings: p. ex. use {series_index:04d} to print out series index with 4 digits and leading zeros, if necessary. Default value ist the pure title."
+#~ msgstr ""
+#~ "Erlaubte Platzhalter sind: {title}, {title_sort}, {authors}, {authors_sort}, {series}, {series_code}, {series_index}, {main_series}.\n"
+#~ "{series_index} kann mit Python F-Strings: formatiert werden, z. B.  {series_index:04d} um die Seriennummer vierstellig mit führenden Nullen auszugeben. Standard ist der reine Titel."
+
+#~ msgid "Combine series and sub-series?"
+#~ msgstr "Serie und Unterserie zusammenfassen?"
+
+#~ msgid "Choosing this option will set the series field with series and sub-series (if any)."
+#~ msgstr "Bei Auswahl dieser Option wird das \"Serie\"-Feld mit einer Kombination aus Serie und Unter-Serie (falls vorhanden) gefüllt (wenn vorhanden)."
+
+#~ msgid "Combine series and sub-series with"
+#~ msgstr "Serie und Unterserie trennen mit"
+
+#~ msgid "String to concatenate series und sub-series in the series field. Examples: \".\" (Calibre sort character), \" | \", ..."
+#~ msgstr "Zeichenkette angeben, mit der Serie und Unterserie getrennt werden sollen. Beispiele: \".\" (für Calibre Sortierung), \" | \", usw."
+
+#~ msgid "Unwanted Tags"
+#~ msgstr "Unerwünschte Schlagwörter"
+
+#~ msgid "Comma-seperated list of tags to ignore."
+#~ msgstr "Komma-separierte Liste von Schlagworten, die ignoriert werden sollen."
+
+#~ msgid "Note translations in comments."
+#~ msgstr "Hinweis auf Übersetzungen im Kommentar."
+
+#~ msgid "Choosing this option will set information and links to ISFDB pages with translations in the indicated language(s), if provided."
+#~ msgstr "Durch diese Option werden Informationen zu Übersetzungen eingefügt, falls vorhanden."
+
+#~ msgid "Translate ISFDB."
+#~ msgstr "ISFDB übersetzen."
+
+#~ msgid "Choosing this option will traslate ISFDB texts."
+#~ msgstr "Diese Option wählen, wenn die Texte der ISFDB übersetzt werden sollen."
+
+#~ msgid "Languages"
+#~ msgstr "Sprachen"
+
+#~ msgid "Choose one language to filter titles. English is ever set."
+#~ msgstr "Eine Sprache wählen, um Titel zu filtern. Englisch ist immer gesetzt."
+
+#~ msgid "Logging level."
+#~ msgstr "Logging-Niveau."
+
+#~ msgid "ERROR = only error messages, DEBUG: all logging messages."
+#~ msgstr "ERROR = Nur Fehlermeldungen, DEBUG: alle Meldungen."
+
+#~ msgid "ISFDB3 is starting..."
+#~ msgstr "ISFDB3 startet..."
+
+#, python-brace-format
+#~ msgid "Log level is {0}."
+#~ msgstr "Logging-Niveau  ist {0}."
+
+#~ msgid "Abort is set."
+#~ msgstr "Abbruch der Verarbeitung."
+
+#, python-brace-format
+#~ msgid "Search for Pubs aborted because max. results are reached: {0}."
+#~ msgstr "Such nach Veröffentlichungen abgebrochen, da die maximale Anzahl von Ergebnissen erreicht wurde: {0}."
+
+#, python-brace-format
+#~ msgid "{0} matches with isbn and/or isfdb-catalog ids."
+#~ msgstr "{0} Treffer mit ISBN und/oder der ISFDB Katalog Id."
+
+#~ msgid "No id(s) given. Trying a search with title and author(s)."
+#~ msgstr "Keine IDs vorhanden. Schlüsselwortsuche mit Titel und Autor wird durchgeführt:."
+
+#, python-brace-format
+#~ msgid "Search for Titles aborted because max. results are reached: {0}."
+#~ msgstr "Such nach Titeln abgebrochen, da die maximale Anzahl von Ergebnissen erreicht wurde: {0}."
+
+#~ msgid "Fetching all linked pub records..."
+#~ msgstr "Hole alle verknüpften Datensätze mit Veröffentlichungen..."
+
+#, python-brace-format
+#~ msgid "Searching with author={0}, title={1}."
+#~ msgstr "Searching with author={0}, title={1}."
+
+#, python-brace-format
+#~ msgid "No publications found with title and author(s) search for »{0}« by {1}."
+#~ msgstr "Keine Veröffentlichungen gefunden mit der Titel- und Autorensuche für »{0}« von {1}."
+
+#, python-brace-format
+#~ msgid "Matches found (URL, relevance): {0}."
+#~ msgstr "Treffer gefunden (URL, relevance): {0}."
+
+#~ msgid "Starting workers..."
+#~ msgstr "Starte Arbeitsprogramme..."
+
+#~ msgid "Not enough information. Running identify."
+#~ msgstr "Keine zwischengespeicherte Titelbild URL gefunden. Starte erneut Identifizierung."
+
+#~ msgid "We were unable to find any covers."
+#~ msgstr "Es wurden keine Titelbilder gefunden."
+
+#, python-format
+#~ msgid "Worker parsing ISFDB url: %r"
+#~ msgstr "Das Arbeitsprogramm wertet den ISFDB URL: %r aus"
+
+#~ msgid "This url is a Publication."
+#~ msgstr "Dieser URL ist eine Publikation."
+
+#~ msgid "Could not find title ID in original metadata or on publication page. Searching for title."
+#~ msgstr "Konnte keine Titel-ID in den ursprünglichen Metadaten oder auf der Publikationsseite finden. Starte Titelsuche."
+
+#~ msgid "Warning: pub[\"author_string\"] is not set."
+#~ msgstr "Warnung: pub[\"author_string\"] ist nicht gefüllt."
+
+#, python-format
+#~ msgid "Fetching additional title information from %s"
+#~ msgstr "Hole zusätzliche Titel-Informationen aus %s"
+
+#~ msgid "This is the exact title! Merge title and publication info."
+#~ msgstr "Dies ist der genaue Titel. Mische Titel- und Publikation-Info."
+
+#~ msgid "This is not the correct title."
+#~ msgstr "Dies ist nicht der richtige Titel."
+
+#~ msgid "We could not find a title record for this publication."
+#~ msgstr "Es konnte kein Datensatz für diese Veröffentlichung gefunden werden."
+
+#~ msgid "This url is a Title."
+#~ msgstr "Dieser URL ist ein Titel."
+
+#~ msgid "Out of cheese error! Unrecognised url!"
+#~ msgstr "Nicht auswertbare URL!"
+
+#, python-format
+#~ msgid "Insufficient metadata found for %r"
+#~ msgstr "Nicht genügen Metadaten gefunden für %r"
+
+#~ msgid "Unknown"
+#~ msgstr "Unbekannt"
+
+#, python-format
+#~ msgid "Worker failed to fetch and parse url %r with error %r"
+#~ msgstr "Im Arbeitsprogramm trat beim Holen und Auswerten  des URL %r der Fehler %r auf"
+
+#~ msgid "the book has no ISBN, since it was not available in regular book shops"
+#~ msgstr "das Buch hat keine ISBN, da es nicht im regulären Buchhandel vertrieben wurde"
+
+#~ msgid "There's no statement for the date of publication"
+#~ msgstr "Das Datum der Veröffentlichung ist nicht angegeben"
+
+#~ msgid "No indication for the date of publication"
+#~ msgstr "Kein Hinweis auf ein Veröffentlichungsdatum"
+
+#~ msgid "No statement for the date of publication"
+#~ msgstr "Das Datum der Veröffentlichung ist nicht angegeben"
+
+#~ msgid "The day of publication from the monthly schedule"
+#~ msgstr "Das Datum der Veröffentlichung ist abgeleitet von der monatlichen Erscheinungsweise"
+
+#~ msgid "Day of publication from the monthly schedule"
+#~ msgstr "Datum der Veröffentlichung abgeleitet von der monatlichen Erscheinungsweise"
+
+#~ msgid "The day of publication from the weekly schedule"
+#~ msgstr "Das Datum der Veröffentlichung ist abgeleitet von der wöchentlichen Erscheinungsweise"
+
+#~ msgid "Day of publication from the weekly schedule"
+#~ msgstr "Datum der Veröffentlichung abgeleitet von der wöchentlichen Erscheinungsweise"
+
+#~ msgid "The publication date is deduced from"
+#~ msgstr "Das Erscheinungsdatum ist abgeleitet von"
+
+#~ msgid "First (and probably only) printing"
+#~ msgstr "Erste (und wahrscheinlich einzige) Auflage"
+
+#~ msgid "The page count begins with the cover"
+#~ msgstr "Die Seitenzählung beginnt mit dem Umschlag"
+
+#~ msgid "the last story ends on this page"
+#~ msgstr "Die letzte Erzählung endet auf dieser Seite"
+
+#~ msgid "A most likely abridged re-edition"
+#~ msgstr "Eine sehr wahrscheinlich gekürzte Neuauflage"
+
+#~ msgid "An abridged reprint of the"
+#~ msgstr "Ein gekürzter Nachdruck der"
+
+#~ msgid "First German edition and printing"
+#~ msgstr "Deutscher Erstdruck"
+
+#~ msgid "First German edition"
+#~ msgstr "Deutsche Erstauflage"
+
+#~ msgid "The cover artist is not credited"
+#~ msgstr "Der Titelbildkünstler ist nicht vermerkt"
+
+#~ msgid "The interior art is not credited"
+#~ msgstr "Die Innenillustrationen sind nicht zugeschrieben"
+
+#~ msgid "identified by his unique style"
+#~ msgstr "erkennbar an seinem unverwechselbaren Stil"
+
+#~ msgid "Published simultaneously with"
+#~ msgstr "Gleichzeitig erschienen mit"
+
+#~ msgid "The table of contents appears"
+#~ msgstr "Das Inhaltsverzeichnis befindet sich"
+
+#~ msgid "No credit for cover art"
+#~ msgstr "Kein Künstler für das Titelbild vermerkt"
+
+#~ msgid "there is no visible signature"
+#~ msgstr "es gibt keine erkennbare Signatur"
+
+#~ msgid "no visible signature"
+#~ msgstr "keine erkennbare Signatur"
+
+#~ msgid "stated on the copyright page"
+#~ msgstr "auf der Copyright-Seite vermerkt"
+
+#~ msgid "No credit for the cover art"
+#~ msgstr "Kein Künstler für das Titelbild vermerkt"
+
+#~ msgid "on the cover and the spine"
+#~ msgstr "auf der Umschlagseite und dem Buchrücken"
+
+#~ msgid "Cover design credited to"
+#~ msgstr "Titelbildentwurf ist vermerkt für"
+
+#~ msgid "There is no interior art"
+#~ msgstr "Ohne Innenillustrationen"
+
+#~ msgid "A selected bibliography"
+#~ msgstr "Eine ausgewählte Bibliografie"
+
+#~ msgid "Apparent first printing"
+#~ msgstr "Augenscheinlich Originalausgabe"
+
+#~ msgid "Translation copyrighted"
+#~ msgstr "Copyright der Übersetzung"
+
+#~ msgid "visible in the cover's"
+#~ msgstr "sichtbar auf des Titelbilds"
+
+#~ msgid "(view Concise Listing)"
+#~ msgstr "(siehe Originalliste)"
+
+#~ msgid "The not numbered pages"
+#~ msgstr "Die nicht nummerierten Seiten"
+
+#~ msgid "Cover artist credited"
+#~ msgstr "Der Titelbildkünstler ist vermerkt"
+
+#~ msgid "It could very well be"
+#~ msgstr "Es kommt gut infrage"
+
+#~ msgid "not explicitly stated"
+#~ msgstr "nicht ausdrücklich vermerkt"
+
+#~ msgid "on the copyright page"
+#~ msgstr "auf der Copyright-Seite"
+
+#~ msgid "on the cover's lower left border"
+#~ msgstr "auf der linken unteren Umschlagsseite"
+
+#~ msgid "The copyright is assigned for the year"
+#~ msgstr "Der Urheber/Copyright-Vermerk nennt das Jahr"
+
+#~ msgid "has a teaser for the next number"
+#~ msgstr "enthält eine Vorschau der nächsten Ausgabe"
+
+#~ msgid "to the author"
+#~ msgstr "dem Autor"
+
+#~ msgid "Stated first printing"
+#~ msgstr "Originalausgabe vermerkt"
+
+#~ msgid "Most likely abridged"
+#~ msgstr "Sehr wahrscheinlich gekürzt"
+
+#~ msgid "publication schedule"
+#~ msgstr "Erscheinungsweise"
+
+#~ msgid "Month of publication"
+#~ msgstr "Der Monat der Veröffentlichung"
+
+#~ msgid "did the majority of"
+#~ msgstr "lieferte den Löwenanteil von"
+
+#~ msgid "is clearly visible"
+#~ msgstr "ist klar sichtbar"
+
+#~ msgid "A table of contents"
+#~ msgstr "Ein Inhaltsverzeichnis"
+
+#~ msgid "publication series"
+#~ msgstr "Reihe"
+
+#~ msgid "but his signature"
+#~ msgstr "aber seine Signatur"
+
+#~ msgid "interior artwork"
+#~ msgstr "Innenillustration"
+
+#~ msgid "is referenced via"
+#~ msgstr "ist identifiziert via"
+
+#~ msgid "on the title page"
+#~ msgstr "auf der Umschlagseite"
+
+#~ msgid "Possibly abridged"
+#~ msgstr "Möglicherweise gekürzt"
+
+#~ msgid "Table of contents"
+#~ msgstr "Inhaltsverzeichnis"
+
+#~ msgid "Abridged reprint"
+#~ msgstr "Gekürzter Nachdruck"
+
+#~ msgid "this translation"
+#~ msgstr "diese Übersetzung"
+
+#~ msgid "was published in"
+#~ msgstr "wurde veröffentlicht in"
+
+#~ msgid "Author's Note"
+#~ msgstr "Anmerkung des Verfassers"
+
+#~ msgid "Basic data from"
+#~ msgstr "Grunddaten von"
+
+#~ msgid "second printing"
+#~ msgstr "zweiter Druck"
+
+#~ msgid "the fortnightly"
+#~ msgstr "der vierzehntäglichen"
+
+#~ msgid "the four-weekly"
+#~ msgstr "der vierwöchtentlichen"
+
+#~ msgid "first printing"
+#~ msgstr "Erstdruck"
+
+#~ msgid "Original title"
+#~ msgstr "Originaltitel"
+
+#~ msgid "The Page count"
+#~ msgstr "Die Seitenzählung"
+
+#~ msgid "the title page"
+#~ msgstr "der Umschlagseite"
+
+#~ msgid "with the cover"
+#~ msgstr "mit der Umschlagseite"
+
+#~ msgid "calender week"
+#~ msgstr "Kalenderwoche"
+
+#~ msgid "First edition and printing"
+#~ msgstr "Erstauflage und-druck"
+
+#~ msgid "First edition"
+#~ msgstr "Erstauflage"
+
+#~ msgid "First printing"
+#~ msgstr "Erstdruck"
+
+#~ msgid "identified by"
+#~ msgstr "identifiziert durch"
+
+#~ msgid "special price"
+#~ msgstr "Sonderpreis"
+
+#~ msgid "The cover art"
+#~ msgstr "Das Titelbild"
+
+#~ msgid "Translated by"
+#~ msgstr "Deutsch von"
+
+#~ msgid "Cover artist"
+#~ msgstr "Titelbild-Künstler"
+
+#~ msgid "interior art"
+#~ msgstr "Innenillustration"
+
+#~ msgid "is stated on"
+#~ msgstr "ist vermerkt auf"
+
+#~ msgid "not stated"
+#~ msgstr "nicht vermerkt"
+
+#~ msgid "on the cover"
+#~ msgstr "auf der Umschlagseite"
+
+#~ msgid "on the spine"
+#~ msgstr "auf dem Buchrücken"
+
+#~ msgid "Other prices"
+#~ msgstr "Fremdwährungen"
+
+#~ msgid "short story"
+#~ msgstr "Kurzgeschichte"
+
+#~ msgid "the 4-weekly"
+#~ msgstr "der vierwöchtentlichen"
+
+#~ msgid "of a month"
+#~ msgstr "eines Monats"
+
+#~ msgid " dedicated "
+#~ msgstr " zugeschrieben "
+
+#~ msgid "Netherlands"
+#~ msgstr "Niederlande"
+
+#~ msgid "Other price"
+#~ msgstr "Fremdwährung"
+
+#~ msgid "Switzerland"
+#~ msgstr "Schweiz"
+
+#~ msgid "this number"
+#~ msgstr "diese Nummer"
+
+#~ msgid "uncredited"
+#~ msgstr "anonym"
+
+#~ msgid "unpaginated"
+#~ msgstr "ungezählt"
+
+#~ msgid "The unpaginated"
+#~ msgstr "Die nicht nummerierte"
+
+#~ msgid "<b>and</b>"
+#~ msgstr "<b>und</b>"
+
+#~ msgid "Collection"
+#~ msgstr "Sammlung"
+
+#~ msgid "collection"
+#~ msgstr "Sammlung"
+
+#~ msgid "Month from"
+#~ msgstr "Monat anhand"
+
+#~ msgid "noveletta"
+#~ msgstr "Novelette"
+
+#~ msgid "rear flap"
+#~ msgstr "hintere Umschlagklappe"
+
+#~ msgid "re-edition"
+#~ msgstr "Neuauflage"
+
+#~ msgid "Romanette"
+#~ msgstr "Kurzroman"
+
+#~ msgid "the weekly"
+#~ msgstr "der wöchentlichen"
+
+#~ msgid "trans. of"
+#~ msgstr "deutsche Ausgabe von"
+
+#~ msgid "Translator"
+#~ msgstr "Übersetzer"
+
+#~ msgid "is not numbered"
+#~ msgstr "ist nicht nummeriert"
+
+#~ msgid "unnumbered"
+#~ msgstr "nicht nummeriert"
+
+#~ msgid "variant of"
+#~ msgstr "Variante von"
+
+# Strings for ISFDB Texts (Variables in program)
+# Tags from Book Types
+#~ msgid "Anthology"
+#~ msgstr "Anthologie"
+
+#~ msgid "chapbook"
+#~ msgstr "Groschenheft"
+
+#~ msgid "hardcover edition"
+#~ msgstr "gebundenen Ausgabe"
+
+#~ msgid "day from "
+#~ msgstr "Tag anhand "
+
+#~ msgid "edited by"
+#~ msgstr "herausgegeben von"
+
+#~ msgid "hardvover"
+#~ msgstr "gebundenes Buch"
+
+#~ msgid "paperback"
+#~ msgstr "Taschenbuch"
+
+#~ msgid "publisher"
+#~ msgstr "Verleger"
+
+#~ msgid "signature"
+#~ msgstr "Signatur"
+
+#~ msgid "The month"
+#~ msgstr "Der Monat"
+
+#~ msgid " starts "
+#~ msgstr " beginnt "
+
+#~ msgid " states "
+#~ msgstr " vermerkt "
+
+#~ msgid "ad pages"
+#~ msgstr "Anzeigenseiten"
+
+#~ msgid "Chapbook"
+#~ msgstr "Groschenheft"
+
+#~ msgid "Contents"
+#~ msgstr "Inhalt"
+
+#~ msgid "credited"
+#~ msgstr "vermerkt"
+
+#~ msgid "Day from"
+#~ msgstr "Tag anhand"
+
+#~ msgid "novella"
+#~ msgstr "Novelle"
+
+#~ msgid "omnibus"
+#~ msgstr "Reader"
+
+#~ msgid "or later"
+#~ msgstr "oder später"
+
+#~ msgid "Possibly"
+#~ msgstr "Möglicherweise"
+
+#~ msgid "schedule"
+#~ msgstr "Erscheinungsweise"
+
+#~ msgid " corner"
+#~ msgstr " Ecke"
+
+#~ msgid " cover "
+#~ msgstr " Titelbild "
+
+#~ msgid " pages "
+#~ msgstr " Seiten "
+
+#~ msgid " upper "
+#~ msgstr " oberen "
+
+#~ msgid "ad page"
+#~ msgstr "Anzeigenseite"
+
+#~ msgid "Austria"
+#~ msgstr "Österreich"
+
+#~ msgid "deduced"
+#~ msgstr "abgeleitet"
+
+#~ msgid "edition"
+#~ msgstr "Ausgabe"
+
+#~ msgid "Omnibus"
+#~ msgstr "Reader"
+
+#~ msgid "review"
+#~ msgstr "Rezension"
+
+#~ msgid "The day"
+#~ msgstr "Der Tag"
+
+#~ msgid "various"
+#~ msgstr "Diverse"
+
+#~ msgid " appears "
+#~ msgstr " erscheint "
+
+#~ msgid " from "
+#~ msgstr " von "
+
+#~ msgid " left "
+#~ msgstr " linken "
+
+#~ msgid " page "
+#~ msgstr " Seite "
+
+# Weitere isfdb-Texte
+#~ msgid "Editor"
+#~ msgstr "Herausgeber"
+
+#~ msgid "essay"
+#~ msgstr "Aufsatz"
+
+#~ msgid "novel"
+#~ msgstr "Roman"
+
+#~ msgid "Title"
+#~ msgstr "Titel"
+
+#~ msgid " are "
+#~ msgstr " sind "
+
+#~ msgid " bep "
+#~ msgstr " hinteres Vorsatzblatt "
+
+#~ msgid "as by"
+#~ msgstr "alias"
+
+#~ msgid "Italy"
+#~ msgstr "Italien"
+
+#~ msgid " p. "
+#~ msgstr " S. "
+
+#~ msgid "fep"
+#~ msgstr "vorderes Vorsatzblatt"
+
+#~ msgid "Pp."
+#~ msgstr "Seiten "
+
+#~ msgid "P."
+#~ msgstr "S."
+
+#, python-brace-format
+#~ msgid "Error while encoding {0}: {1}."
+#~ msgstr "Beim Codieren ist ein Fehler aufgetreten {0}: {1}."
+
+#, python-brace-format
+#~ msgid "Truncate the search string at the error position and search with the substring: {0}."
+#~ msgstr "Der Suchtext wird an der Fehlerstelle abgeschnitten: {0}."
+
+#~ msgid "Advanced search not allowed for not logged in users. Trying a simple search."
+#~ msgstr "Erweiterte Suche nicht erlaubt für nicht angemeldete Benutzer. Einfache Suche wird durchgeführt."
+
+#~ msgid "No root found, neither with advanced or simple search. HTML output follows. Abort."
+#~ msgstr "Unbekannte Seitenstruktur. HTML-Ausgabe folgt. Abbruch."
+
+#, python-brace-format
+#~ msgid "ISFDB webpage has redirected to a title page (only one title found), located at: {0}."
+#~ msgstr "Die ISFDB Übersichtsseite hat weitergeleitet zur Detailseite {0} (da nur ein Titel vorhanden). Steht noch auf der To-Do-Liste."
+
+#~ msgid " (Editor)"
+#~ msgstr " (Herausgeber)"
+
+#, python-brace-format
+#~ msgid "Series is: \"{0}\". Now searching series index in \"{1}\""
+#~ msgstr "Serie ist: {0}. Suche jetzt den Serien-Index in \"{1}\""
+
+#, python-brace-format
+#~ msgid "Reported number was {0} and was reduced to a Calibre compatible format.<br />"
+#~ msgstr "Seriennummer war {0} und wurde in ein Calibre-kompatibles Format umgesetzt.<br />"
+
+#, python-brace-format
+#~ msgid "Reported number was the roman numeral {0} and was converted to a Calibre compatible format.<br />"
+#~ msgstr "Seriennummer war {0} und wurde in ein Calibre-kompatibles Format umgesetzt.<br />"
+
+#, python-brace-format
+#~ msgid "Could not convert {0} to a Calibre compatible format.<br />"
+#~ msgstr "Seriennummer war {0} und wurde in ein Calibre-kompatibles Format umgesetzt.<br />"
+
+#~ msgid " by "
+#~ msgstr " von "
+
+#~ msgid "Unknown catalog with more than one link."
+#~ msgstr "Unbekannter Katalog mit mehr als einem Link."
+
+#, python-format
+#~ msgid "Error parsing section %r for url: %r. Error: %r"
+#~ msgstr "Fehler beim Parsen von Abschnitt %r für die URL: %r. Fehler: %r"
+
+#, python-format
+#~ msgid "Error parsing the second content box for url: %r. Error: %r"
+#~ msgstr "Fehler beim Parsen der <i>content box</i> mit der Titelzeile und dem Inhaltsverzeichnis für die URL: %r. Fehler: %r"
+
+#~ msgid "Source for publication metadata: "
+#~ msgstr "Quelle für Metadaten der Veröffentlichung "
+
+#~ msgid "No series found so far. Looking further."
+#~ msgstr "Bisher keine Serie gefunden. Suche weiter."
+
+#~ msgid "Source for series metadata: "
+#~ msgstr "Quelle für Metadaten der Serie "
+
+#~ msgid "No series found at all."
+#~ msgstr "Endgültig keine Serie gefunden."
+
+#, python-format
+#~ msgid "Error parsing cover for url: %r. Error: %r"
+#~ msgstr "Fehler beim Parsen des Titelbildes für die URL: %r. Fehler: %r"
+
+#~ msgid "Title.stub_from_search(): row is None."
+#~ msgstr "Title.stub_from_search(): row is None."
+
+#~ msgid "Title.stub_from_simple_search(): row is None."
+#~ msgstr "Title.stub_from_search(): hat keine Daten geliefert."
+
+#, python-brace-format
+#~ msgid "Reported number was {0} and was reduced to a Calibre compatible format."
+#~ msgstr "Seriennummer war {0} und wurde in ein Calibre-kompatibles Format umgesetzt."
+
+#, python-brace-format
+#~ msgid "Error parsing section {0} for url: {1}. Error: {2}"
+#~ msgstr "Fehler beim Parsen von Abschnitt {0} für den URL: {1}. Fehler: {2}"
+
+#~ msgid "Source for title metadata: "
+#~ msgstr "Quelle für Metadaten des Titels "
+
+#~ msgid "First published in: "
+#~ msgstr "Zuerst veröffentlicht in: "
+
+#, fuzzy
+#~| msgid "identified by"
+#~ msgid "Identifier types"
+#~ msgstr "identifiziert durch"
+
+#~ msgid "the year"
+#~ msgstr "das Jahr"
+
+#~ msgid " and "
+#~ msgstr " und "
+
+#~ msgid "Date "
+#~ msgstr "Datum "
+
+#~ msgid " to "
+#~ msgstr " für "
+
+#~ msgid "Ad "
+#~ msgstr "Anzeige "
+
+#~ msgid " but "
+#~ msgstr " aber "
+
+#~ msgid " has "
+#~ msgstr " trägt "
+
+#~ msgid " not "
+#~ msgstr " nicht "
+
+#~ msgid " two "
+#~ msgstr " zwei "
+
+#~ msgid "Last "
+#~ msgstr "Letzte "
+
+#~ msgid " at "
+#~ msgstr " bei "
+
+#~ msgid " bc "
+#~ msgstr " Rückseite "
+
+#~ msgid " is "
+#~ msgstr " ist "
+
+#~ msgid " of "
+#~ msgstr " von "
+
+#~ msgid " on "
+#~ msgstr " auf "
+
+#~ msgid " or "
+#~ msgstr " oder "
+
+#~ msgid " he "
+#~ msgstr " er "
+
+#~ msgid "stated first-printing"
+#~ msgstr "Originalausgabe vermerkt"
+
+#~ msgid "The "
+#~ msgstr "Der "
+
+#~ msgid "Combine series and sub-series"
+#~ msgstr "Serie und Unterserie zusammenfassen"
+
+#~ msgid ""
+#~ "Choosing this option will set the series field with series and sub-series \n"
+#~ "(if any)."
+#~ msgstr ""
+#~ "Bei Auswahl dieser Option wird das \"Serie\"-Feld mit einer Kombination aus Serie und Unter-Serie (falls vorhanden) gefüllt \n"
+#~ "(if any)."
+
+#~ msgid "Found {0} matches."
+#~ msgstr "{0} Treffer mit Id(s)."
+
+#~ msgid "Downloads metadata and covers from the science fiction loan book database (http://www.sf-leihbuch.de/)"
+#~ msgstr "Lädt Metadaten und Titelbild aus der SF-Leihbuch Datenbank  (http://www.sf-leihbuch.de/)"
+
+#~ msgid "Search mode"
+#~ msgstr "Such-Modus"
+
+#~ msgid "Choose one of the options for search mode."
+#~ msgstr "Wählen Sie eine der folgenden Optionen für den Such-Modus."
+
+#~ msgid "Exact search"
+#~ msgstr "Genaue Suche"
+
+#~ msgid "Fuzzy search"
+#~ msgstr "Unscharfe Suche"
+
+#~ msgid "Target for fuzzy search"
+#~ msgstr "Zielfeld für die unscharfe Suche"
+
+#~ msgid "Choose one of the options for search target."
+#~ msgstr "Wählen Sie eine der folgenden Optionen für das Such-Ziel."
+
+#~ msgid "Blurb"
+#~ msgstr "Klappentext"
+
+#~ msgid "Meta field for fuzzy search"
+#~ msgstr "Metadatenfeld für die unscharfe Suche"
+
+#~ msgid "Choose one of the following fields as source for fuzzy search."
+#~ msgstr "Wählen Sie eines der folgenden Felder als Quelle für die unscharfe Suche."
+
+#~ msgid "Authors (only first)"
+#~ msgstr "Autor(en) (nur erster)"
+
+#~ msgid "The maximum number of covers to download."
+#~ msgstr "Maximale Anzahl an Titelbildern zum Herunterladen."
+
+#, python-brace-format
+#~ msgid "Book id given: {0}:{1}."
+#~ msgstr "Buch-ID vorhanden: {0}:{1}."
+
+#~ msgid "Exact title is given."
+#~ msgstr "Genauer Titel wurde angegeben."
+
+#~ msgid "This url is a book url. Going to fetch book details."
+#~ msgstr "Diese URL ist eine Buchdetail-URL. Lade Buchdetails."
+
+#, python-brace-format
+#~ msgid "No entrys found for query {0}"
+#~ msgstr "Keine Ergebnisse für die Abfrage {0}"
+
+#, python-brace-format
+#~ msgid "Parsing error: {0}"
+#~ msgstr "Fehler beim Parsen: {0}"
+
+#~ msgid "No book detail table columns found!"
+#~ msgstr "Keine Spalten in der Buchdetail-Tabelle gefunden!"
+
+#~ msgid "No book_detail_fields found!"
+#~ msgstr "Keine Buchdetail-Felder gefunden!"
+
+#, python-brace-format
+#~ msgid "The book series \"{0}\" contains"
+#~ msgstr "Die Serie \"{0}\" beinhaltet folgende Bücher"
+
+#~ msgid "Candidates for user defined fields"
+#~ msgstr "Informationen für benutzerdefinierte Felder"
+
+#~ msgid "Series: "
+#~ msgstr "Serie: "
+
+#~ msgid "Publisher's book number"
+#~ msgstr "Verlagsnummer"
+
+#~ msgid "Book details processing finished."
+#~ msgstr "Verarbeitung der Buch-Detailinformationen abgeschlossen."
+
+#, python-format
+#~ msgid "Parsed books in series %r. Found %d titles."
+#~ msgstr "Bücher der Serie %r wurden gesucht. %d Titel wurden gefunden."
+
+#~ msgid "Maximum title/author search matches to evaluate (1 = fastest):"
+#~ msgstr "Maximale Anzahl an Titel/Autor-Treffern zur Überprüfung (1 = schnellste Variante):"
+
+#~ msgid "Publisher's Book ID"
+#~ msgstr "Verlagsnummer"
+
+#~ msgid "fanzine"
+#~ msgstr "Fan-Magazin"
+
+#~ msgid "magazine"
+#~ msgstr "Magazin"
+
+#~ msgid "non-fiction"
+#~ msgstr "Sachbuch"
+
+#~ msgid "poem"
+#~ msgstr "Gedicht"
+
+#~ msgid "serial"
+#~ msgstr "Fortsetzung/Reihe"
+
+#~ msgid "juvenile"
+#~ msgstr "Jugendbuch"
