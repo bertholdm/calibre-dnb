@@ -957,6 +957,8 @@ class DNB_DE(Source):
 
                 # Put other data in comment field
                 if self.cfg_fetch_all:
+                    if book['isbn']:
+                        book['comments'] = book['comments'] +_('\nISBN:\t') + book['isbn']
                     if book['subtitle']:
                         book['comments'] = book['comments'] +_('\nSubtitle:\t') + book['subtitle']
                     if book['editor']:
