@@ -175,6 +175,8 @@ class DNB_DE(Source):
 
                 ##### Field 337: "Media Type" #####
                 # Skip Audio and Video
+                mediatype = None  # Avoid "error message "UnboundLocalError: cannot access local variable 'mediatype'
+                # where it is not associated with a value"
                 try:
                     mediatype = record.xpath("./marc21:datafield[@tag='337']/marc21:subfield[@code='a' and string-length(text())>0]", namespaces=ns)[0].text.strip().lower()
                     if mediatype in ('audio', 'video'):
@@ -332,13 +334,18 @@ class DNB_DE(Source):
                     if code_a and code_b and code_c:
                         book['subtitle'] = code_b[0]
 
-                    # a = title, c = author and perhaps editor
+                    # a = title, perhaps with subtitle; c = author and perhaps editor
                     code_c_authors = None
                     if code_a and code_c:
                         code_c_authors_split = code_c[0].split(". Hrsg.: ")
                         code_c_authors = code_c_authors_split[0]
                         if len(code_c_authors_split) > 1:
                             book['editor'] = code_c_authors_split[1]
+                        code_a_title_split = code_a[0].split(": ")
+                        code_a_title = code_a_title_split[0]
+                        if len(code_a_title_split) > 1:
+                            code_a = [code_a_title_split[0]]  # title without subtitle
+                            book['subtitle'] = code_a_title_split[1]
 
                     # a = series, n = series index, p = title and author
                     code_p_authors = None
@@ -418,23 +425,6 @@ class DNB_DE(Source):
 
                 ##### Field 100: "Main Entry-Personal Name"  #####
                 ##### Field 700: "Added Entry-Personal Name" #####
-
-                # record url
-                # book['record_uri'] = ''
-                # for i in record.xpath("./marc21:datafield[@tag='100']/marc21:subfield[@code='0' and "
-                #                       "contains(text(), 'https')]", namespaces=ns):
-                #     log.info("i=%s" % i.text.strip())
-                #     book['record_uri'] = i.text.strip()
-                #     log.info("[100.0] record_uri=%s" % book['record_uri'])
-                #     break
-                # if not book['record_uri']:
-                #     for i in record.xpath("./marc21:datafield[@tag='883']/marc21:subfield[@code='u' and "
-                #                           "contains(text(), 'https')]", namespaces=ns):
-                #         log.info("i=%s" % i.text.strip())
-                #         book['record_uri'] = i.text.strip()
-                #         log.info("[883.u] record_uri=%s" % book['record_uri'])
-                #         break
-
 
                 # Get Authors ####
 
