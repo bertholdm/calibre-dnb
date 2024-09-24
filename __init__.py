@@ -983,7 +983,7 @@ class DNB_DE(Source):
                     book['title'] = book['title'] + " : " + book['edition']
 
                 # Avoiding Calibre's merge behavior for identical titles and authors.
-                # ((This behavior suppresses other editions of a title.)
+                # (This behavior suppresses other editions of a title.)
                 if len(results) > 1:
                     book['title'] = book['title'] + " (" + str(book['pubdate'].year) + ")"
 
@@ -1014,7 +1014,8 @@ class DNB_DE(Source):
 
                 mi.has_cover = self.cached_identifier_to_cover_url(book['idn']) is not None
 
-                mi.isbn = book['isbn']
+                # mi.isbn = book['isbn']  # see https://www.mobileread.com/forums/showthread.php?t=336308
+                # mi.set_identifier('isbn', book['isbn'])
                 mi.set_identifier('urn', book['urn'])
                 mi.set_identifier('dnb-idn', book['idn'])
                 mi.set_identifier('ddc', ",".join(book['ddc']))
