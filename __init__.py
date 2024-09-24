@@ -42,6 +42,7 @@ except ImportError:
     from urllib.request import Request, urlopen
     from urllib.error import HTTPError
 
+load_translations()
 
 
 class DNB_DE(Source):
@@ -76,6 +77,10 @@ class DNB_DE(Source):
             cfg.KEY_APPEND_EDITION_TO_TITLE, False)
         self.cfg_fetch_subjects = cfg.plugin_prefs[cfg.STORE_NAME].get(
             cfg.KEY_FETCH_SUBJECTS, 2)
+        self.cfg_fetch_all = cfg.plugin_prefs[cfg.STORE_NAME].get(
+            cfg.KEY_FETCH_ALL, False)
+        self.cfg_append_subtitle_to_title = cfg.plugin_prefs[cfg.STORE_NAME].get(
+            cfg.KEY_APPEND_SUBTITLE_TO_TITLE, False)
 
     def config_widget(self):
         self.cw = None
@@ -132,15 +137,19 @@ class DNB_DE(Source):
                     'languages': [],
                     'title': None,
                     'title_sort': None,
+                    'subtitle': None,
                     'authors': [],
                     'author_sort': None,
                     'edition': None,
                     'editor': None,
-                    'dimensions': None,
                     'extent': None,
+                    'other_physical_details': None,
+                    'dimensions': None,
+                    'accompanying_material': None,
+                    'terms_of_availability': None,
                     'mediatype': None,
                     'comments': None,
-                    'record_url': None,
+                    'record_uri': None,
                     'idn': None,
                     'urn': None,
                     'isbn': None,
@@ -294,13 +303,15 @@ class DNB_DE(Source):
                     code_a = []
                     for i in field.xpath("./marc21:subfield[@code='a' and string-length(text())>0]", namespaces=ns):
                         code_a.append(i.text.strip())
-                        log.info("code_a=%s" % code_a)
-
+                        log.info("[245.a] code_a=%s" % code_a)
+                    code_b = []
+                    for i in field.xpath("./marc21:subfield[@code='b' and string-length(text())>0]", namespaces=ns):
+                        code_b.append(i.text.strip())
+                        log.info("[245.b] code_b=%s" % code_b)
                     code_c = []
                     for i in field.xpath("./marc21:subfield[@code='c' and string-length(text())>0]", namespaces=ns):
                         code_c.append(i.text.strip())
-                        log.info("code_c=%s" % code_c)
-
+                        log.info("[245.c] code_c=%s" % code_c)
                     code_n = []
                     for i in field.xpath("./marc21:subfield[@code='n' and string-length(text())>0]", namespaces=ns):
                         match = re.search("(\d+([,\.]\d+)?)", i.text.strip())
@@ -311,12 +322,15 @@ class DNB_DE(Source):
                             match = re.search("\[\.\.\.\]", i.text.strip())
                             if match:
                                 code_n.append('0')
-                    log.info("code_n=%s" % code_n)
-
+                    log.info("[245.n] code_n=%s" % code_n)
                     code_p = []
                     for i in field.xpath("./marc21:subfield[@code='p' and string-length(text())>0]", namespaces=ns):
                         code_p.append(i.text.strip())
-                    log.info("code_p=%s" % code_p)
+                    log.info("[245.p] code_p=%s" % code_p)
+
+                    # Caching subtitle
+                    if code_a and code_b and code_c:
+                        book['subtitle'] = code_b[0]
 
                     # a = title, c = author and perhaps editor
                     code_c_authors = None
@@ -364,11 +378,22 @@ class DNB_DE(Source):
                             log.info("[245] Series_Index: %s" % book['series_index'])
 
                     # subtitle 1: Field 245, Subfield b
-                    try:
-                        title_parts.append(field.xpath("./marc21:subfield[@code='b' and string-length(text())>0]",
-                                                       namespaces=ns)[0].text.strip())
-                    except IndexError:
-                        pass
+                    # Append subtitle only if set in options
+                    if self.cfg_append_subtitle_to_title:
+                        if book['edition']:
+                            book['title'] = book['title'] + " : " + book['edition']
+                        if book['subtitle']:
+                            book['title'] = book['title'] + " : " + book['subtitle']
+                    else:
+                        if self.cfg_append_subtitle_to_title:
+                            try:
+                                log.info("title_parts before adding code b: %s" % title_parts)
+                                title_parts.append(
+                                    field.xpath("./marc21:subfield[@code='b' and string-length(text())>0]",
+                                                namespaces=ns)[0].text.strip())
+                                log.info("title_parts after adding code b: %s" % title_parts)
+                            except IndexError:
+                                pass
 
                     book['title'] = " : ".join(title_parts)
                     log.info("[245] Title: %s" % book['title'])
@@ -395,14 +420,21 @@ class DNB_DE(Source):
                 ##### Field 700: "Added Entry-Personal Name" #####
 
                 # record url
-                # ToDo: evaluate xpath expression
-                book['record_url'] = ''
-                for i in record.xpath("./marc21:datafield[@tag='100']/marc21:subfield[@code='0' and "
-                                      "contains(text(), 'https')]", namespaces=ns):
-                    log.info("i=%s" % i.text.strip())
-                    book['record_url'] = i.text.strip()
-                    break
-                log.info("[100.0] record_url=%s" % book['record_url'])
+                # book['record_uri'] = ''
+                # for i in record.xpath("./marc21:datafield[@tag='100']/marc21:subfield[@code='0' and "
+                #                       "contains(text(), 'https')]", namespaces=ns):
+                #     log.info("i=%s" % i.text.strip())
+                #     book['record_uri'] = i.text.strip()
+                #     log.info("[100.0] record_uri=%s" % book['record_uri'])
+                #     break
+                # if not book['record_uri']:
+                #     for i in record.xpath("./marc21:datafield[@tag='883']/marc21:subfield[@code='u' and "
+                #                           "contains(text(), 'https')]", namespaces=ns):
+                #         log.info("i=%s" % i.text.strip())
+                #         book['record_uri'] = i.text.strip()
+                #         log.info("[883.u] record_uri=%s" % book['record_uri'])
+                #         break
+
 
                 # Get Authors ####
 
@@ -481,6 +513,39 @@ class DNB_DE(Source):
                             book['authors'].append(code_a_split[1])
 
 
+                ##### Field 300: "PHYSICAL DESCRIPTION"  #####
+                # a: Extent (Umfang)
+                # b: Other physical details (A)ndere physische Details)
+                # c: Dimensions (Maße)
+                # e: Accompanying material (Begleitmaterial)
+                for field in record.xpath("./marc21:datafield[@tag='300']", namespaces=ns):
+                    log.info("[300] field=%s" % field.text.strip())
+                    code_a = []
+                    for i in field.xpath("./marc21:subfield[@code='a' and string-length(text())>0]", namespaces=ns):
+                        code_a.append(i.text.strip())
+                        log.info("[300.a] code_a=%s" % code_a)
+                    code_b = []
+                    for i in field.xpath("./marc21:subfield[@code='b' and string-length(text())>0]", namespaces=ns):
+                        code_b.append(i.text.strip())
+                        log.info("[300.b] code_b=%s" % code_b)
+                    code_c = []
+                    for i in field.xpath("./marc21:subfield[@code='c' and string-length(text())>0]", namespaces=ns):
+                        code_c.append(i.text.strip())
+                        log.info("[300.c] code_c=%s" % code_c)
+                    code_e = []
+                    for i in field.xpath("./marc21:subfield[@code='e' and string-length(text())>0]", namespaces=ns):
+                        code_e.append(i.text.strip())
+                        log.info("[300.e] code_e=%s" % code_e)
+                    if code_a:
+                        book['extent'] = ''.join(code_a)
+                    if code_b:
+                        book['other_physical_details'] = ''.join(code_b)
+                    if code_c:
+                        book['dimensions'] = ''.join(code_c)
+                    if code_e:
+                        book['accompanying_material'] = ''.join(code_e)
+
+
                 ##### Field 856: "Electronic Location and Access" #####
                 # Get Comments, either from this book or from one of its other "Physical Forms"
                 # Field contains an URL to an HTML file with the comments
@@ -543,7 +608,11 @@ class DNB_DE(Source):
                         break
                     except AttributeError:
                         pass
-
+                for i in record.xpath("./marc21:datafield[@tag='020']/marc21:subfield[@code='c' and string-length(text())>0]", namespaces=ns):
+                    # c: Terms of availability (Bezugsbedingungen) - usually the price
+                    if i.text.strip():
+                        book['terms_of_availability'] = i.text.strip()
+                        break
 
                 ##### Field 82: "Dewey Decimal Classification Number" #####
                 # Get Identifier "Sachgruppen (DDC)" (ddc)
@@ -884,10 +953,31 @@ class DNB_DE(Source):
 
                 ##### Put it all together #####
 
-                if book['comments']:
-                    book['comments'].append('\n' + _('Source: ') + book['record_url'])
-                else:
-                    book['comments'] = _('Source: ') + book['record_url']
+                if not book['comments']:
+                    book['comments'] = ''
+
+                # Put other data in comment field
+                if self.cfg_fetch_all:
+                    if book['subtitle']:
+                        book['comments'] = book['comments'] +_('\nSubtitle:\t') + book['subtitle']
+                    if book['editor']:
+                        book['comments'] = book['comments'] + _('\nEditor:\t') + book['editor']
+                    if book['mediatype']:
+                        book['comments'] = book['comments'] + _('\nMedia type:\t') + book['mediatype']
+                    if book['extent']:
+                        book['comments'] = book['comments'] + _('\nExtent:\t') + book['extent']
+                    if book['other_physical_details']:
+                        book['comments'] = book['comments'] + _('\nOther physical details:\t') + book['other_physical_details']
+                    if book['dimensions']:
+                        book['comments'] = book['comments'] + _('\nDimensions:\t') + book['dimensions']
+                    if book['accompanying_material']:
+                        book['comments'] = book['comments'] + _('\nAccompanying material:\t') + book['accompanying_material']
+                    if book['terms_of_availability']:
+                        book['comments'] = book['comments'] + _('\nTerms of availability (in most cases the price):\t') + book['terms_of_availability']
+
+                # Indicate path to source
+                book['record_uri'] = 'https://d-nb.info/' + book['idn']
+                book['comments'] = book['comments'] + _('\nSource:\t') + book['record_uri']
                 log.info("book= %s" % book)
 
                 if self.cfg_append_edition_to_title == True and book['edition']:

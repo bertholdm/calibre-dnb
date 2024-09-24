@@ -18,6 +18,7 @@ KEY_GUESS_SERIES = 'guessSeries'
 KEY_APPEND_EDITION_TO_TITLE = 'appendEditionToTitle'
 KEY_FETCH_SUBJECTS = 'subjects'
 KEY_FETCH_ALL = 'fetchAll'
+KEY_APPEND_SUBTITLE_TO_TITLE = 'appendSubtitleToTitle'
 
 DEFAULT_STORE_VALUES = {
     KEY_GUESS_SERIES: True,
@@ -25,6 +26,7 @@ DEFAULT_STORE_VALUES = {
     # 0:only gnd   1:prefer gnd 2:both   3:prefer non-gnd   4:only non-gnd   5:none
     KEY_FETCH_SUBJECTS: 2,
     KEY_FETCH_ALL: False,
+    KEY_APPEND_SUBTITLE_TO_TITLE: False,
 }
 
 # This is where all preferences for this plugin will be stored
@@ -103,6 +105,18 @@ class ConfigWidget(DefaultConfigWidget):
         other_group_box_layout.addWidget(
             self.fetchAll_checkbox, 8, 1, 1, 1)
 
+        # Append subtitle to title
+        appendSubtitleToTitle_label = QLabel(
+            _('Append subtitle to title:'), self)
+        appendSubtitleToTitle_label.setToolTip(_('Subtitle is appended to the main title, otherwise it will be stored in comments.\n'))
+        other_group_box_layout.addWidget(appendSubtitleToTitle_label, 9, 0, 1, 1)
+
+        self.appendSubtitleToTitle_checkbox = QCheckBox(self)
+        self.appendSubtitleToTitle_checkbox.setChecked(
+            c.get(KEY_APPEND_SUBTITLE_TO_TITLE, DEFAULT_STORE_VALUES[KEY_APPEND_SUBTITLE_TO_TITLE]))
+        other_group_box_layout.addWidget(
+            self.appendSubtitleToTitle_checkbox, 9, 1, 1, 1)
+
 
     def commit(self):
         DefaultConfigWidget.commit(self)
@@ -111,5 +125,6 @@ class ConfigWidget(DefaultConfigWidget):
         new_prefs[KEY_APPEND_EDITION_TO_TITLE] = self.append_edition_to_title_checkbox.isChecked()
         new_prefs[KEY_FETCH_SUBJECTS] = self.fetch_subjects_radios_group.checkedId()
         new_prefs[KEY_FETCH_ALL] = self.fetchAll_checkbox.isChecked()
+        new_prefs[KEY_APPEND_SUBTITLE_TO_TITLE] = self.appendSubtitleToTitle_checkbox.isChecked()
 
         plugin_prefs[STORE_NAME] = new_prefs
