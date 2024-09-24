@@ -19,6 +19,7 @@ KEY_APPEND_EDITION_TO_TITLE = 'appendEditionToTitle'
 KEY_FETCH_SUBJECTS = 'subjects'
 KEY_FETCH_ALL = 'fetchAll'
 KEY_APPEND_SUBTITLE_TO_TITLE = 'appendSubtitleToTitle'
+KEY_STOP_AFTER_FIRST_HIT = 'stopAfterFirstHit'
 
 DEFAULT_STORE_VALUES = {
     KEY_GUESS_SERIES: True,
@@ -26,7 +27,8 @@ DEFAULT_STORE_VALUES = {
     # 0:only gnd   1:prefer gnd 2:both   3:prefer non-gnd   4:only non-gnd   5:none
     KEY_FETCH_SUBJECTS: 2,
     KEY_FETCH_ALL: False,
-    KEY_APPEND_SUBTITLE_TO_TITLE: False,
+    KEY_APPEND_SUBTITLE_TO_TITLE: True,
+    KEY_STOP_AFTER_FIRST_HIT: True,
 }
 
 # This is where all preferences for this plugin will be stored
@@ -117,6 +119,18 @@ class ConfigWidget(DefaultConfigWidget):
         other_group_box_layout.addWidget(
             self.appendSubtitleToTitle_checkbox, 9, 1, 1, 1)
 
+        # Stop after first hit
+        stopAfterFirstHit_label = QLabel(
+            _('Stop after first hit:'), self)
+        stopAfterFirstHit_label.setToolTip(_('Stop search after first book record is found.\n'))
+        other_group_box_layout.addWidget(stopAfterFirstHit_label, 10, 0, 1, 1)
+
+        self.stopAfterFirstHit_checkbox = QCheckBox(self)
+        self.stopAfterFirstHit_checkbox.setChecked(
+            c.get(KEY_STOP_AFTER_FIRST_HIT, DEFAULT_STORE_VALUES[KEY_STOP_AFTER_FIRST_HIT]))
+        other_group_box_layout.addWidget(
+            self.stopAfterFirstHit_checkbox, 10, 1, 1, 1)
+
 
     def commit(self):
         DefaultConfigWidget.commit(self)
@@ -126,5 +140,6 @@ class ConfigWidget(DefaultConfigWidget):
         new_prefs[KEY_FETCH_SUBJECTS] = self.fetch_subjects_radios_group.checkedId()
         new_prefs[KEY_FETCH_ALL] = self.fetchAll_checkbox.isChecked()
         new_prefs[KEY_APPEND_SUBTITLE_TO_TITLE] = self.appendSubtitleToTitle_checkbox.isChecked()
+        new_prefs[KEY_STOP_AFTER_FIRST_HIT] = self.stopAfterFirstHit_checkbox.isChecked()
 
         plugin_prefs[STORE_NAME] = new_prefs

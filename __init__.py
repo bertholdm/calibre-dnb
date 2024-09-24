@@ -80,7 +80,9 @@ class DNB_DE(Source):
         self.cfg_fetch_all = cfg.plugin_prefs[cfg.STORE_NAME].get(
             cfg.KEY_FETCH_ALL, False)
         self.cfg_append_subtitle_to_title = cfg.plugin_prefs[cfg.STORE_NAME].get(
-            cfg.KEY_APPEND_SUBTITLE_TO_TITLE, False)
+            cfg.KEY_APPEND_SUBTITLE_TO_TITLE, True)
+        self.cfg_stop_after_first_hit = cfg.plugin_prefs[cfg.STORE_NAME].get(
+            cfg.KEY_STOP_AFTER_FIRST_HIT, True)
 
     def config_widget(self):
         self.cw = None
@@ -165,9 +167,12 @@ class DNB_DE(Source):
 
                 ##### Field 336: "Content Type" #####
                 # Skip Audio Books
+                mediatype = None  # Avoid "error message "UnboundLocalError: cannot access local variable 'mediatype'
+                # where it is not associated with a value"
                 try:
                     mediatype = record.xpath("./marc21:datafield[@tag='336']/marc21:subfield[@code='a' and string-length(text())>0]", namespaces=ns)[0].text.strip().lower()
                     if mediatype in ('gesprochenes wort'):
+                        log.info("mediatype %s ignored." % mediatype)
                         continue
                 except:
                     pass
@@ -180,6 +185,7 @@ class DNB_DE(Source):
                 try:
                     mediatype = record.xpath("./marc21:datafield[@tag='337']/marc21:subfield[@code='a' and string-length(text())>0]", namespaces=ns)[0].text.strip().lower()
                     if mediatype in ('audio', 'video'):
+                        log.info("mediatype %s ignored." % mediatype)
                         continue
                 except:
                     pass
@@ -334,18 +340,21 @@ class DNB_DE(Source):
                     if code_a and code_b and code_c:
                         book['subtitle'] = code_b[0]
 
-                    # a = title, perhaps with subtitle; c = author and perhaps editor
+                    # a = title, perhaps with subtitle
+                    if code_a:
+                        code_a_title_split = code_a[0].split(": ")
+                        code_a_title = code_a_title_split[0]
+                        if len(code_a_title_split) > 1:
+                            code_a = [code_a_title_split[0]]  # title without subtitle
+                            book['subtitle'] = code_a_title_split[1]
+
+                    # c = author and perhaps editor
                     code_c_authors = None
                     if code_a and code_c:
                         code_c_authors_split = code_c[0].split(". Hrsg.: ")
                         code_c_authors = code_c_authors_split[0]
                         if len(code_c_authors_split) > 1:
                             book['editor'] = code_c_authors_split[1]
-                        code_a_title_split = code_a[0].split(": ")
-                        code_a_title = code_a_title_split[0]
-                        if len(code_a_title_split) > 1:
-                            code_a = [code_a_title_split[0]]  # title without subtitle
-                            book['subtitle'] = code_a_title_split[1]
 
                     # a = series, n = series index, p = title and author
                     code_p_authors = None
@@ -1041,8 +1050,8 @@ class DNB_DE(Source):
                 result_queue.put(mi)
                 query_success = True
 
-            # Stop on first successful query
-            if query_success:
+            # Stop on first successful query, if option is set (default)
+            if query_success and self.cfg_stop_after_first_hit:
                 break
 
 

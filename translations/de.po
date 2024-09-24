@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ISFDB3\n"
-"POT-Creation-Date: 2024-09-24 13:44+0200\n"
-"PO-Revision-Date: 2024-09-24 14:06+0200\n"
+"POT-Creation-Date: 2024-09-24 15:50+0200\n"
+"PO-Revision-Date: 2024-09-24 15:51+0200\n"
 "Last-Translator: Michael Detambel <info@michael-detambel.de>\n"
 "Language-Team: Michael Detambel\n"
 "Language: de_DE@formal\n"
@@ -14,11 +14,11 @@ msgstr ""
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: __init__.py:50
+#: __init__.py:51
 msgid "Downloads metadata from the DNB (Deutsche National Bibliothek)."
 msgstr "Lädt Metadaten aus der DNB (Deutsche National Bibliothek)."
 
-#: __init__.py:963
+#: __init__.py:961
 msgid ""
 "\n"
 "Subtitle:\t"
@@ -27,7 +27,7 @@ msgstr ""
 "Untertitel:\t"
 
 # Weitere isfdb-Texte
-#: __init__.py:965
+#: __init__.py:963
 msgid ""
 "\n"
 "Editor:\t"
@@ -35,7 +35,7 @@ msgstr ""
 "\n"
 "Herausgeber:\t"
 
-#: __init__.py:967
+#: __init__.py:965
 msgid ""
 "\n"
 "Media type:\t"
@@ -43,7 +43,7 @@ msgstr ""
 "\n"
 "Medienart:\t"
 
-#: __init__.py:969
+#: __init__.py:967
 msgid ""
 "\n"
 "Extent:\t"
@@ -51,7 +51,7 @@ msgstr ""
 "\n"
 "Umfang:\t"
 
-#: __init__.py:971
+#: __init__.py:969
 msgid ""
 "\n"
 "Other physical details:\t"
@@ -59,7 +59,7 @@ msgstr ""
 "\n"
 "Andere physische Details:\t"
 
-#: __init__.py:973
+#: __init__.py:971
 msgid ""
 "\n"
 "Dimensions:\t"
@@ -67,7 +67,7 @@ msgstr ""
 "\n"
 "Maße:\t"
 
-#: __init__.py:975
+#: __init__.py:973
 msgid ""
 "\n"
 "Accompanying material:\t"
@@ -75,7 +75,7 @@ msgstr ""
 "\n"
 "Begleitmaterial:\t"
 
-#: __init__.py:977
+#: __init__.py:975
 msgid ""
 "\n"
 "Terms of availability (in most cases the price):\t"
@@ -83,7 +83,7 @@ msgstr ""
 "\n"
 "Bezugsbedingungen (meist der Preis):\t"
 
-#: __init__.py:980
+#: __init__.py:979
 msgid ""
 "\n"
 "Source:\t"
@@ -91,27 +91,35 @@ msgstr ""
 "\n"
 "Quelle:\t"
 
-#: config.py:98
+#: config.py:100
 msgid "Fetch all data in book record:"
 msgstr "Hole alle Daten des Katalog-Datensatzes:"
 
-#: config.py:99
+#: config.py:101
 msgid "Additional, non-Calibre book data will be stored in comments.\n"
 msgstr ""
 "Zusätzliche Angaben, die nicht für die Calibre Buchdaten verwendet werden, "
 "werden im Kommentarfeld abgelegt.\n"
 
-#: config.py:110
+#: config.py:112
 msgid "Append subtitle to title:"
 msgstr "Untertitel an Haupttitel anfügen:"
 
-#: config.py:111
+#: config.py:113
 msgid ""
 "Subtitle is appended to the main title, otherwise it will be stored in "
 "comments.\n"
 msgstr ""
 "Untertitel werden an den Haupttitel angefügt, ansonsten im Kommentarfeld "
 "vermerkt.\n"
+
+#: config.py:124
+msgid "Stop after first hit:"
+msgstr "Suche nach dem ersten Treffer abbrechen:"
+
+#: config.py:125
+msgid "Stop search after first book record is found.\n"
+msgstr "Beende die Suche, wenn das erste Buch gefunden wurde.\n"
 
 #~ msgid "Downloads metadata and covers from ISFDB (https://www.isfdb.org/)"
 #~ msgstr "Lädt Metadaten und Buchumschläge von ISFDB (https://www.isfdb.org/)"
@@ -488,9 +496,6 @@ msgstr ""
 
 #~ msgid "to the author"
 #~ msgstr "dem Autor"
-
-#~ msgid "Stated first printing"
-#~ msgstr "Originalausgabe vermerkt"
 
 #~ msgid "Most likely abridged"
 #~ msgstr "Sehr wahrscheinlich gekürzt"
