@@ -993,7 +993,11 @@ class DNB_DE(Source):
                     if book['accompanying_material']:
                         book['comments'] = book['comments'] + _('\nAccompanying material:\t') + book['accompanying_material']
                     if book['terms_of_availability']:
-                        book['comments'] = book['comments'] + _('\nTerms of availability (in most cases the price):\t') + book['terms_of_availability']
+                        book['comments'] = (book['comments'] + _('\nTerms of availability (in most cases the price):\t')
+                                            + book['terms_of_availability'])
+                    if book['terms_of_availability']:
+                        book['comments'] = book['comments'] + _(
+                            '\nNon-GND subjects:\t') + ' / '.join(book['subjects_non_gnd'])
 
                 # Indicate path to source
                 book['record_uri'] = 'https://d-nb.info/' + book['idn']
@@ -1005,7 +1009,7 @@ class DNB_DE(Source):
 
                 # Avoiding Calibre's merge behavior for identical titles and authors.
                 # (This behavior suppresses other editions of a title.)
-                if len(results) > 1:
+                if len(results) > 1 and book['pubdate']:
                     book['title'] = book['title'] + " (" + str(book['pubdate'].year) + ")"
 
                 authors = list(map(lambda i: self.remove_sorting_characters(i), book['authors']))
