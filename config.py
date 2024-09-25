@@ -20,6 +20,7 @@ KEY_FETCH_SUBJECTS = 'subjects'
 KEY_FETCH_ALL = 'fetchAll'
 KEY_APPEND_SUBTITLE_TO_TITLE = 'appendSubtitleToTitle'
 KEY_STOP_AFTER_FIRST_HIT = 'stopAfterFirstHit'
+KEY_PREFER_RESULTS_WITH_ISBN = 'preferResultsWithIsbn'
 
 DEFAULT_STORE_VALUES = {
     KEY_GUESS_SERIES: True,
@@ -29,6 +30,7 @@ DEFAULT_STORE_VALUES = {
     KEY_FETCH_ALL: False,
     KEY_APPEND_SUBTITLE_TO_TITLE: True,
     KEY_STOP_AFTER_FIRST_HIT: True,
+    KEY_PREFER_RESULTS_WITH_ISBN: True,
 }
 
 # This is where all preferences for this plugin will be stored
@@ -131,6 +133,21 @@ class ConfigWidget(DefaultConfigWidget):
         other_group_box_layout.addWidget(
             self.stopAfterFirstHit_checkbox, 10, 1, 1, 1)
 
+        # Prefer results with ISBN?
+        preferResultsWithIsbn_label = QLabel(
+            _('Prefer results with ISBN:'), self)
+        preferResultsWithIsbn_label.setToolTip(_('If set to True, and this source returns multiple results for a '
+                                                       'query, some of which have ISBNs and some of which do not, the '
+                                                       'results without ISBNs will be ignored. '
+                                                       '(see https://manual.calibre-ebook.com/de/plugins.html)\n'))
+        other_group_box_layout.addWidget(preferResultsWithIsbn_label, 11, 0, 1, 1)
+
+        self.preferResultsWithIsbn_checkbox = QCheckBox(self)
+        self.preferResultsWithIsbn_checkbox.setChecked(
+            c.get(KEY_PREFER_RESULTS_WITH_ISBN, DEFAULT_STORE_VALUES[KEY_PREFER_RESULTS_WITH_ISBN]))
+        other_group_box_layout.addWidget(
+            self.preferResultsWithIsbn_checkbox, 11, 1, 1, 1)
+
 
     def commit(self):
         DefaultConfigWidget.commit(self)
@@ -141,5 +158,6 @@ class ConfigWidget(DefaultConfigWidget):
         new_prefs[KEY_FETCH_ALL] = self.fetchAll_checkbox.isChecked()
         new_prefs[KEY_APPEND_SUBTITLE_TO_TITLE] = self.appendSubtitleToTitle_checkbox.isChecked()
         new_prefs[KEY_STOP_AFTER_FIRST_HIT] = self.stopAfterFirstHit_checkbox.isChecked()
+        new_prefs[KEY_PREFER_RESULTS_WITH_ISBN] = self.preferResultsWithIsbn_checkbox.isChecked()
 
         plugin_prefs[STORE_NAME] = new_prefs

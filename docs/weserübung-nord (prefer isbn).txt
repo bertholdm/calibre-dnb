@@ -1,0 +1,288 @@
+Running identify query with parameters: 
+{'title': 'Weserübung-Nord', 'authors': None, 'identifiers': {}, 'timeout': 30} 
+Using plugins: DNB_DE (3, 2, 4) 
+The log from individual plugins is below 
+
+****************************** DNB_DE (3, 2, 4) ****************************** 
+Found 3 results 
+Downloading from DNB_DE took 3.370972156524658 
+
+
+--- 
+Title               : Weserübung-Nord (1961)
+Title sort          : Weserübung-Nord
+Author(s)           : R. O. Becker [R. O. Becker]
+Publisher           : München ; Moewig
+Series              : Soldatengeschichten aus aller Welt #120
+Languages           : de
+Published           : 1961-01-01T10:30:00+00:00
+Identifiers         : dnb-idn:454748574, ddc:800|B
+Comments            : 
+Medienart:	ohne hilfsmittel zu benutzen
+Umfang:	60 S.
+Quelle:	https://d-nb.info/454748574 
+
+
+--- 
+Title               : Kampf um Norwegens Fjorde (1964)
+Title sort          : Kampf um Norwegens Fjorde
+Author(s)           : Fritz-Otto Busch [Busch, Fritz-Otto]
+Publisher           : Preetz/Holst. ; Gerdes
+Languages           : de
+Published           : 1964-01-01T10:30:00+00:00
+Identifiers         : dnb-idn:450719294
+Comments            : 
+Untertitel:	Fall Weserübung Nord
+Medienart:	ohne hilfsmittel zu benutzen
+Umfang:	496 S.
+Andere physische Details:	mit Abb. u. Ktn
+Maße:	8
+Bezugsbedingungen (meist der Preis):	Lw. : 19.80
+Quelle:	https://d-nb.info/450719294 
+
+
+--- 
+Title               : Operation Weserübung Nord (2020)
+Title sort          : Operation Weserübung Nord
+Author(s)           : Jürgen Beck [Beck, Jürgen]
+Publisher           : Altenmünster ; Jazzybee Verlag
+Tags                : Norden, Weserübung, Norwegen, Trondheim, Oslo, zweiter weltkrieg, weserübung, invasion dänemarks, weserübung süd, zweiterweltkrieg norwegen, invasion norwegens, weserübnug nord, weserübung nord
+Series              : Schlachten des II. Weltkriegs (Digital) #27
+Languages           : de
+Published           : 2020-01-01T10:30:00+00:00
+Identifiers         : isbn:9783849654429, urn:nbn:de:101:1-2020102820051273561265, dnb-idn:1220411094, ddc:940
+Comments            : 
+ISBN:	9783849654429
+Untertitel:	Die Invasion Norwegens
+Medienart:	computermedien
+Umfang:	Online-Ressource, 232 Seiten
+Quelle:	https://d-nb.info/1220411094 
+Query String: tit="Weserübung-Nord" NOT (mat=film OR mat=music OR mat=microfiches OR cod=tt)
+Query URL: https://services.dnb.de/sru/dnb?version=1.1&maximumRecords=10&operation=searchRetrieve&recordSchema=MARC21-xml&query=tit%3D%22Weser%C3%BCbung-Nord%22%20NOT%20%28mat%3Dfilm%20OR%20mat%3Dmusic%20OR%20mat%3Dmicrofiches%20OR%20cod%3Dtt%29
+Got records: 3
+Parsing records
+[264.b] Publisher: Jazzybee Verlag
+[264.c] Publication Year: 2020-01-01 12:30:00
+added_entry=False
+field=
+[245.a] code_a=['Operation Weserübung Nord: Die Invasion Norwegens']
+[245.n] code_n=[]
+[245.p] code_p=[]
+[245] Title: Operation Weserübung Nord
+[245] Title_Sort: Operation Weserübung Nord
+[700.a] Involved Persons: Beck, Jürgen
+[300] field=
+[300.a] code_a=['Online-Ressource, 232 Seiten']
+[016.a] Identifier IDN: 1220411094
+[024.a] Identifier URN: nbn:de:101:1-2020102820051273561265
+[020.a] Identifier ISBN: 9783849654429
+[082.a] Indentifiers DDC: 940
+[490.v] Series_Index: 27
+[490.a] Series: Schlachten des II. Weltkriegs (Digital)
+[689.a] GND Subjects: Norden Weserübung Norwegen Trondheim Oslo Norwegen
+[600.a-655.a] Non-GND Subjects: Norden Weserübung Norwegen Trondheim Oslo Norwegen zweiter weltkrieg weserübung invasion dänemarks weserübung süd zweiterweltkrieg norwegen invasion norwegens weserübnug nord weserübung nord
+[041.a] Languages: de
+book= {'series': 'Schlachten des II. Weltkriegs (Digital)', 'series_index': '27', 'pubdate': datetime.datetime(2020, 1, 1, 12, 30), 'language': None, 'languages': ['de'], 'title': 'Operation Weserübung Nord', 'title_sort': 'Operation Weserübung Nord', 'subtitle': 'Die Invasion Norwegens', 'authors': ['Beck, Jürgen'], 'author_sort': None, 'edition': None, 'editor': None, 'extent': 'Online-Ressource, 232 Seiten', 'other_physical_details': None, 'dimensions': None, 'accompanying_material': None, 'terms_of_availability': None, 'mediatype': 'computermedien', 'comments': '\nISBN:\t9783849654429\nUntertitel:\tDie Invasion Norwegens\nMedienart:\tcomputermedien\nUmfang:\tOnline-Ressource, 232 Seiten\nQuelle:\thttps://d-nb.info/1220411094', 'record_uri': 'https://d-nb.info/1220411094', 'idn': '1220411094', 'urn': 'nbn:de:101:1-2020102820051273561265', 'isbn': '9783849654429', 'ddc': ['940'], 'subjects_gnd': ['Norden', 'Weserübung', 'Norwegen', 'Trondheim', 'Oslo', 'Norwegen'], 'subjects_non_gnd': ['Norden', 'Weserübung', 'Norwegen', 'Trondheim', 'Oslo', 'Norwegen', 'zweiter weltkrieg', 'weserübung', 'invasion dänemarks', 'weserübung süd', 'zweiterweltkrieg norwegen', 'invasion norwegens', 'weserübnug nord', 'weserübung nord'], 'publisher_name': 'Jazzybee Verlag', 'publisher_location': 'Altenmünster', 'alternative_xmls': []}
+Final formatted result: 
+Title               : Operation Weserübung Nord (2020)
+Title sort          : Operation Weserübung Nord
+Author(s)           : Jürgen Beck [Beck, Jürgen]
+Publisher           : Altenmünster ; Jazzybee Verlag
+Tags                : Norden, Weserübung, Norwegen, Trondheim, Oslo, zweiter weltkrieg, weserübung, invasion dänemarks, weserübung süd, zweiterweltkrieg norwegen, invasion norwegens, weserübnug nord, weserübung nord
+Series              : Schlachten des II. Weltkriegs (Digital) #27
+Languages           : de
+Published           : 2020-01-01T10:30:00+00:00
+Identifiers         : isbn:9783849654429, urn:nbn:de:101:1-2020102820051273561265, dnb-idn:1220411094, ddc:940
+Comments            : 
+ISBN:	9783849654429
+Untertitel:	Die Invasion Norwegens
+Medienart:	computermedien
+Umfang:	Online-Ressource, 232 Seiten
+Quelle:	https://d-nb.info/1220411094
+-----
+[264.b] Publisher: Gerdes
+[264.c] Publication Year: 1964-01-01 12:30:00
+added_entry=False
+field=
+[245.a] code_a=['Kampf um Norwegens Fjorde']
+[245.b] code_b=['Fall Weserübung Nord']
+[245.c] code_c=['Fritz-Otto Busch']
+[245.n] code_n=[]
+[245.p] code_p=[]
+[245] Title: Kampf um Norwegens Fjorde
+[245] Title_Sort: Kampf um Norwegens Fjorde
+[100.a] Primary Authors: Busch, Fritz-Otto
+[300] field=
+[300.a] code_a=['496 S.']
+[300.b] code_b=['mit Abb. u. Ktn']
+[300.c] code_c=['8']
+[016.a] Identifier IDN: 450719294
+[041.a] Languages: de
+book= {'series': None, 'series_index': None, 'pubdate': datetime.datetime(1964, 1, 1, 12, 30), 'language': None, 'languages': ['de'], 'title': 'Kampf um Norwegens Fjorde', 'title_sort': 'Kampf um Norwegens Fjorde', 'subtitle': 'Fall Weserübung Nord', 'authors': ['Busch, Fritz-Otto'], 'author_sort': None, 'edition': None, 'editor': None, 'extent': '496 S.', 'other_physical_details': 'mit Abb. u. Ktn', 'dimensions': '8', 'accompanying_material': None, 'terms_of_availability': 'Lw. : 19.80', 'mediatype': 'ohne hilfsmittel zu benutzen', 'comments': '\nUntertitel:\tFall Weserübung Nord\nMedienart:\tohne hilfsmittel zu benutzen\nUmfang:\t496 S.\nAndere physische Details:\tmit Abb. u. Ktn\nMaße:\t8\nBezugsbedingungen (meist der Preis):\tLw. : 19.80\nQuelle:\thttps://d-nb.info/450719294', 'record_uri': 'https://d-nb.info/450719294', 'idn': '450719294', 'urn': None, 'isbn': None, 'ddc': [], 'subjects_gnd': [], 'subjects_non_gnd': [], 'publisher_name': 'Gerdes', 'publisher_location': 'Preetz/Holst.', 'alternative_xmls': []}
+Final formatted result: 
+Title               : Kampf um Norwegens Fjorde (1964)
+Title sort          : Kampf um Norwegens Fjorde
+Author(s)           : Fritz-Otto Busch [Busch, Fritz-Otto]
+Publisher           : Preetz/Holst. ; Gerdes
+Languages           : de
+Published           : 1964-01-01T10:30:00+00:00
+Identifiers         : dnb-idn:450719294
+Comments            : 
+Untertitel:	Fall Weserübung Nord
+Medienart:	ohne hilfsmittel zu benutzen
+Umfang:	496 S.
+Andere physische Details:	mit Abb. u. Ktn
+Maße:	8
+Bezugsbedingungen (meist der Preis):	Lw. : 19.80
+Quelle:	https://d-nb.info/450719294
+-----
+[264.b] Publisher: Moewig
+[264.c] Publication Year: 1961-01-01 12:30:00
+added_entry=False
+field=
+[245.a] code_a=['Soldatengeschichten aus aller Welt']
+[245.n] code_n=['120']
+[245.p] code_p=['Weserübung-Nord / R. O. Becker']
+[245] Series: Soldatengeschichten aus aller Welt
+[245] Series_Index: 120
+[245] Title: Weserübung-Nord
+[245] Title_Sort: Weserübung-Nord
+[300] field=
+[300.a] code_a=['60 S.']
+[016.a] Identifier IDN: 454748574
+[082.a] Indentifiers DDC: 800,B
+[041.a] Languages: de
+book= {'series': 'Soldatengeschichten aus aller Welt', 'series_index': '120', 'pubdate': datetime.datetime(1961, 1, 1, 12, 30), 'language': None, 'languages': ['de'], 'title': 'Weserübung-Nord', 'title_sort': 'Weserübung-Nord', 'subtitle': None, 'authors': ['R. O. Becker'], 'author_sort': None, 'edition': None, 'editor': None, 'extent': '60 S.', 'other_physical_details': None, 'dimensions': None, 'accompanying_material': None, 'terms_of_availability': None, 'mediatype': 'ohne hilfsmittel zu benutzen', 'comments': '\nMedienart:\tohne hilfsmittel zu benutzen\nUmfang:\t60 S.\nQuelle:\thttps://d-nb.info/454748574', 'record_uri': 'https://d-nb.info/454748574', 'idn': '454748574', 'urn': None, 'isbn': None, 'ddc': ['800', 'B'], 'subjects_gnd': [], 'subjects_non_gnd': [], 'publisher_name': 'Moewig', 'publisher_location': 'München', 'alternative_xmls': []}
+Final formatted result: 
+Title               : Weserübung-Nord (1961)
+Title sort          : Weserübung-Nord
+Author(s)           : R. O. Becker [R. O. Becker]
+Publisher           : München ; Moewig
+Series              : Soldatengeschichten aus aller Welt #120
+Languages           : de
+Published           : 1961-01-01T10:30:00+00:00
+Identifiers         : dnb-idn:454748574, ddc:800|B
+Comments            : 
+Medienart:	ohne hilfsmittel zu benutzen
+Umfang:	60 S.
+Quelle:	https://d-nb.info/454748574
+-----
+Query String: per="Weserübung-Nord" NOT (mat=film OR mat=music OR mat=microfiches OR cod=tt)
+Query URL: https://services.dnb.de/sru/dnb?version=1.1&maximumRecords=10&operation=searchRetrieve&recordSchema=MARC21-xml&query=per%3D%22Weser%C3%BCbung-Nord%22%20NOT%20%28mat%3Dfilm%20OR%20mat%3Dmusic%20OR%20mat%3Dmicrofiches%20OR%20cod%3Dtt%29
+Got records: 0
+Query String: "Weserübung-Nord" NOT (mat=film OR mat=music OR mat=microfiches OR cod=tt)
+Query URL: https://services.dnb.de/sru/dnb?version=1.1&maximumRecords=10&operation=searchRetrieve&recordSchema=MARC21-xml&query=%22Weser%C3%BCbung-Nord%22%20NOT%20%28mat%3Dfilm%20OR%20mat%3Dmusic%20OR%20mat%3Dmicrofiches%20OR%20cod%3Dtt%29
+Got records: 3
+Parsing records
+[264.b] Publisher: Jazzybee Verlag
+[264.c] Publication Year: 2020-01-01 12:30:00
+added_entry=False
+field=
+[245.a] code_a=['Operation Weserübung Nord: Die Invasion Norwegens']
+[245.n] code_n=[]
+[245.p] code_p=[]
+[245] Title: Operation Weserübung Nord
+[245] Title_Sort: Operation Weserübung Nord
+[700.a] Involved Persons: Beck, Jürgen
+[300] field=
+[300.a] code_a=['Online-Ressource, 232 Seiten']
+[016.a] Identifier IDN: 1220411094
+[024.a] Identifier URN: nbn:de:101:1-2020102820051273561265
+[020.a] Identifier ISBN: 9783849654429
+[082.a] Indentifiers DDC: 940
+[490.v] Series_Index: 27
+[490.a] Series: Schlachten des II. Weltkriegs (Digital)
+[689.a] GND Subjects: Norden Weserübung Norwegen Trondheim Oslo Norwegen
+[600.a-655.a] Non-GND Subjects: Norden Weserübung Norwegen Trondheim Oslo Norwegen zweiter weltkrieg weserübung invasion dänemarks weserübung süd zweiterweltkrieg norwegen invasion norwegens weserübnug nord weserübung nord
+[041.a] Languages: de
+book= {'series': 'Schlachten des II. Weltkriegs (Digital)', 'series_index': '27', 'pubdate': datetime.datetime(2020, 1, 1, 12, 30), 'language': None, 'languages': ['de'], 'title': 'Operation Weserübung Nord', 'title_sort': 'Operation Weserübung Nord', 'subtitle': 'Die Invasion Norwegens', 'authors': ['Beck, Jürgen'], 'author_sort': None, 'edition': None, 'editor': None, 'extent': 'Online-Ressource, 232 Seiten', 'other_physical_details': None, 'dimensions': None, 'accompanying_material': None, 'terms_of_availability': None, 'mediatype': 'computermedien', 'comments': '\nISBN:\t9783849654429\nUntertitel:\tDie Invasion Norwegens\nMedienart:\tcomputermedien\nUmfang:\tOnline-Ressource, 232 Seiten\nQuelle:\thttps://d-nb.info/1220411094', 'record_uri': 'https://d-nb.info/1220411094', 'idn': '1220411094', 'urn': 'nbn:de:101:1-2020102820051273561265', 'isbn': '9783849654429', 'ddc': ['940'], 'subjects_gnd': ['Norden', 'Weserübung', 'Norwegen', 'Trondheim', 'Oslo', 'Norwegen'], 'subjects_non_gnd': ['Norden', 'Weserübung', 'Norwegen', 'Trondheim', 'Oslo', 'Norwegen', 'zweiter weltkrieg', 'weserübung', 'invasion dänemarks', 'weserübung süd', 'zweiterweltkrieg norwegen', 'invasion norwegens', 'weserübnug nord', 'weserübung nord'], 'publisher_name': 'Jazzybee Verlag', 'publisher_location': 'Altenmünster', 'alternative_xmls': []}
+Final formatted result: 
+Title               : Operation Weserübung Nord (2020)
+Title sort          : Operation Weserübung Nord
+Author(s)           : Jürgen Beck [Beck, Jürgen]
+Publisher           : Altenmünster ; Jazzybee Verlag
+Tags                : Norden, Weserübung, Norwegen, Trondheim, Oslo, zweiter weltkrieg, weserübung, invasion dänemarks, weserübung süd, zweiterweltkrieg norwegen, invasion norwegens, weserübnug nord, weserübung nord
+Series              : Schlachten des II. Weltkriegs (Digital) #27
+Languages           : de
+Published           : 2020-01-01T10:30:00+00:00
+Identifiers         : isbn:9783849654429, urn:nbn:de:101:1-2020102820051273561265, dnb-idn:1220411094, ddc:940
+Comments            : 
+ISBN:	9783849654429
+Untertitel:	Die Invasion Norwegens
+Medienart:	computermedien
+Umfang:	Online-Ressource, 232 Seiten
+Quelle:	https://d-nb.info/1220411094
+-----
+[264.b] Publisher: Gerdes
+[264.c] Publication Year: 1964-01-01 12:30:00
+added_entry=False
+field=
+[245.a] code_a=['Kampf um Norwegens Fjorde']
+[245.b] code_b=['Fall Weserübung Nord']
+[245.c] code_c=['Fritz-Otto Busch']
+[245.n] code_n=[]
+[245.p] code_p=[]
+[245] Title: Kampf um Norwegens Fjorde
+[245] Title_Sort: Kampf um Norwegens Fjorde
+[100.a] Primary Authors: Busch, Fritz-Otto
+[300] field=
+[300.a] code_a=['496 S.']
+[300.b] code_b=['mit Abb. u. Ktn']
+[300.c] code_c=['8']
+[016.a] Identifier IDN: 450719294
+[041.a] Languages: de
+book= {'series': None, 'series_index': None, 'pubdate': datetime.datetime(1964, 1, 1, 12, 30), 'language': None, 'languages': ['de'], 'title': 'Kampf um Norwegens Fjorde', 'title_sort': 'Kampf um Norwegens Fjorde', 'subtitle': 'Fall Weserübung Nord', 'authors': ['Busch, Fritz-Otto'], 'author_sort': None, 'edition': None, 'editor': None, 'extent': '496 S.', 'other_physical_details': 'mit Abb. u. Ktn', 'dimensions': '8', 'accompanying_material': None, 'terms_of_availability': 'Lw. : 19.80', 'mediatype': 'ohne hilfsmittel zu benutzen', 'comments': '\nUntertitel:\tFall Weserübung Nord\nMedienart:\tohne hilfsmittel zu benutzen\nUmfang:\t496 S.\nAndere physische Details:\tmit Abb. u. Ktn\nMaße:\t8\nBezugsbedingungen (meist der Preis):\tLw. : 19.80\nQuelle:\thttps://d-nb.info/450719294', 'record_uri': 'https://d-nb.info/450719294', 'idn': '450719294', 'urn': None, 'isbn': None, 'ddc': [], 'subjects_gnd': [], 'subjects_non_gnd': [], 'publisher_name': 'Gerdes', 'publisher_location': 'Preetz/Holst.', 'alternative_xmls': []}
+Final formatted result: 
+Title               : Kampf um Norwegens Fjorde (1964)
+Title sort          : Kampf um Norwegens Fjorde
+Author(s)           : Fritz-Otto Busch [Busch, Fritz-Otto]
+Publisher           : Preetz/Holst. ; Gerdes
+Languages           : de
+Published           : 1964-01-01T10:30:00+00:00
+Identifiers         : dnb-idn:450719294
+Comments            : 
+Untertitel:	Fall Weserübung Nord
+Medienart:	ohne hilfsmittel zu benutzen
+Umfang:	496 S.
+Andere physische Details:	mit Abb. u. Ktn
+Maße:	8
+Bezugsbedingungen (meist der Preis):	Lw. : 19.80
+Quelle:	https://d-nb.info/450719294
+-----
+[264.b] Publisher: Moewig
+[264.c] Publication Year: 1961-01-01 12:30:00
+added_entry=False
+field=
+[245.a] code_a=['Soldatengeschichten aus aller Welt']
+[245.n] code_n=['120']
+[245.p] code_p=['Weserübung-Nord / R. O. Becker']
+[245] Series: Soldatengeschichten aus aller Welt
+[245] Series_Index: 120
+[245] Title: Weserübung-Nord
+[245] Title_Sort: Weserübung-Nord
+[300] field=
+[300.a] code_a=['60 S.']
+[016.a] Identifier IDN: 454748574
+[082.a] Indentifiers DDC: 800,B
+[041.a] Languages: de
+book= {'series': 'Soldatengeschichten aus aller Welt', 'series_index': '120', 'pubdate': datetime.datetime(1961, 1, 1, 12, 30), 'language': None, 'languages': ['de'], 'title': 'Weserübung-Nord', 'title_sort': 'Weserübung-Nord', 'subtitle': None, 'authors': ['R. O. Becker'], 'author_sort': None, 'edition': None, 'editor': None, 'extent': '60 S.', 'other_physical_details': None, 'dimensions': None, 'accompanying_material': None, 'terms_of_availability': None, 'mediatype': 'ohne hilfsmittel zu benutzen', 'comments': '\nMedienart:\tohne hilfsmittel zu benutzen\nUmfang:\t60 S.\nQuelle:\thttps://d-nb.info/454748574', 'record_uri': 'https://d-nb.info/454748574', 'idn': '454748574', 'urn': None, 'isbn': None, 'ddc': ['800', 'B'], 'subjects_gnd': [], 'subjects_non_gnd': [], 'publisher_name': 'Moewig', 'publisher_location': 'München', 'alternative_xmls': []}
+Final formatted result: 
+Title               : Weserübung-Nord (1961)
+Title sort          : Weserübung-Nord
+Author(s)           : R. O. Becker [R. O. Becker]
+Publisher           : München ; Moewig
+Series              : Soldatengeschichten aus aller Welt #120
+Languages           : de
+Published           : 1961-01-01T10:30:00+00:00
+Identifiers         : dnb-idn:454748574, ddc:800|B
+Comments            : 
+Medienart:	ohne hilfsmittel zu benutzen
+Umfang:	60 S.
+Quelle:	https://d-nb.info/454748574
+----- 
+
+******************************************************************************** 
+The identify phase took 3.48 seconds 
+The longest time (3.370972) was taken by: DNB_DE 
+Merging results from different sources 
+We have 1 merged results, merging took: 0.00 seconds 

@@ -46,6 +46,7 @@ load_translations()
 
 
 class DNB_DE(Source):
+
     name = 'DNB_DE'
     description = _(
         'Downloads metadata from the DNB (Deutsche National Bibliothek).')
@@ -61,7 +62,7 @@ class DNB_DE(Source):
     can_get_multiple_covers = False
     supports_gzip_transfer_encoding = True
     cached_cover_url_is_reliable = True
-    prefer_results_with_isbn = True
+    # prefer_results_with_isbn = True  # now optional
     ignore_ssl_errors = True
 
     MAXIMUMRECORDS = 10
@@ -83,6 +84,14 @@ class DNB_DE(Source):
             cfg.KEY_APPEND_SUBTITLE_TO_TITLE, True)
         self.cfg_stop_after_first_hit = cfg.plugin_prefs[cfg.STORE_NAME].get(
             cfg.KEY_STOP_AFTER_FIRST_HIT, True)
+        self.cfg_prefer_results_with_isbn = cfg.plugin_prefs[cfg.STORE_NAME].get(
+            cfg.KEY_PREFER_RESULTS_WITH_ISBN, True)
+        self.prefer_results_with_isbn = self.cfg_prefer_results_with_isbn
+        self.set_prefer_results_with_isbn(self.cfg_prefer_results_with_isbn)
+
+    @classmethod
+    def set_prefer_results_with_isbn(cls, prefer):
+        cls.prefer_results_with_isbn = prefer
 
     def config_widget(self):
         self.cw = None
@@ -115,7 +124,6 @@ class DNB_DE(Source):
             log.info(
                 "This plugin requires at least either ISBN, IDN, Title or Author(s).")
             return None
-
 
         # process queries
         results = None
@@ -351,10 +359,13 @@ class DNB_DE(Source):
                     # c = author and perhaps editor
                     code_c_authors = None
                     if code_a and code_c:
-                        code_c_authors_split = code_c[0].split(". Hrsg.: ")
-                        code_c_authors = code_c_authors_split[0]
-                        if len(code_c_authors_split) > 1:
-                            book['editor'] = code_c_authors_split[1]
+                        for splitter in ['Hrsg. von ', '. Hrsg.: ']:
+                            code_c_authors_split = code_c[0].split(splitter)
+                            code_c_authors = code_c_authors_split[0]
+                            if len(code_c_authors_split) > 1:
+                                book['editor'] = code_c_authors_split[1]
+
+                    # ToDo: 245.c] code_c=['Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer']
 
                     # a = series, n = series index, p = title and author
                     code_p_authors = None
@@ -362,7 +373,15 @@ class DNB_DE(Source):
                         code_p_authors_split = code_p[0].split(" / ")
                         code_p = [code_p_authors_split[0]]
                         if len(code_p_authors_split) > 1:
-                            code_p_authors = code_p_authors_split[1]
+                            code_p_authors = code_p_authors_split[1].strip()
+                            code_p_authors.removeprefix('[Von]').strip()
+                            book['authors'].extend([code_p_authors])
+
+                    # ToDo:
+                    # 245.a] code_a=['Spannende Geschichten']
+                    # [245.c] code_c=['Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer']
+                    # [245.n] code_n=['17']
+                    # [245.p] code_p=['Start ins Ungewisse / [Von] Heinz Helfgen']
 
                     # Title
                     if code_p:
@@ -395,13 +414,13 @@ class DNB_DE(Source):
 
                     # subtitle 1: Field 245, Subfield b
                     # Append subtitle only if set in options
-                    if self.cfg_append_subtitle_to_title:
+                    if self.cfg_append_subtitle_to_title == True:
                         if book['edition']:
                             book['title'] = book['title'] + " : " + book['edition']
                         if book['subtitle']:
                             book['title'] = book['title'] + " : " + book['subtitle']
                     else:
-                        if self.cfg_append_subtitle_to_title:
+                        if self.cfg_append_subtitle_to_title == True:
                             try:
                                 log.info("title_parts before adding code b: %s" % title_parts)
                                 title_parts.append(
@@ -956,8 +975,8 @@ class DNB_DE(Source):
                     book['comments'] = ''
 
                 # Put other data in comment field
-                if self.cfg_fetch_all:
-                    if book['isbn']:
+                if self.cfg_fetch_all == True:
+                    if self.cfg_prefer_results_with_isbn == False and book['isbn']:
                         book['comments'] = book['comments'] +_('\nISBN:\t') + book['isbn']
                     if book['subtitle']:
                         book['comments'] = book['comments'] +_('\nSubtitle:\t') + book['subtitle']
@@ -996,7 +1015,7 @@ class DNB_DE(Source):
                     list(map(lambda i: re.sub("^(.+), (.+)$", r"\2 \1", i), authors))
                 )
 
-                mi.author_sort = " & ".join(authors)
+                # mi.author_sort = " & ".join(authors)  # Let Calibre itself doing the sort
 
                 mi.title_sort = self.remove_sorting_characters(book['title_sort'])
 
@@ -1005,7 +1024,7 @@ class DNB_DE(Source):
                     mi.language = book['languages'][0]
 
                 mi.pubdate = book['pubdate']
-                mi.publisher = " ; ".join(filter(
+                mi.publisher = " : ".join(filter(
                     None, [book['publisher_location'], self.remove_sorting_characters(book['publisher_name'])]))
 
                 if book['series']:
@@ -1017,7 +1036,10 @@ class DNB_DE(Source):
                 mi.has_cover = self.cached_identifier_to_cover_url(book['idn']) is not None
 
                 # mi.isbn = book['isbn']  # see https://www.mobileread.com/forums/showthread.php?t=336308
-                # mi.set_identifier('isbn', book['isbn'])
+                log.info("self.prefer_results_with_isbn=%s" % self.prefer_results_with_isbn)
+                if self.prefer_results_with_isbn == True:
+                    mi.isbn = book['isbn']
+                    mi.set_identifier('isbn', book['isbn'])
                 mi.set_identifier('urn', book['urn'])
                 mi.set_identifier('dnb-idn', book['idn'])
                 mi.set_identifier('ddc', ",".join(book['ddc']))
@@ -1054,7 +1076,7 @@ class DNB_DE(Source):
                 query_success = True
 
             # Stop on first successful query, if option is set (default)
-            if query_success and self.cfg_stop_after_first_hit:
+            if query_success and self.cfg_stop_after_first_hit == True:
                 break
 
 
@@ -1398,7 +1420,6 @@ class DNB_DE(Source):
             if word.lower() not in ( 'ein', 'eine', 'einer', 'der', 'die', 'das', 'und', 'oder'):
                 tokens.append(word)
         return tokens
-
 
 
 ########################################
