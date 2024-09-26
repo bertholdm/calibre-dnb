@@ -21,6 +21,7 @@ KEY_FETCH_ALL = 'fetchAll'
 KEY_APPEND_SUBTITLE_TO_TITLE = 'appendSubtitleToTitle'
 KEY_STOP_AFTER_FIRST_HIT = 'stopAfterFirstHit'
 KEY_PREFER_RESULTS_WITH_ISBN = 'preferResultsWithIsbn'
+KEY_CAN_GET_MULTIPLE_COVERS = 'canGetMultipleCovers'
 
 DEFAULT_STORE_VALUES = {
     KEY_GUESS_SERIES: True,
@@ -31,6 +32,7 @@ DEFAULT_STORE_VALUES = {
     KEY_APPEND_SUBTITLE_TO_TITLE: True,
     KEY_STOP_AFTER_FIRST_HIT: True,
     KEY_PREFER_RESULTS_WITH_ISBN: True,
+    KEY_CAN_GET_MULTIPLE_COVERS: False,
 }
 
 # This is where all preferences for this plugin will be stored
@@ -148,6 +150,18 @@ class ConfigWidget(DefaultConfigWidget):
         other_group_box_layout.addWidget(
             self.preferResultsWithIsbn_checkbox, 11, 1, 1, 1)
 
+        # Can get multiple covers?
+        canGetMultipleCovers_label = QLabel(
+            _('Can get multiple covers:'), self)
+        canGetMultipleCovers_label.setToolTip(_('If True, the plugin can return multiple covers for a given query.'))
+        other_group_box_layout.addWidget(canGetMultipleCovers_label, 12, 0, 1, 1)
+
+        self.canGetMultipleCovers_checkbox = QCheckBox(self)
+        self.canGetMultipleCovers_checkbox.setChecked(
+            c.get(KEY_CAN_GET_MULTIPLE_COVERS, DEFAULT_STORE_VALUES[KEY_CAN_GET_MULTIPLE_COVERS]))
+        other_group_box_layout.addWidget(
+            self.canGetMultipleCovers_checkbox, 12, 1, 1, 1)
+
 
     def commit(self):
         DefaultConfigWidget.commit(self)
@@ -159,5 +173,6 @@ class ConfigWidget(DefaultConfigWidget):
         new_prefs[KEY_APPEND_SUBTITLE_TO_TITLE] = self.appendSubtitleToTitle_checkbox.isChecked()
         new_prefs[KEY_STOP_AFTER_FIRST_HIT] = self.stopAfterFirstHit_checkbox.isChecked()
         new_prefs[KEY_PREFER_RESULTS_WITH_ISBN] = self.preferResultsWithIsbn_checkbox.isChecked()
+        new_prefs[KEY_CAN_GET_MULTIPLE_COVERS] = self.canGetMultipleCovers_checkbox.isChecked()
 
         plugin_prefs[STORE_NAME] = new_prefs

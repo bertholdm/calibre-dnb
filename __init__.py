@@ -88,10 +88,18 @@ class DNB_DE(Source):
             cfg.KEY_PREFER_RESULTS_WITH_ISBN, True)
         self.prefer_results_with_isbn = self.cfg_prefer_results_with_isbn
         self.set_prefer_results_with_isbn(self.cfg_prefer_results_with_isbn)
+        self.cfg_can_get_multiple_covers = cfg.plugin_prefs[cfg.STORE_NAME].get(
+            cfg.KEY_CAN_GET_MULTIPLE_COVERS, True)
+        self.can_get_multiple_covers = self.cfg_can_get_multiple_covers
+        self.set_can_get_multiple_covers(self.cfg_can_get_multiple_covers)
 
     @classmethod
     def set_prefer_results_with_isbn(cls, prefer):
         cls.prefer_results_with_isbn = prefer
+
+    @classmethod
+    def set_can_get_multiple_covers(cls, prefer):
+        cls.can_get_multiple_covers = prefer
 
     def config_widget(self):
         self.cw = None
@@ -152,7 +160,9 @@ class DNB_DE(Source):
                     'author_sort': None,
                     'edition': None,
                     'editor': None,
-                    'extent': None,
+                    'artist': None,
+                    'artist': None,
+                    'translator': None,
                     'other_physical_details': None,
                     'dimensions': None,
                     'accompanying_material': None,
@@ -304,17 +314,14 @@ class DNB_DE(Source):
                     log.info("field=%s" % field.text.strip())
                     title_parts = []
 
-                    # variant 1:
                     # <datafield tag="245" ind1="0" ind2="0">
                     #   <subfield code="a">Fliegergeschichten</subfield>
                     #   <subfield code="n">Bd. 188.</subfield>
                     #   <subfield code="p">Über der Hölle des Mauna Loa / Otto Behrens</subfield>
-                    # </datafield>
-                    # variant 2:
+
                     # <datafield tag="245" ind1="1" ind2="0">
                     #   <subfield code="a">&#152;Die&#156; Odyssee der PN-9</subfield>
                     #   <subfield code="c">Fritz Moeglich. Hrsg.: Peter Supf</subfield>
-                    # </datafield>
 
                     code_a = []
                     for i in field.xpath("./marc21:subfield[@code='a' and string-length(text())>0]", namespaces=ns):
@@ -982,6 +989,8 @@ class DNB_DE(Source):
                         book['comments'] = book['comments'] +_('\nSubtitle:\t') + book['subtitle']
                     if book['editor']:
                         book['comments'] = book['comments'] + _('\nEditor:\t') + book['editor']
+                    if book['artist']:
+                        book['comments'] = book['comments'] + _('\nArtist:\t') + book['artist']
                     if book['mediatype']:
                         book['comments'] = book['comments'] + _('\nMedia type:\t') + book['mediatype']
                     if book['extent']:
@@ -993,8 +1002,7 @@ class DNB_DE(Source):
                     if book['accompanying_material']:
                         book['comments'] = book['comments'] + _('\nAccompanying material:\t') + book['accompanying_material']
                     if book['terms_of_availability']:
-                        book['comments'] = (book['comments'] + _('\nTerms of availability (in most cases the price):\t')
-                                            + book['terms_of_availability'])
+                        book['comments'] = (book['comments'] + _('\nTerms of availability:\t') + book['terms_of_availability'])
                     if book['terms_of_availability']:
                         book['comments'] = book['comments'] + _(
                             '\nNon-GND subjects:\t') + ' / '.join(book['subjects_non_gnd'])
