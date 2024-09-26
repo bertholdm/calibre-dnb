@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ISFDB3\n"
-"POT-Creation-Date: 2024-09-26 13:23+0200\n"
-"PO-Revision-Date: 2024-09-26 13:29+0200\n"
+"POT-Creation-Date: 2024-09-26 14:40+0200\n"
+"PO-Revision-Date: 2024-09-26 14:40+0200\n"
 "Last-Translator: Michael Detambel <info@michael-detambel.de>\n"
 "Language-Team: Michael Detambel\n"
 "Language: de_DE@formal\n"
@@ -18,7 +18,7 @@ msgstr ""
 msgid "Downloads metadata from the DNB (Deutsche National Bibliothek)."
 msgstr "Lädt Metadaten aus der DNB (Deutsche National Bibliothek)."
 
-#: __init__.py:986
+#: __init__.py:1007
 msgid ""
 "\n"
 "ISBN:\t"
@@ -26,7 +26,7 @@ msgstr ""
 "\n"
 "ISBN:\t"
 
-#: __init__.py:988
+#: __init__.py:1009
 msgid ""
 "\n"
 "Subtitle:\t"
@@ -35,7 +35,7 @@ msgstr ""
 "Untertitel:\t"
 
 # Weitere isfdb-Texte
-#: __init__.py:990
+#: __init__.py:1011
 msgid ""
 "\n"
 "Editor:\t"
@@ -43,7 +43,7 @@ msgstr ""
 "\n"
 "Herausgeber:\t"
 
-#: __init__.py:992
+#: __init__.py:1013
 msgid ""
 "\n"
 "Artist:\t"
@@ -51,7 +51,7 @@ msgstr ""
 "\n"
 "Künstler:\t"
 
-#: __init__.py:994
+#: __init__.py:1015
 msgid ""
 "\n"
 "Translator:\t"
@@ -59,7 +59,7 @@ msgstr ""
 "\n"
 "Übersetzer:\t"
 
-#: __init__.py:996
+#: __init__.py:1017
 msgid ""
 "\n"
 "Media type:\t"
@@ -67,7 +67,7 @@ msgstr ""
 "\n"
 "Medienart:\t"
 
-#: __init__.py:998
+#: __init__.py:1019
 msgid ""
 "\n"
 "Extent:\t"
@@ -75,7 +75,7 @@ msgstr ""
 "\n"
 "Umfang:\t"
 
-#: __init__.py:1000
+#: __init__.py:1021
 msgid ""
 "\n"
 "Other physical details:\t"
@@ -83,7 +83,7 @@ msgstr ""
 "\n"
 "Andere physische Details:\t"
 
-#: __init__.py:1002
+#: __init__.py:1023
 msgid ""
 "\n"
 "Dimensions:\t"
@@ -91,7 +91,7 @@ msgstr ""
 "\n"
 "Maße:\t"
 
-#: __init__.py:1004
+#: __init__.py:1025
 msgid ""
 "\n"
 "Accompanying material:\t"
@@ -99,7 +99,7 @@ msgstr ""
 "\n"
 "Begleitmaterial:\t"
 
-#: __init__.py:1006
+#: __init__.py:1027
 msgid ""
 "\n"
 "Terms of availability:\t"
@@ -107,7 +107,15 @@ msgstr ""
 "\n"
 "Bezugsbedingungen:\t"
 
-#: __init__.py:1009
+#: __init__.py:1030
+msgid ""
+"\n"
+"GND subjects:\t"
+msgstr ""
+"\n"
+"GND Einträge:\t"
+
+#: __init__.py:1033
 msgid ""
 "\n"
 "Non-GND subjects:\t"
@@ -115,7 +123,7 @@ msgstr ""
 "\n"
 "Nicht-GND Einträge:\t"
 
-#: __init__.py:1013
+#: __init__.py:1037
 msgid ""
 "\n"
 "Source:\t"

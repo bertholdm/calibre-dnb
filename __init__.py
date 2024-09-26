@@ -396,6 +396,11 @@ class DNB_DE(Source):
 
                     # ToDo: 245.c] code_c=['Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer']
 
+                    #     <datafield tag="245" ind1="1" ind2="0">
+                    #       <subfield code="a">Märchen aus Bayern</subfield>
+                    #       <subfield code="b">Märchen der Welt</subfield>
+                    #       <subfield code="c">Karl Spiegel</subfield>
+
                     # Title
                     if code_p:
                         title_parts = code_p
@@ -658,7 +663,12 @@ class DNB_DE(Source):
                 ##### Field 82: "Dewey Decimal Classification Number" #####
                 # Get Identifier "Sachgruppen (DDC)" (ddc)
                 for i in record.xpath("./marc21:datafield[@tag='082']/marc21:subfield[@code='a' and string-length(text())>0]", namespaces=ns):
-                    book['ddc'].append(i.text.strip())
+                    ddc = i.text.strip()
+                    log.info("[082.a] ddc=%s" % ddc)
+                    ddc_subject_area = ddc_to_text(ddc)
+                    log.info("ddc_subject_area=%s" % ddc_subject_area)
+                    book['tags'].append(ddc_subject_area)
+                    book['ddc'].append(ddc)
                 if book['ddc']:
                     log.info("[082.a] Indentifiers DDC: %s" % ",".join(book['ddc']))
 
@@ -1447,6 +1457,27 @@ class DNB_DE(Source):
             return mapping[lang.lower()]
         except KeyError:
             return lang
+
+    # Convert ddc to text for tagging
+    def ddc_to_text(self, ddc):
+        QUERY_BASE_URL = 'https://deweysearchde.pansoft.de/webdeweysearch/executeSearch.html'
+        query_url = QUERY_BASE_URL + '?query=' + str(ddc) + '&catalogs=DNB'
+        # https://deweysearchde.pansoft.de/webdeweysearch/executeSearch.html?query=390&catalogs=DNB
+        try:
+            data = self.browser.open_novisit(query_url, timeout=timeout).read()
+            # "data" is of type "bytes", decode it to an utf-8 string, normalize the UTF-8 encoding (from decomposed to composed), and convert it back to bytes
+            data = normalize(data.decode('utf-8')).encode('utf-8')
+            #log.info('Got some data : %s' % data)
+            rows = data.xpath('# //*[@id="scheduleResult"]/tbody/tr')
+            # //*[@id="scheduleResult"]/tbody/tr[5]/td[1]/span
+            for row in rows:
+                log.debug('row={0}'.format(row.xpath('.')[0].text_content()))
+                if row.xpath('td[1]')[0].text_content() == ddc:
+                    ddc_subject_area =  row.xpath('td[2]')[0].text_content()
+                    break
+        except:
+            return None
+        return ddc_subject_area
 
 
     # Remove German joiners from list of words
