@@ -665,7 +665,7 @@ class DNB_DE(Source):
                 for i in record.xpath("./marc21:datafield[@tag='082']/marc21:subfield[@code='a' and string-length(text())>0]", namespaces=ns):
                     ddc = i.text.strip()
                     log.info("[082.a] ddc=%s" % ddc)
-                    ddc_subject_area = ddc_to_text(ddc)
+                    ddc_subject_area = self.ddc_to_text(ddc)
                     log.info("ddc_subject_area=%s" % ddc_subject_area)
                     book['tags'].append(ddc_subject_area)
                     book['ddc'].append(ddc)
@@ -1467,17 +1467,17 @@ class DNB_DE(Source):
             data = self.browser.open_novisit(query_url, timeout=timeout).read()
             # "data" is of type "bytes", decode it to an utf-8 string, normalize the UTF-8 encoding (from decomposed to composed), and convert it back to bytes
             data = normalize(data.decode('utf-8')).encode('utf-8')
-            #log.info('Got some data : %s' % data)
+            log.info('Got some data : %s' % data)
             rows = data.xpath('# //*[@id="scheduleResult"]/tbody/tr')
             # //*[@id="scheduleResult"]/tbody/tr[5]/td[1]/span
             for row in rows:
                 log.debug('row={0}'.format(row.xpath('.')[0].text_content()))
                 if row.xpath('td[1]')[0].text_content() == ddc:
-                    ddc_subject_area =  row.xpath('td[2]')[0].text_content()
-                    break
+                    ddc_subject_area = row.xpath('td[2]')[0].text_content()
+                    return ddc_subject_area
+            return None
         except:
             return None
-        return ddc_subject_area
 
 
     # Remove German joiners from list of words
