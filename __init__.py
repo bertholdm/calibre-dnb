@@ -58,8 +58,8 @@ class DNB_DE(Source):
     capabilities = frozenset(['identify', 'cover'])
     touched_fields = frozenset(['title', 'title_sort', 'authors', 'author_sort', 'publisher', 'pubdate', 'languages', 'tags', 'identifier:urn',
                                 'identifier:idn', 'identifier:isbn', 'identifier:ddc', 'series', 'series_index', 'comments'])
-    has_html_comments = True
-    can_get_multiple_covers = False
+    has_html_comments = False  # True
+    # can_get_multiple_covers = False  # now optional
     supports_gzip_transfer_encoding = True
     cached_cover_url_is_reliable = True
     # prefer_results_with_isbn = True  # now optional
@@ -160,7 +160,6 @@ class DNB_DE(Source):
                     'author_sort': None,
                     'edition': None,
                     'editor': None,
-                    'artist': None,
                     'artist': None,
                     'translator': None,
                     'other_physical_details': None,
@@ -390,6 +389,13 @@ class DNB_DE(Source):
                     # [245.n] code_n=['17']
                     # [245.p] code_p=['Start ins Ungewisse / [Von] Heinz Helfgen']
 
+                    #     <datafield tag="245" ind1="1" ind2="0">
+                    #       <subfield code="a">Auf dem Jakobsweg</subfield>
+                    #       <subfield code="b">Tagebuch einer Pilgerreise nach Santiago de Compostela</subfield>
+                    #       <subfield code="c">Paulo Coelho. Aus dem Brasilianischen von Maralde Meyer-Minnemann</subfield>
+
+                    # ToDo: 245.c] code_c=['Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer']
+
                     # Title
                     if code_p:
                         title_parts = code_p
@@ -482,6 +488,16 @@ class DNB_DE(Source):
                                       "string-length(text())>0]", namespaces=ns):
                     name = re.sub(" \[.*\]$", "", i.text.strip())
                     secondary_authors.append(name)
+
+                #       <subfield code="a">Meyer-Minnemann, Maralde</subfield>
+                #       <subfield code="e">Übersetzer</subfield>
+                #       <subfield code="4">trl</subfield>
+                #       <subfield code="2">gnd</subfield>
+                for i in record.xpath("./marc21:datafield[@tag='700']/marc21:subfield[@code='4' and "
+                                      "text()='trl']/../marc21:subfield[@code='a' and "
+                                      "string-length(text())>0]", namespaces=ns):
+                    name = re.sub(" \[.*\]$", "", i.text.strip())
+                    book['translator'] = name
 
                 if secondary_authors:
                     book['authors'].extend(secondary_authors)
@@ -780,20 +796,24 @@ class DNB_DE(Source):
                     book['subjects_gnd'].append(i.text.strip())
 
                 for f in range(600, 656):
-                    for i in record.xpath("./marc21:datafield[@tag='" + str(f) + "']/marc21:subfield[@code='2' and text()='gnd']/../marc21:subfield[@code='a' and string-length(text())>0]", namespaces=ns):
+                    for i in record.xpath("./marc21:datafield[@tag='" + str(f) + "']/marc21:subfield[@code='a' and "
+                                                                                 "text()='gnd']/../marc21:subfield[@code='a' and "
+                                                                                 "string-length(text())>0]", namespaces=ns):
                         # skip entries starting with "(":
                         if i.text.startswith("("):
                             continue
                         book['subjects_gnd'].append(i.text)
 
                 if book['subjects_gnd']:
-                    log.info("[689.a] GND Subjects: %s" % " ".join(book['subjects_gnd']))
+                    log.info("[689.a] GND Subjects: %s" % " / ".join(book['subjects_gnd']))
 
 
                 ##### Fields 600-655 #####
                 # Get non-GND Subjects
+                # Field 648: Chronological term (Zeitschlagwort)
                 for f in range(600, 656):
-                    for i in record.xpath("./marc21:datafield[@tag='" + str(f) + "']/marc21:subfield[@code='a' and string-length(text())>0]", namespaces=ns):
+                    for i in record.xpath("./marc21:datafield[@tag='" + str(f) + "']/marc21:subfield[@code='a' and "
+                                                                                 "string-length(text())>0]", namespaces=ns):
                         # skip entries starting with "(":
                         if i.text.startswith("("):
                             continue
@@ -804,7 +824,7 @@ class DNB_DE(Source):
                         book['subjects_non_gnd'].extend(re.split(',|;', self.remove_sorting_characters(i.text)))
 
                 if book['subjects_non_gnd']:
-                    log.info("[600.a-655.a] Non-GND Subjects: %s" % " ".join(book['subjects_non_gnd']))
+                    log.info("[600.a-655.a] Non-GND Subjects: %s" % " / ".join(book['subjects_non_gnd']))
 
 
                 ##### Field 250: "Edition Statement" #####
@@ -991,6 +1011,8 @@ class DNB_DE(Source):
                         book['comments'] = book['comments'] + _('\nEditor:\t') + book['editor']
                     if book['artist']:
                         book['comments'] = book['comments'] + _('\nArtist:\t') + book['artist']
+                    if book['translator']:
+                        book['comments'] = book['comments'] + _('\nTranslator:\t') + book['translator']
                     if book['mediatype']:
                         book['comments'] = book['comments'] + _('\nMedia type:\t') + book['mediatype']
                     if book['extent']:
@@ -1003,7 +1025,10 @@ class DNB_DE(Source):
                         book['comments'] = book['comments'] + _('\nAccompanying material:\t') + book['accompanying_material']
                     if book['terms_of_availability']:
                         book['comments'] = (book['comments'] + _('\nTerms of availability:\t') + book['terms_of_availability'])
-                    if book['terms_of_availability']:
+                    if book['subjects_gnd']:
+                        book['comments'] = book['comments'] + _(
+                            '\nGND subjects:\t') + ' / '.join(book['subjects_gnd'])
+                    if book['subjects_non_gnd']:
                         book['comments'] = book['comments'] + _(
                             '\nNon-GND subjects:\t') + ' / '.join(book['subjects_non_gnd'])
 

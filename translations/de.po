@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ISFDB3\n"
-"POT-Creation-Date: 2024-09-25 14:41+0200\n"
-"PO-Revision-Date: 2024-09-25 14:41+0200\n"
+"POT-Creation-Date: 2024-09-26 13:23+0200\n"
+"PO-Revision-Date: 2024-09-26 13:29+0200\n"
 "Last-Translator: Michael Detambel <info@michael-detambel.de>\n"
 "Language-Team: Michael Detambel\n"
 "Language: de_DE@formal\n"
@@ -14,11 +14,11 @@ msgstr ""
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: __init__.py:53
+#: __init__.py:52
 msgid "Downloads metadata from the DNB (Deutsche National Bibliothek)."
 msgstr "Lädt Metadaten aus der DNB (Deutsche National Bibliothek)."
 
-#: __init__.py:965
+#: __init__.py:986
 msgid ""
 "\n"
 "ISBN:\t"
@@ -26,7 +26,7 @@ msgstr ""
 "\n"
 "ISBN:\t"
 
-#: __init__.py:967
+#: __init__.py:988
 msgid ""
 "\n"
 "Subtitle:\t"
@@ -35,7 +35,7 @@ msgstr ""
 "Untertitel:\t"
 
 # Weitere isfdb-Texte
-#: __init__.py:969
+#: __init__.py:990
 msgid ""
 "\n"
 "Editor:\t"
@@ -43,7 +43,23 @@ msgstr ""
 "\n"
 "Herausgeber:\t"
 
-#: __init__.py:971
+#: __init__.py:992
+msgid ""
+"\n"
+"Artist:\t"
+msgstr ""
+"\n"
+"Künstler:\t"
+
+#: __init__.py:994
+msgid ""
+"\n"
+"Translator:\t"
+msgstr ""
+"\n"
+"Übersetzer:\t"
+
+#: __init__.py:996
 msgid ""
 "\n"
 "Media type:\t"
@@ -51,7 +67,7 @@ msgstr ""
 "\n"
 "Medienart:\t"
 
-#: __init__.py:973
+#: __init__.py:998
 msgid ""
 "\n"
 "Extent:\t"
@@ -59,7 +75,7 @@ msgstr ""
 "\n"
 "Umfang:\t"
 
-#: __init__.py:975
+#: __init__.py:1000
 msgid ""
 "\n"
 "Other physical details:\t"
@@ -67,7 +83,7 @@ msgstr ""
 "\n"
 "Andere physische Details:\t"
 
-#: __init__.py:977
+#: __init__.py:1002
 msgid ""
 "\n"
 "Dimensions:\t"
@@ -75,7 +91,7 @@ msgstr ""
 "\n"
 "Maße:\t"
 
-#: __init__.py:979
+#: __init__.py:1004
 msgid ""
 "\n"
 "Accompanying material:\t"
@@ -83,15 +99,23 @@ msgstr ""
 "\n"
 "Begleitmaterial:\t"
 
-#: __init__.py:981
+#: __init__.py:1006
 msgid ""
 "\n"
-"Terms of availability (in most cases the price):\t"
+"Terms of availability:\t"
 msgstr ""
 "\n"
-"Bezugsbedingungen (meist der Preis):\t"
+"Bezugsbedingungen:\t"
 
-#: __init__.py:985
+#: __init__.py:1009
+msgid ""
+"\n"
+"Non-GND subjects:\t"
+msgstr ""
+"\n"
+"Nicht-GND Einträge:\t"
+
+#: __init__.py:1013
 msgid ""
 "\n"
 "Source:\t"
@@ -99,21 +123,21 @@ msgstr ""
 "\n"
 "Quelle:\t"
 
-#: config.py:102
+#: config.py:104
 msgid "Fetch all data in book record:"
 msgstr "Hole alle Daten des Katalog-Datensatzes:"
 
-#: config.py:103
+#: config.py:105
 msgid "Additional, non-Calibre book data will be stored in comments.\n"
 msgstr ""
 "Zusätzliche Angaben, die nicht für die Calibre Buchdaten verwendet werden, "
 "werden im Kommentarfeld abgelegt.\n"
 
-#: config.py:114
+#: config.py:116
 msgid "Append subtitle to title:"
 msgstr "Untertitel an Haupttitel anfügen:"
 
-#: config.py:115
+#: config.py:117
 msgid ""
 "Subtitle is appended to the main title, otherwise it will be stored in "
 "comments.\n"
@@ -121,19 +145,19 @@ msgstr ""
 "Untertitel werden an den Haupttitel angefügt, ansonsten im Kommentarfeld "
 "vermerkt.\n"
 
-#: config.py:126
+#: config.py:128
 msgid "Stop after first hit:"
 msgstr "Suche nach dem ersten Treffer abbrechen:"
 
-#: config.py:127
+#: config.py:129
 msgid "Stop search after first book record is found.\n"
 msgstr "Beende die Suche, wenn das erste Buch gefunden wurde.\n"
 
-#: config.py:138
+#: config.py:140
 msgid "Prefer results with ISBN:"
 msgstr "Ergebnisse mit ISBN bevorzugen:"
 
-#: config.py:139
+#: config.py:141
 msgid ""
 "If set to True, and this source returns multiple results for a query, some "
 "of which have ISBNs and some of which do not, the results without ISBNs will "
@@ -142,6 +166,16 @@ msgstr ""
 "Wenn angehakt und die Metadatenquelle liefert mehr als ein Ergebnis für die "
 "Suche, solche mit ISBNs und solche ohne, werden die Ergebnisse ohne ISBNs "
 "ignorierd. (see https://manual.calibre-ebook.com/de/plugins.html)\n"
+
+#: config.py:155
+msgid "Can get multiple covers:"
+msgstr "Mehr als ein Titelbild herunterladen:"
+
+#: config.py:156
+msgid "If True, the plugin can return multiple covers for a given query."
+msgstr ""
+"Wenn angehakt, kann das Plugin mehr als ein Titelbild je Abfrage "
+"herunterladen."
 
 #~ msgid "Downloads metadata and covers from ISFDB (https://www.isfdb.org/)"
 #~ msgstr "Lädt Metadaten und Buchumschläge von ISFDB (https://www.isfdb.org/)"
@@ -704,9 +738,6 @@ msgstr ""
 
 #~ msgid "trans. of"
 #~ msgstr "deutsche Ausgabe von"
-
-#~ msgid "Translator"
-#~ msgstr "Übersetzer"
 
 #~ msgid "is not numbered"
 #~ msgstr "ist nicht nummeriert"
