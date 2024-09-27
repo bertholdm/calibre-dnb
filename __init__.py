@@ -177,6 +177,7 @@ class DNB_DE(Source):
                     'urn': None,
                     'isbn': None,
                     'ddc': [],
+                    'ddc_subject_area': None,
                     'subjects_gnd': [],
                     'subjects_non_gnd': [],
                     'publisher_name': None,
@@ -404,6 +405,12 @@ class DNB_DE(Source):
                     #       <subfield code="a">Märchen aus Bayern</subfield>
                     #       <subfield code="b">Märchen der Welt</subfield>
                     #       <subfield code="c">Karl Spiegel</subfield>
+
+                    # [245.a] code_a=['Deutsches Märchenbuch']
+                    # [245.b] code_b=['Mit Illustrationen von Ludwig Richter']
+                    # [245.c] code_c=['Ludwig Bechstein ; Illustrator: Ludwig Richter']
+                    # [245.n] code_n=[]
+                    # [245.p] code_p=[]
 
                     # Title
                     if code_p:
@@ -658,7 +665,8 @@ class DNB_DE(Source):
                         break
                     except AttributeError:
                         pass
-                for i in record.xpath("./marc21:datafield[@tag='020']/marc21:subfield[@code='c' and string-length(text())>0]", namespaces=ns):
+                for i in record.xpath("./marc21:datafield[@tag='020']/marc21:subfield[@code='c' "
+                                      "and string-length(text())>0]", namespaces=ns):
                     # c: Terms of availability (Bezugsbedingungen) - usually the price
                     if i.text.strip():
                         book['terms_of_availability'] = i.text.strip()
@@ -666,15 +674,24 @@ class DNB_DE(Source):
 
                 ##### Field 82: "Dewey Decimal Classification Number" #####
                 # Get Identifier "Sachgruppen (DDC)" (ddc)
-                for i in record.xpath("./marc21:datafield[@tag='082']/marc21:subfield[@code='a' and string-length(text())>0]", namespaces=ns):
+                for i in record.xpath("./marc21:datafield[@tag='082']/marc21:subfield[@code='a' "
+                                      "and string-length(text())>0]", namespaces=ns):
                     ddc = i.text.strip()
                     log.info("[082.a] ddc=%s" % ddc)
                     ddc_subject_area = self.ddc_to_text(ddc, log)
                     log.info("ddc_subject_area=%s" % ddc_subject_area)
-                    if book['tags']:
-                        book['tags'].extend([x.strip() for x in ddc_subject_area(',')])
-                    else:
-                        book['tags'] = [x.strip() for x in ddc_subject_area(',')]
+                    if ddc_subject_area:
+                        book['ddc_subject_area'] = ddc_subject_area
+                        if book['tags']:
+                            if ',' in ddc_subject_area:
+                                book['tags'].extend([x.strip() for x in ddc_subject_area(',')])
+                            else:
+                                book['tags'].append([ddc_subject_area])
+                        else:
+                            if ',' in ddc_subject_area:
+                                book['tags'] = [x.strip() for x in ddc_subject_area(',')]
+                            else:
+                                book['tags'] = [ddc_subject_area]
                     book['ddc'].append(ddc)
                 if book['ddc']:
                     log.info("[082.a] Indentifiers DDC: %s" % ",".join(book['ddc']))
@@ -687,7 +704,9 @@ class DNB_DE(Source):
                 # Subfields:
                 # v: Series name and index
                 # a: Series name
-                for i in record.xpath("./marc21:datafield[@tag='490']/marc21:subfield[@code='v' and string-length(text())>0]/../marc21:subfield[@code='a' and string-length(text())>0]/..", namespaces=ns):
+                for i in record.xpath("./marc21:datafield[@tag='490']/marc21:subfield[@code='v' "
+                                      "and string-length(text())>0]/../marc21:subfield[@code='a' "
+                                      "and string-length(text())>0]/..", namespaces=ns):
 
                     if book['series'] and book['series_index'] and book['series_index'] != "0":
                         break
@@ -1478,7 +1497,7 @@ class DNB_DE(Source):
             raw = response.read()
             data = fromstring(clean_ascii_chars(raw))
             ddc_subject_area = data.xpath('//*[@id="scheduleResult"]/tbody/tr[td[1]=' + ddc
-                                          + ']/td[2]')[-1].text_content().strip()
+                                          + ']/td[2]/div[1]/span')[-1].text_content().strip()
             return ddc_subject_area
         except Exception as e:
             log.info('Exception in ddc_to_text: %s' % e)
