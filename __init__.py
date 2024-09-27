@@ -367,16 +367,24 @@ class DNB_DE(Source):
                             code_a = [code_a_title_split[0]]  # title without subtitle
                             book['subtitle'] = code_a_title_split[1]
 
-                    # c = author and perhaps editor
+                    # c = author and perhaps editor, artist etc.
                     code_c_authors = None
                     if code_a and code_c:
+                        # ToDo: consider regex
+                        # 245.c ['Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer']
                         for splitter in ['Hrsg. von ', '. Hrsg.: ']:
                             code_c_authors_split = code_c[0].split(splitter)
                             code_c_authors = code_c_authors_split[0]
                             if len(code_c_authors_split) > 1:
-                                book['editor'] = code_c_authors_split[1]
+                                book['editor'] = code_c_authors_split[1].strip()
+                        # [245.c] ['Ludwig Bechstein ; Illustrator: Ludwig Richter']
+                        for splitter in ['Illustrator: ', 'Illustriert von ', 'illustriert von ', 'Ill. von ']:
+                            code_c_authors_split = code_c[0].split(splitter)
+                            code_c_authors = code_c_authors_split[0]
+                            code_c_authors = code_c_authors.strip(';').strip()
+                            if len(code_c_authors_split) > 1:
+                                book['artist'] = code_c_authors_split[1].strip()
 
-                    # ToDo: 245.c] code_c=['Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer']
 
                     # a = series, n = series index, p = title and author
                     code_p_authors = None
@@ -1061,6 +1069,8 @@ class DNB_DE(Source):
                         book['comments'] = book['comments'] + _('\nAccompanying material:\t') + book['accompanying_material']
                     if book['terms_of_availability']:
                         book['comments'] = (book['comments'] + _('\nTerms of availability:\t') + book['terms_of_availability'])
+                    if book['ddc_subject_area']:
+                        book['comments'] = (book['comments'] + _('\nDDC subject area:\t') + book['ddc_subject_area'])
                     if book['subjects_gnd']:
                         book['comments'] = book['comments'] + _(
                             '\nGND subjects:\t') + ' / '.join(book['subjects_gnd'])
