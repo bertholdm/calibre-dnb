@@ -154,6 +154,7 @@ class DNB_DE(Source):
                     'series': None,
                     'series_index': None,
                     'pubdate': None,
+                    'originally_published': None,
                     'language': None,
                     'languages': [],
                     'title': None,
@@ -264,6 +265,8 @@ class DNB_DE(Source):
                         except (IndexError, AttributeError):
                             pass
 
+                # ToDo: At least original pubdate
+                ##### Field 534 - "Original Version Note" #####
 
                 ##### Field 245: "Title Statement" #####
                 # Get Title, Series, Series_Index, Subtitle
@@ -687,17 +690,17 @@ class DNB_DE(Source):
                     ddc = i.text.strip()
                     log.info("[082.a] ddc=%s" % ddc)
                     ddc_subject_area = self.ddc_to_text(ddc, log)
-                    log.info("ddc_subject_area=%s" % ddc_subject_area)
+                    # log.info("ddc_subject_area=%s" % ddc_subject_area)
                     if ddc_subject_area:
                         book['ddc_subject_area'] = ddc_subject_area
                         if book['tags']:
                             if ',' in ddc_subject_area:
-                                book['tags'].extend([x.strip() for x in ddc_subject_area(',')])
+                                book['tags'].extend([x.strip() for x in ddc_subject_area.split(',')])
                             else:
                                 book['tags'].append([ddc_subject_area])
                         else:
                             if ',' in ddc_subject_area:
-                                book['tags'] = [x.strip() for x in ddc_subject_area(',')]
+                                book['tags'] = [x.strip() for x in ddc_subject_area.split(',')]
                             else:
                                 book['tags'] = [ddc_subject_area]
                     book['ddc'].append(ddc)
