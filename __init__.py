@@ -42,6 +42,9 @@ except ImportError:
     from urllib.request import Request, urlopen
     from urllib.error import HTTPError
 
+from lxml.html import fromstring, tostring
+from calibre.utils.cleantext import clean_ascii_chars
+
 load_translations()
 
 
@@ -669,9 +672,9 @@ class DNB_DE(Source):
                     ddc_subject_area = self.ddc_to_text(ddc, log)
                     log.info("ddc_subject_area=%s" % ddc_subject_area)
                     if book['tags']:
-                        book['tags'].append(ddc_subject_area)
+                        book['tags'].extend([x.strip() for x in ddc_subject_area(',')])
                     else:
-                        book['tags'] = ddc_subject_area
+                        book['tags'] = [x.strip() for x in ddc_subject_area(',')]
                     book['ddc'].append(ddc)
                 if book['ddc']:
                     log.info("[082.a] Indentifiers DDC: %s" % ",".join(book['ddc']))
@@ -1121,7 +1124,7 @@ class DNB_DE(Source):
                 elif self.cfg_fetch_subjects == 5:
                     mi.tags = []
                 if book['tags']:
-                    mi.tags.append(book['tags'])
+                    mi.tags.extend(book['tags'])
 
                 # put current result's metdata into result queue
                 log.info("Final formatted result: \n%s\n-----" % mi)
@@ -1466,32 +1469,20 @@ class DNB_DE(Source):
 
     # Convert ddc to text for tagging
     def ddc_to_text(self, ddc, log):
-        from lxml.html import fromstring, tostring
-        from calibre.utils.cleantext import clean_ascii_chars
+        ddc = str(ddc)
         QUERY_BASE_URL = 'https://deweysearchde.pansoft.de/webdeweysearch/executeSearch.html'
-        query_url = QUERY_BASE_URL + '?query=' + str(ddc) + '&catalogs=DNB'
+        query_url = QUERY_BASE_URL + '?query=' + ddc + '&catalogs=DNB'
         # https://deweysearchde.pansoft.de/webdeweysearch/executeSearch.html?query=390&catalogs=DNB
-        # try:
-        response = self.browser.open_novisit(query_url, timeout=30)
-        raw = response.read()
-        # "data" is of type "bytes", decode it to an utf-8 string, normalize the UTF-8 encoding (from decomposed to composed), and convert it back to bytes
-        # data = fromstring(normalize(data.decode('utf-8')).encode('utf-8'))
-        data = fromstring(clean_ascii_chars(raw))
-        # log.info('Got some data : %s' % data)
-        rows = data.xpath('//*[@id="scheduleResult"]/tbody/tr')
-        # //*[@id="scheduleResult"]/tbody/tr[5]/td[1]/span
-        for row in rows:
-            log.debug('row={0}'.format(row.xpath('.')[0].text_content()))
-
-            # ToDo: list index out of range
-
-            if row.xpath('td[1]')[0].text_content() == ddc:
-                ddc_subject_area = row.xpath('td[2]')[0].text_content()
-                return ddc_subject_area
-        return None
-        # except Exception as e:
-        #     log.info('Exception in ddc_to_text: %s' % e)
-        #     return None
+        try:
+            response = self.browser.open_novisit(query_url, timeout=30)
+            raw = response.read()
+            data = fromstring(clean_ascii_chars(raw))
+            ddc_subject_area = data.xpath('//*[@id="scheduleResult"]/tbody/tr[td[1]=' + ddc
+                                          + ']/td[2]')[-1].text_content().strip()
+            return ddc_subject_area
+        except Exception as e:
+            log.info('Exception in ddc_to_text: %s' % e)
+            return None
 
 
     # Remove German joiners from list of words
