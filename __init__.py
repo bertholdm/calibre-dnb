@@ -273,6 +273,12 @@ class DNB_DE(Source):
 
                 # ToDo: At least fetch original pubdate
                 ##### Field 534 - "Original Version Note" #####
+                # or:
+                # <controlfield tag="008">240627r20241795xx u||p|o ||| 0||||1ger  </controlfield
+                # gives in DBB catalog GUI:
+                # Zeitliche Einordnung	Erscheinungsdatum: 2024 Original: 1795
+                # see: https://www.loc.gov/marc/archive/2000/concise/ecbd008s.html
+
 
                 ##### Field 245: "Title Statement" #####
                 # Get Title, Series, Series_Index, Subtitle
@@ -428,6 +434,15 @@ class DNB_DE(Source):
                     # [245.c] code_c=['Ludwig Bechstein ; Illustrator: Ludwig Richter']
                     # [245.n] code_n=[]
                     # [245.p] code_p=[]
+
+                    #     <datafield tag="245" ind1="0" ind2="0">
+                    #       <subfield code="a">&#152;Die&#156; Horen</subfield>
+                    #       <subfield code="n">1.1795, Stück 1-12 = Bd. 1-4</subfield>
+                    #       <subfield code="c">hrsg. von Schiller</subfield>
+
+                    #     <datafield tag="245" ind1="1" ind2="0">
+                    #       <subfield code="a">Am Kamin und andere unheimliche Geschichten</subfield>
+                    #       <subfield code="c">Theodor Storm. Mit Ill. von Roswitha Quadflieg. Ausgew. und mit einem Nachw. von Gottfried Honnefelder</subfield>
 
                     # Title
                     if code_p:

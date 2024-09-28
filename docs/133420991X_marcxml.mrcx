@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <record xmlns="http://www.loc.gov/MARC21/slim" type="Bibliographic">
+    <leader>00000nab a22000008cc4500</leader>
+    <controlfield tag="001">133420991X</controlfield>
+    <controlfield tag="003">DE-101</controlfield>
+    <controlfield tag="005">20240627213609.0</controlfield>
+    <controlfield tag="007">cr||||||||||||</controlfield>
+    <controlfield tag="008">240627r20241795xx u||p|o ||| 0||||1ger  </controlfield>
+    <datafield tag="016" ind1="7" ind2=" ">
+      <subfield code="2">DE-101</subfield>
+      <subfield code="a">133420991X</subfield>
+    </datafield>
+    <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">(DE-599)DNB133420991X</subfield>
+    </datafield>
+    <datafield tag="040" ind1=" " ind2=" ">
+      <subfield code="a">1140</subfield>
+      <subfield code="b">ger</subfield>
+      <subfield code="c">DE-101</subfield>
+      <subfield code="d">9999</subfield>
+    </datafield>
+    <datafield tag="041" ind1=" " ind2=" ">
+      <subfield code="a">ger</subfield>
+    </datafield>
+    <datafield tag="044" ind1=" " ind2=" ">
+      <subfield code="c">XA-DXDE</subfield>
+    </datafield>
+    <datafield tag="082" ind1="7" ind2="4">
+      <subfield code="a">430</subfield>
+      <subfield code="a">830</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="2">23sdnb</subfield>
+    </datafield>
+    <datafield tag="245" ind1="0" ind2="0">
+      <subfield code="a">&#152;Die&#156; Horen</subfield>
+      <subfield code="n">1.1795, Stück 1-12 = Bd. 1-4</subfield>
+      <subfield code="c">hrsg. von Schiller</subfield>
+    </datafield>
+    <datafield tag="264" ind1="3" ind2="1">
+      <subfield code="a">Tübingen</subfield>
+      <subfield code="b">Cotta</subfield>
+      <subfield code="c">2024</subfield>
+    </datafield>
+    <datafield tag="300" ind1=" " ind2=" ">
+      <subfield code="a">1 Online-Ressource</subfield>
+    </datafield>
+    <datafield tag="336" ind1=" " ind2=" ">
+      <subfield code="a">Text</subfield>
+      <subfield code="b">txt</subfield>
+      <subfield code="2">rdacontent</subfield>
+    </datafield>
+    <datafield tag="337" ind1=" " ind2=" ">
+      <subfield code="a">Computermedien</subfield>
+      <subfield code="b">c</subfield>
+      <subfield code="2">rdamedia</subfield>
+    </datafield>
+    <datafield tag="338" ind1=" " ind2=" ">
+      <subfield code="a">Online-Ressource</subfield>
+      <subfield code="b">cr</subfield>
+      <subfield code="2">rdacarrier</subfield>
+    </datafield>
+    <datafield tag="773" ind1="0" ind2="8">
+      <subfield code="q">11 41795 11 212</subfield>
+      <subfield code="w">(DE-101)989516520</subfield>
+    </datafield>
+    <datafield tag="776" ind1="0" ind2="8">
+      <subfield code="i">Elektronische Reproduktion von</subfield>
+      <subfield code="t">&#152;Die&#156; Horen</subfield>
+      <subfield code="d">Tübingen : Cotta, 1795-1797</subfield>
+      <subfield code="w">(DE-600)214402-5</subfield>
+      <subfield code="w">(DE-101)1317697138</subfield>
+    </datafield>
+    <datafield tag="925" ind1="d" ind2=" ">
+      <subfield code="a">d039</subfield>
+      <subfield code="b">dbsm001</subfield>
+    </datafield>
+    <datafield tag="925" ind1="w" ind2=" ">
+      <subfield code="a">f</subfield>
+    </datafield>
+  </record>
