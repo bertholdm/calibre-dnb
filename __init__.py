@@ -22,6 +22,8 @@ from calibre.ebooks import normalize
 import re
 import datetime
 
+from unicodedata import numeric
+
 try:
     from urllib import quote  # Python2
 except ImportError:
@@ -187,6 +189,9 @@ class DNB_DE(Source):
                     'alternative_xmls': [], 
                 }
 
+                ##### For plugin extending purposes, document all fields in MARC21 record for this book here
+                marc21_fields = record.xpath("//marc21:datafield[@tag]/text()", namespaces=ns)
+                log.info("marc21_fields=%s" % marc21_fields)
 
                 ##### Field 336: "Content Type" #####
                 # Skip Audio Books
@@ -265,7 +270,7 @@ class DNB_DE(Source):
                         except (IndexError, AttributeError):
                             pass
 
-                # ToDo: At least original pubdate
+                # ToDo: At least fetch original pubdate
                 ##### Field 534 - "Original Version Note" #####
 
                 ##### Field 245: "Title Statement" #####
@@ -687,6 +692,10 @@ class DNB_DE(Source):
                 # Get Identifier "Sachgruppen (DDC)" (ddc)
                 for i in record.xpath("./marc21:datafield[@tag='082']/marc21:subfield[@code='a' "
                                       "and string-length(text())>0]", namespaces=ns):
+                    # Caveat:
+                    #     <datafield tag="082" ind1="7" ind2="4">
+                    #       <subfield code="a">830</subfield>
+                    #       <subfield code="a">B</subfield>
                     ddc = i.text.strip()
                     log.info("[082.a] ddc=%s" % ddc)
                     ddc_subject_area = self.ddc_to_text(ddc, log)
@@ -1050,10 +1059,12 @@ class DNB_DE(Source):
 
                 # Put other data in comment field
                 if self.cfg_fetch_all == True:
+                    if marc21_fields:
+                        book['comments'] = book['comments'] + _('\nMARC21 fields:\t') + ', '.join(marc21_fields)
                     if self.cfg_prefer_results_with_isbn == False and book['isbn']:
-                        book['comments'] = book['comments'] +_('\nISBN:\t') + book['isbn']
+                        book['comments'] = book['comments'] + _('\nISBN:\t') + book['isbn']
                     if book['subtitle']:
-                        book['comments'] = book['comments'] +_('\nSubtitle:\t') + book['subtitle']
+                        book['comments'] = book['comments'] + _('\nSubtitle:\t') + book['subtitle']
                     if book['editor']:
                         book['comments'] = book['comments'] + _('\nEditor:\t') + book['editor']
                     if book['artist']:
@@ -1501,6 +1512,12 @@ class DNB_DE(Source):
 
     # Convert ddc to text for tagging
     def ddc_to_text(self, ddc, log):
+        # Caveat:
+        #     <datafield tag="082" ind1="7" ind2="4">
+        #       <subfield code="a">830</subfield>
+        #       <subfield code="a">B</subfield>
+        if not ddc.isnumeric():
+            return None
         ddc = str(ddc)
         QUERY_BASE_URL = 'https://deweysearchde.pansoft.de/webdeweysearch/executeSearch.html'
         query_url = QUERY_BASE_URL + '?query=' + ddc + '&catalogs=DNB'
