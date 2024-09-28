@@ -168,19 +168,21 @@ class DNB_DE(Source):
                     'editor': None,
                     'artist': None,
                     'translator': None,
+                    'extent': None,
                     'other_physical_details': None,
                     'dimensions': None,
                     'accompanying_material': None,
                     'terms_of_availability': None,
                     'mediatype': None,
-                    'tags': None,
+                    'tags': [],
                     'comments': None,
                     'record_uri': None,
                     'idn': None,
                     'urn': None,
                     'isbn': None,
+                    'gnd': None,
                     'ddc': [],
-                    'ddc_subject_area': None,
+                    'ddc_subject_area': [],
                     'subjects_gnd': [],
                     'subjects_non_gnd': [],
                     'publisher_name': None,
@@ -190,8 +192,7 @@ class DNB_DE(Source):
                 }
 
                 ##### For plugin extending purposes, document all fields in MARC21 record for this book here
-                marc21_fields = record.xpath("//marc21:datafield[@tag]/text()", namespaces=ns)
-                log.info("marc21_fields=%s" % marc21_fields)
+                marc21_fields = record.xpath("//marc21:datafield/@tag", namespaces=ns)
 
                 ##### Field 336: "Content Type" #####
                 # Skip Audio Books
@@ -380,7 +381,7 @@ class DNB_DE(Source):
                     if code_a and code_c:
                         # ToDo: consider regex
                         # 245.c ['Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer']
-                        for splitter in ['Hrsg. von ', '. Hrsg.: ']:
+                        for splitter in ['Hrsg. von ', 'hrsg. von ', '. Hrsg.: ']:
                             code_c_authors_split = code_c[0].split(splitter)
                             code_c_authors = code_c_authors_split[0]
                             if len(code_c_authors_split) > 1:
@@ -650,7 +651,8 @@ class DNB_DE(Source):
                 ##### Field 16: "National Bibliographic Agency Control Number" #####
                 # Get Identifier "IDN" (dnb-idn)
                 try:
-                    book['idn'] = record.xpath("./marc21:datafield[@tag='016']/marc21:subfield[@code='a' and string-length(text())>0]", namespaces=ns)[0].text.strip()
+                    book['idn'] = record.xpath("./marc21:datafield[@tag='016']/marc21:subfield[@code='a' "
+                                               "and string-length(text())>0]", namespaces=ns)[0].text.strip()
                     log.info("[016.a] Identifier IDN: %s" % book['idn'])
                 except IndexError:
                     pass
@@ -658,12 +660,29 @@ class DNB_DE(Source):
 
                 ##### Field 24: "Other Standard Identifier" #####
                 # Get Identifier "URN"
-                for i in record.xpath("./marc21:datafield[@tag='024']/marc21:subfield[@code='2' and text()='urn']/../marc21:subfield[@code='a' and string-length(text())>0]", namespaces=ns):
+                for i in record.xpath("./marc21:datafield[@tag='024']/marc21:subfield[@code='2' "
+                                      "and text()='urn']/../marc21:subfield[@code='a' and string-length(text())>0]",
+                                      namespaces=ns):
                     try:
                         urn = i.text.strip()
                         match = re.search("^urn:(.+)$", urn)
                         book['urn'] = match.group(1)
                         log.info("[024.a] Identifier URN: %s" % book['urn'])
+                        break
+                    except AttributeError:
+                        pass
+
+                # Caveat: "urn:" may be missing:
+                #     <datafield tag="024" ind1="7" ind2=" ">
+                #       <subfield code="a">1317675975</subfield>
+                #       <subfield code="0">http://d-nb.info/gnd/1317675975</subfield>
+                #       <subfield code="2">gnd</subfield>
+                for i in record.xpath("./marc21:datafield[@tag='024']/marc21:subfield[@code='2' "
+                                      "and text()='gnd']/../marc21:subfield[@code='a' and string-length(text())>0]",
+                                      namespaces=ns):
+                    try:
+                        book['gnd'] = i.text.strip()
+                        log.info("[024.a] Identifier GND: %s" % book['gnd'])
                         break
                     except AttributeError:
                         pass
@@ -701,17 +720,12 @@ class DNB_DE(Source):
                     ddc_subject_area = self.ddc_to_text(ddc, log)
                     # log.info("ddc_subject_area=%s" % ddc_subject_area)
                     if ddc_subject_area:
-                        book['ddc_subject_area'] = ddc_subject_area
-                        if book['tags']:
-                            if ',' in ddc_subject_area:
-                                book['tags'].extend([x.strip() for x in ddc_subject_area.split(',')])
-                            else:
-                                book['tags'].append([ddc_subject_area])
+                        book['ddc_subject_area'].append(ddc_subject_area)
+                        ddc_subject_area.replace(';',',')
+                        if ',' in ddc_subject_area:
+                            book['tags'].extend([x.strip() for x in ddc_subject_area.split(',')])
                         else:
-                            if ',' in ddc_subject_area:
-                                book['tags'] = [x.strip() for x in ddc_subject_area.split(',')]
-                            else:
-                                book['tags'] = [ddc_subject_area]
+                            book['tags'].append(ddc_subject_area)
                     book['ddc'].append(ddc)
                 if book['ddc']:
                     log.info("[082.a] Indentifiers DDC: %s" % ",".join(book['ddc']))
@@ -1084,7 +1098,7 @@ class DNB_DE(Source):
                     if book['terms_of_availability']:
                         book['comments'] = (book['comments'] + _('\nTerms of availability:\t') + book['terms_of_availability'])
                     if book['ddc_subject_area']:
-                        book['comments'] = (book['comments'] + _('\nDDC subject area:\t') + book['ddc_subject_area'])
+                        book['comments'] = (book['comments'] + _('\nDDC subject area:\t') + ', '.join(book['ddc_subject_area']))
                     if book['subjects_gnd']:
                         book['comments'] = book['comments'] + _(
                             '\nGND subjects:\t') + ' / '.join(book['subjects_gnd'])
@@ -1093,7 +1107,10 @@ class DNB_DE(Source):
                             '\nNon-GND subjects:\t') + ' / '.join(book['subjects_non_gnd'])
 
                 # Indicate path to source
-                book['record_uri'] = 'https://d-nb.info/' + book['idn']
+                if book['idn']:
+                    book['record_uri'] = 'https://d-nb.info/' + book['idn']
+                elif book['gnd']:
+                    book['record_uri'] = 'https://d-nb.info/gnd/' + book['gnd']
                 book['comments'] = book['comments'] + _('\nSource:\t') + book['record_uri']
                 log.info("book= %s" % book)
 
