@@ -616,7 +616,7 @@ class DNB_DE(Source):
                     # Verantwortlichkeitsangabe zum weiteren Titel
                     code_v = []
                     for i in field.xpath("./marc21:subfield[@code='v' and string-length(text())>0]", namespaces=ns):
-                        code_va.append(i.text.strip())
+                        code_v.append(i.text.strip())
                         log.info("[249.v] code_v=%s" % code_v)
 
                     if code_a:
