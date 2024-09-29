@@ -21,8 +21,8 @@ from calibre.ebooks import normalize
 
 import re
 import datetime
-
 from unicodedata import numeric
+from unicodedata import normalize as unicodedata_normalize
 
 try:
     from urllib import quote  # Python2
@@ -388,24 +388,42 @@ class DNB_DE(Source):
                         # ToDo: consider regex
                         # 245.c ['Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer']
                         for delimiter in ['Hrsg. von ', 'hrsg. von ', '. Hrsg.: ']:
-                            code_c_authors_split = code_c[0].split(delimiter)
-                            code_c_authors = code_c_authors_split[0]
-                            if len(code_c_authors_split) > 1:
-                                book['editor'] = code_c_authors_split[1].strip()
+                            code_c_split = code_c[0].split(delimiter)
+                            code_c_authors = code_c_split[0]
+                            if len(code_c_split) > 1:
+                                book['editor'] = code_c_split[1].strip()
+                                code_c[0] = code_c[0].replace(book['editor'], '')
+                                log.info("code_c=%s" % code_c)
                         # [245.c] ['Ludwig Bechstein ; Illustrator: Ludwig Richter']
                         for delimiter in ['Illustrator: ', 'Illustriert von ', 'illustriert von ', 'Ill. von ']:
-                            code_c_authors_split = code_c[0].split(delimiter)
-                            code_c_authors = code_c_authors_split[0]
+                            code_c_split = code_c[0].split(delimiter)
+                            code_c_authors = code_c_split[0]
                             code_c_authors = code_c_authors.strip(';').strip()
-                            if len(code_c_authors_split) > 1:
-                                book['artist'] = code_c_authors_split[1].strip()
+                            if len(code_c_split) > 1:
+                                book['artist'] = code_c_split[1].strip()
+                                code_c[0] = code_c[0].replace(book['artist'], '')
+                                log.info("code_c=%s" % code_c)
                         # <subfield code="c">von Gérard de Villiers. [Übers.: Jürgen Hofmann]</subfield>
+                        # [delimiter=5b:55:308:62:65:72:73:2e:3a
+                        # [code_c[0]=von Gérard de Villiers. [Übers.: Jürgen Hofmann]
+                        # [code_c[0]=76:6f:6e:20:47:e9:72:61:72:64:20:64:65:20:56:69:6c:6c:69:65:72:73:2e:20:5b:dc:62:65:72:73:2e:3a:20:4a:fc:72:67:65:6e:20:48:6f:66:6d:61:6e:6e:5d
+                        # Ü in delimiter is x'55', Ü in decoded xml (code_c) is x'dc' => compare fails. So normalize
+                        # the delimiter before compare.
                         for delimiter in ['[Übers.:', 'Übers.:', 'Übersetzt von']:
-                            code_c_authors_split = code_c[0].split(delimiter)
-                            code_c_authors = code_c_authors_split[0]
-                            code_c_authors = code_c_authors.strip(']').strip(';').strip()
-                            if len(code_c_authors_split) > 1:
-                                book['translator'] = code_c_authors_split[1].strip()
+                            # log.info("[delimiter=%s" % delimiter)
+                            # log.info("[delimiter=%s" % ":".join("{:02x}".format(ord(c)) for c in delimiter))
+                            delimiter = unicodedata_normalize("NFKC", delimiter)
+                            # log.info("[delimiter, normalized=%s" % ":".join("{:02x}".format(ord(c)) for c in delimiter))
+                            # log.info("[code_c[0]=%s" % code_c[0])
+                            # log.info("[code_c[0]=%s" % ":".join("{:02x}".format(ord(c)) for c in code_c[0]))
+                            code_c_split = code_c[0].split(delimiter)
+                            code_c_authors = code_c_split[0]
+                            code_c_authors = code_c_authors.strip(';').strip()
+                            if len(code_c_split) > 1:
+                                book['translator'] = code_c_split[1].strip(']').strip()
+                                code_c[0] = code_c[0].replace(book['translator'], '')
+                                log.info("code_c=%s" % code_c)
+                                break
 
 
                     # a = series, n = series index, p = title and author
@@ -921,7 +939,8 @@ class DNB_DE(Source):
                 ##### Field 250: "Edition Statement" #####
                 # Get Edition
                 try:
-                    book['edition'] = record.xpath("./marc21:datafield[@tag='250']/marc21:subfield[@code='a' and string-length(text())>0]", namespaces=ns)[0].text.strip()
+                    book['edition'] = record.xpath("./marc21:datafield[@tag='250']/marc21:subfield[@code='a' "
+                                                   "and string-length(text())>0]", namespaces=ns)[0].text.strip()
                     log.info("[250.a] Edition: %s" % book['edition'])
                 except IndexError:
                     pass
@@ -1104,6 +1123,8 @@ class DNB_DE(Source):
                         book['comments'] = book['comments'] + _('\nArtist:\t') + book['artist']
                     if book['translator']:
                         book['comments'] = book['comments'] + _('\nTranslator:\t') + book['translator']
+                    if book['edition']:
+                        book['comments'] = book['comments'] + _('\nEdition:\t') + book['edition']
                     if book['mediatype']:
                         book['comments'] = book['comments'] + _('\nMedia type:\t') + book['mediatype']
                     if book['extent']:
