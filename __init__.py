@@ -387,18 +387,25 @@ class DNB_DE(Source):
                     if code_a and code_c:
                         # ToDo: consider regex
                         # 245.c ['Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer']
-                        for splitter in ['Hrsg. von ', 'hrsg. von ', '. Hrsg.: ']:
-                            code_c_authors_split = code_c[0].split(splitter)
+                        for delimiter in ['Hrsg. von ', 'hrsg. von ', '. Hrsg.: ']:
+                            code_c_authors_split = code_c[0].split(delimiter)
                             code_c_authors = code_c_authors_split[0]
                             if len(code_c_authors_split) > 1:
                                 book['editor'] = code_c_authors_split[1].strip()
                         # [245.c] ['Ludwig Bechstein ; Illustrator: Ludwig Richter']
-                        for splitter in ['Illustrator: ', 'Illustriert von ', 'illustriert von ', 'Ill. von ']:
-                            code_c_authors_split = code_c[0].split(splitter)
+                        for delimiter in ['Illustrator: ', 'Illustriert von ', 'illustriert von ', 'Ill. von ']:
+                            code_c_authors_split = code_c[0].split(delimiter)
                             code_c_authors = code_c_authors_split[0]
                             code_c_authors = code_c_authors.strip(';').strip()
                             if len(code_c_authors_split) > 1:
                                 book['artist'] = code_c_authors_split[1].strip()
+                        # <subfield code="c">von Gérard de Villiers. [Übers.: Jürgen Hofmann]</subfield>
+                        for delimiter in ['[Übers.:', 'Übers.:', 'Übersetzt von']:
+                            code_c_authors_split = code_c[0].split(delimiter)
+                            code_c_authors = code_c_authors_split[0]
+                            code_c_authors = code_c_authors.strip(']').strip(';').strip()
+                            if len(code_c_authors_split) > 1:
+                                book['translator'] = code_c_authors_split[1].strip()
 
 
                     # a = series, n = series index, p = title and author
@@ -544,8 +551,7 @@ class DNB_DE(Source):
                 for i in record.xpath("./marc21:datafield[@tag='700']/marc21:subfield[@code='4' and "
                                       "text()='trl']/../marc21:subfield[@code='a' and "
                                       "string-length(text())>0]", namespaces=ns):
-                    name = re.sub(" \[.*\]$", "", i.text.strip())
-                    book['translator'] = name
+                    book['translator'] = re.sub(" \[.*\]$", "", i.text.strip())
 
                 if secondary_authors:
                     book['authors'].extend(secondary_authors)
@@ -1088,8 +1094,6 @@ class DNB_DE(Source):
 
                 # Put other data in comment field
                 if self.cfg_fetch_all == True:
-                    if marc21_fields:
-                        book['comments'] = book['comments'] + _('\nMARC21 fields:\t') + ', '.join(marc21_fields)
                     if self.cfg_prefer_results_with_isbn == False and book['isbn']:
                         book['comments'] = book['comments'] + _('\nISBN:\t') + book['isbn']
                     if book['subtitle']:
@@ -1120,6 +1124,8 @@ class DNB_DE(Source):
                     if book['subjects_non_gnd']:
                         book['comments'] = book['comments'] + _(
                             '\nNon-GND subjects:\t') + ' / '.join(book['subjects_non_gnd'])
+                    if marc21_fields:
+                        book['comments'] = book['comments'] + _('\n---\nMARC21 fields:\t') + ', '.join(marc21_fields)
 
                 # Indicate path to source
                 if book['idn']:
@@ -1392,14 +1398,26 @@ class DNB_DE(Source):
 
     # clean up title
     def clean_title(self, log, title):
+        log.info("clean_title(), title=%s" % title)
         if title:
             # remove name of translator from title
             match = re.search(
                 '^(.+) [/:] [Aa]us dem .+? von(\s\w+)+$', self.remove_sorting_characters(title))
             if match:
                 title = match.group(1)
+                book['translator'] = title = match.group(2)
                 log.info("[Title Cleaning] Removed translator, title is now: %s" % title)
-        return title
+                return title
+            # For clarity reason, no use of non-capturing groups for alternatives
+            # <subfield code="c">von Gérard de Villiers. [Übers.: Jürgen Hofmann]</subfield>
+            match = re.search(
+                '^(.+) [/:.] \[Übers\.:(\s\w+)+\]$', self.remove_sorting_characters(title))
+            if match:
+                title = match.group(1)
+                book['translator'] = title = match.group(2)
+                log.info("[Title Cleaning] Removed translator, title is now: %s" % title)
+                return title
+            return title
 
 
     # clean up series
