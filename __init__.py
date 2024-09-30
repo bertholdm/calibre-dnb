@@ -330,7 +330,6 @@ class DNB_DE(Source):
                     log.info("added_entry=%s" % added_entry)
 
                 for field in record.xpath("./marc21:datafield[@tag='245']", namespaces=ns):
-                    log.info("field=%s" % field.text.strip())
                     title_parts = []
 
                     # <datafield tag="245" ind1="0" ind2="0">
@@ -374,26 +373,21 @@ class DNB_DE(Source):
                     if code_a and code_b and code_c:
                         book['subtitle'] = code_b[0]
 
-                    # a = title, perhaps with subtitle
-                    if code_a:
-                        code_a_title_split = code_a[0].split(": ")
-                        code_a_title = code_a_title_split[0]
-                        if len(code_a_title_split) > 1:
-                            code_a = [code_a_title_split[0]]  # title without subtitle
-                            book['subtitle'] = code_a_title_split[1]
-
                     # c = author and perhaps editor, artist etc.
                     code_c_authors = None
                     if code_a and code_c:
+
                         # ToDo: consider regex
+
                         # 245.c ['Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer']
                         for delimiter in ['Hrsg. von ', 'hrsg. von ', '. Hrsg.: ']:
                             code_c_split = code_c[0].split(delimiter)
                             code_c_authors = code_c_split[0]
                             if len(code_c_split) > 1:
                                 book['editor'] = code_c_split[1].strip()
-                                code_c[0] = code_c[0].replace(book['editor'], '')
+                                code_c = [code_c[0].replace(delimiter + book['editor'], '')]
                                 log.info("code_c=%s" % code_c)
+                                break
                         # [245.c] ['Ludwig Bechstein ; Illustrator: Ludwig Richter']
                         for delimiter in ['Illustrator: ', 'Illustriert von ', 'illustriert von ', 'Ill. von ']:
                             code_c_split = code_c[0].split(delimiter)
@@ -401,8 +395,9 @@ class DNB_DE(Source):
                             code_c_authors = code_c_authors.strip(';').strip()
                             if len(code_c_split) > 1:
                                 book['artist'] = code_c_split[1].strip()
-                                code_c[0] = code_c[0].replace(book['artist'], '')
+                                code_c = [code_c[0].replace(book['artist'], '')]
                                 log.info("code_c=%s" % code_c)
+                                break
                         # <subfield code="c">von Gérard de Villiers. [Übers.: Jürgen Hofmann]</subfield>
                         # [delimiter=5b:55:308:62:65:72:73:2e:3a
                         # [code_c[0]=von Gérard de Villiers. [Übers.: Jürgen Hofmann]
@@ -421,10 +416,17 @@ class DNB_DE(Source):
                             code_c_authors = code_c_authors.strip(';').strip()
                             if len(code_c_split) > 1:
                                 book['translator'] = code_c_split[1].strip(']').strip()
-                                code_c[0] = code_c[0].replace(book['translator'], '')
+                                code_c = [code_c[0].replace(book['translator'], '')]
                                 log.info("code_c=%s" % code_c)
                                 break
 
+                    # a = series, n = series index, p = title and author
+                    # <subfield code="a">Spannende Geschichten</subfield>
+                    # <subfield code="n">119.</subfield>
+                    # <subfield code="p">Schiffbruch zwischen Erde und Mond / [Von] Henry Gamarick. Ill.: G. Büsemeyer [u.a.]</subfield>
+                    # <subfield code="c">Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer</subfield>
+                    if code_a and code_n and code_p and code_c:
+                        pass
 
                     # a = series, n = series index, p = title and author
                     code_p_authors = None
@@ -897,6 +899,20 @@ class DNB_DE(Source):
                     if series and series_index:
                         book['series'] = series
                         book['series_index'] = series_index
+
+                # Adjust title, if series and index in title
+                match = re.search(book['series'] + ".*" + str(int(book['series_index'])) + ".*:(.*)", book['title'])
+                if match:
+                    book['title'] = match.group(1).strip()
+                    log.info("book['title'] after stripping series and index=%s" % book['title'])
+                else:
+                    # title, perhaps with subtitle
+                    title_split = book['title'].split(": ")
+                    book['title'] = title_split[0]
+                    if len(title_split) > 1:
+                        book['title'] = title_split[0]  # title without subtitle
+                        log.info("book['title'] after stripping subtitle=%s" % book['title'])
+                        book['subtitle'] = title_split[1]
 
 
                 ##### Field 689 #####
