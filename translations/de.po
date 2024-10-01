@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ISFDB3\n"
-"POT-Creation-Date: 2024-09-29 16:53+0200\n"
-"PO-Revision-Date: 2024-09-29 16:55+0200\n"
+"POT-Creation-Date: 2024-09-30 16:46+0200\n"
+"PO-Revision-Date: 2024-09-30 16:46+0200\n"
 "Last-Translator: Michael Detambel <info@michael-detambel.de>\n"
 "Language-Team: Michael Detambel\n"
 "Language: de_DE@formal\n"
@@ -18,7 +18,7 @@ msgstr ""
 msgid "Downloads metadata from the DNB (Deutsche National Bibliothek)."
 msgstr "Lädt Metadaten aus der DNB (Deutsche National Bibliothek)."
 
-#: __init__.py:1117
+#: __init__.py:1136
 msgid ""
 "\n"
 "ISBN:\t"
@@ -26,7 +26,7 @@ msgstr ""
 "\n"
 "ISBN:\t"
 
-#: __init__.py:1119
+#: __init__.py:1138
 msgid ""
 "\n"
 "Subtitle:\t"
@@ -35,7 +35,7 @@ msgstr ""
 "Untertitel:\t"
 
 # Weitere isfdb-Texte
-#: __init__.py:1121
+#: __init__.py:1140
 msgid ""
 "\n"
 "Editor:\t"
@@ -43,7 +43,7 @@ msgstr ""
 "\n"
 "Herausgeber:\t"
 
-#: __init__.py:1123
+#: __init__.py:1142
 msgid ""
 "\n"
 "Artist:\t"
@@ -51,7 +51,7 @@ msgstr ""
 "\n"
 "Künstler:\t"
 
-#: __init__.py:1125
+#: __init__.py:1144
 msgid ""
 "\n"
 "Translator:\t"
@@ -60,7 +60,7 @@ msgstr ""
 "Übersetzer:\t"
 
 # Weitere isfdb-Texte
-#: __init__.py:1127
+#: __init__.py:1146
 msgid ""
 "\n"
 "Edition:\t"
@@ -68,7 +68,7 @@ msgstr ""
 "\n"
 "Auflage:\t"
 
-#: __init__.py:1129
+#: __init__.py:1148
 msgid ""
 "\n"
 "Media type:\t"
@@ -76,7 +76,7 @@ msgstr ""
 "\n"
 "Medienart:\t"
 
-#: __init__.py:1131
+#: __init__.py:1150
 msgid ""
 "\n"
 "Extent:\t"
@@ -84,7 +84,7 @@ msgstr ""
 "\n"
 "Umfang:\t"
 
-#: __init__.py:1133
+#: __init__.py:1152
 msgid ""
 "\n"
 "Other physical details:\t"
@@ -92,7 +92,7 @@ msgstr ""
 "\n"
 "Andere physische Details:\t"
 
-#: __init__.py:1135
+#: __init__.py:1154
 msgid ""
 "\n"
 "Dimensions:\t"
@@ -100,7 +100,7 @@ msgstr ""
 "\n"
 "Maße:\t"
 
-#: __init__.py:1137
+#: __init__.py:1156
 msgid ""
 "\n"
 "Accompanying material:\t"
@@ -108,7 +108,7 @@ msgstr ""
 "\n"
 "Begleitmaterial:\t"
 
-#: __init__.py:1139
+#: __init__.py:1158
 msgid ""
 "\n"
 "Terms of availability:\t"
@@ -116,15 +116,15 @@ msgstr ""
 "\n"
 "Bezugsbedingungen:\t"
 
-#: __init__.py:1141
+#: __init__.py:1160
 msgid ""
 "\n"
 "DDC subject area:\t"
 msgstr ""
 "\n"
-"DDC Fachbereich:\t"
+"DDC Sachgruppe:\t"
 
-#: __init__.py:1144
+#: __init__.py:1163
 msgid ""
 "\n"
 "GND subjects:\t"
@@ -132,7 +132,7 @@ msgstr ""
 "\n"
 "GND Einträge:\t"
 
-#: __init__.py:1147
+#: __init__.py:1166
 msgid ""
 "\n"
 "Non-GND subjects:\t"
@@ -140,14 +140,14 @@ msgstr ""
 "\n"
 "Nicht-GND Einträge:\t"
 
-#: __init__.py:1149
+#: __init__.py:1168
 msgid ""
 "\n"
 "---\n"
 "MARC21 fields:\t"
 msgstr ""
 
-#: __init__.py:1156
+#: __init__.py:1175
 msgid ""
 "\n"
 "Source:\t"

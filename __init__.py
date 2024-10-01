@@ -319,8 +319,11 @@ class DNB_DE(Source):
                 #	Series:		"The Endless Book"
                 #	Series Index:	2
 
+                # Caching indicators
                 if record.xpath("./marc21:datafield[@tag='245']", namespaces=ns):
+                    # 0 = Keine Nebeneintragung, 1 = Nebeneintragung (im Datensatz ist eines der Felder 1XX vorhanden)
                     ind1 = record.xpath("./marc21:datafield[@ind1]", namespaces=ns)[0].text.strip()
+                    # Anzahl der zu übergehenden Zeichen: 0 = default
                     ind2 = record.xpath("./marc21:datafield[@ind2]", namespaces=ns)[0].text.strip()
                     if len(ind1) > 0:
                         added_entry = not int(ind1)  # 245 Title statement 1 = added entry (Nebeneintragung)
@@ -332,15 +335,7 @@ class DNB_DE(Source):
                 for field in record.xpath("./marc21:datafield[@tag='245']", namespaces=ns):
                     title_parts = []
 
-                    # <datafield tag="245" ind1="0" ind2="0">
-                    #   <subfield code="a">Fliegergeschichten</subfield>
-                    #   <subfield code="n">Bd. 188.</subfield>
-                    #   <subfield code="p">Über der Hölle des Mauna Loa / Otto Behrens</subfield>
-
-                    # <datafield tag="245" ind1="1" ind2="0">
-                    #   <subfield code="a">&#152;Die&#156; Odyssee der PN-9</subfield>
-                    #   <subfield code="c">Fritz Moeglich. Hrsg.: Peter Supf</subfield>
-
+                    # Title (Titel)
                     code_a = []
                     for i in field.xpath("./marc21:subfield[@code='a' and string-length(text())>0]", namespaces=ns):
                         code_a.append(i.text.strip())
@@ -349,10 +344,12 @@ class DNB_DE(Source):
                     for i in field.xpath("./marc21:subfield[@code='b' and string-length(text())>0]", namespaces=ns):
                         code_b.append(i.text.strip())
                         log.info("[245.b] code_b=%s" % code_b)
+                    # Statement of responsibility etc. (Verfasserangabe etc.)
                     code_c = []
                     for i in field.xpath("./marc21:subfield[@code='c' and string-length(text())>0]", namespaces=ns):
                         code_c.append(i.text.strip())
                         log.info("[245.c] code_c=%s" % code_c)
+                    # Number of part / section of a work (Zählung eines Teils / einer Abteilung eines Werkes)
                     code_n = []
                     for i in field.xpath("./marc21:subfield[@code='n' and string-length(text())>0]", namespaces=ns):
                         match = re.search("(\d+([,\.]\d+)?)", i.text.strip())
@@ -364,10 +361,103 @@ class DNB_DE(Source):
                             if match:
                                 code_n.append('0')
                     log.info("[245.n] code_n=%s" % code_n)
+                    # Name of part / section of a work (Titel eines Teils / einer Abteilung eines Werkes)
                     code_p = []
                     for i in field.xpath("./marc21:subfield[@code='p' and string-length(text())>0]", namespaces=ns):
                         code_p.append(i.text.strip())
                     log.info("[245.p] code_p=%s" % code_p)
+
+                    # Remainder of title (Zusatz zum Titel)
+                    if code_c:
+
+                        # Step 1: Mark parts by uniforming identifiers
+                        for code_c_element in code_c:
+                            code_c = [s + '%%' for s in code_c]  # Mark end of code c entry
+                            for delimiter in ['Hrsg. von ', 'hrsg. von ', '. Hrsg.: ', 'Ausgew. und mit einem Nachw. von ']:
+                                code_c = list(map(lambda x: x.replace(delimiter, '%%e:'), code_c))  ## Mark editor
+                            for delimiter in ['Illustrator: ', 'Illustriert von ', 'illustriert von ', 'Ill. von ']:
+                                code_c = list(map(lambda x: x.replace(delimiter, '%%a:'), code_c))  ## Mark artist
+                            for delimiter in ['[Übers.:', 'Übers.:', 'Übersetzt von']:
+                                # log.info("[delimiter=%s" % delimiter)
+                                # log.info("[delimiter=%s" % ":".join("{:02x}".format(ord(c)) for c in delimiter))
+                                delimiter = unicodedata_normalize("NFKC", delimiter)
+                                # log.info("[delimiter, normalized=%s" % ":".join("{:02x}".format(ord(c)) for c in delimiter))
+                                # log.info("[code_c[0]=%s" % code_c[0])
+                                # log.info("[code_c[0]=%s" % ":".join("{:02x}".format(ord(c)) for c in code_c[0]))
+                                code_c = list(map(lambda x: x.replace(delimiter, '%%t:'), code_c))  ## Mark translator
+                        log.info("[245.c] code_c after uniforming identifiers=%s" % code_c)
+
+                        # Step 2: Identifiying parts by divide and conquer
+                        for code_c_element in code_c:
+                            match = re.search("%%e:(.*?)%%", code_c_element)  # Search until first '%%' (non-greedy)
+                            if match:
+                                book['editor'] = match.group(1).strip().strip('.').strip()
+                                log.info("book['editor']=%s" % book['editor'])
+                                code_c = list(map(lambda x: x.replace('%%e:' + match.group(1), ''), code_c))  ## strip match
+                        for code_c_element in code_c:
+                            match = re.search("%%a:(.*?)%%", code_c_element)  # Search until first '%%' (non-greedy)
+                            if match:
+                                book['artist'] = match.group(1).strip().strip('.').strip()
+                                log.info("book['artist']=%s" % book['artist'])
+                                code_c = list(map(lambda x: x.replace('%%a:' + match.group(1), ''), code_c))  ## strip match
+                        for code_c_element in code_c:
+                            match = re.search("%%t:(.*?)%%", code_c_element)  # Search until first '%%' (non-greedy)
+                            if match:
+                                book['translator'] = match.group(1).strip().strip('.').strip()
+                                log.info("book['translator']=%s" % book['translator'])
+                                code_c = list(map(lambda x: x.replace('%%t:' + match.group(1), ''), code_c))  ## strip match
+                        # Is there a remainder?
+                        for code_c_element in code_c:
+                            code_c = list(map(lambda x: x.replace('%%', ''), code_c))  ## strip delimiters
+                            code_c = list(map(lambda x: x.replace(' ', ''), code_c))  ## strip delimiters
+                        log.info("code_c after stripping=%s" % code_c)
+
+
+
+                    # ToDo:
+                    # 245.a] code_a=['Spannende Geschichten']
+                    # [245.c] code_c=['Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer']
+                    # [245.n] code_n=['17']
+                    # [245.p] code_p=['Start ins Ungewisse / [Von] Heinz Helfgen']
+
+                    #     <datafield tag="245" ind1="1" ind2="0">
+                    #       <subfield code="a">Auf dem Jakobsweg</subfield>
+                    #       <subfield code="b">Tagebuch einer Pilgerreise nach Santiago de Compostela</subfield>
+                    #       <subfield code="c">Paulo Coelho. Aus dem Brasilianischen von Maralde Meyer-Minnemann</subfield>
+
+                    # ToDo: 245.c] code_c=['Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer']
+
+                    #     <datafield tag="245" ind1="1" ind2="0">
+                    #       <subfield code="a">Märchen aus Bayern</subfield>
+                    #       <subfield code="b">Märchen der Welt</subfield>
+                    #       <subfield code="c">Karl Spiegel</subfield>
+
+                    # [245.a] code_a=['Deutsches Märchenbuch']
+                    # [245.b] code_b=['Mit Illustrationen von Ludwig Richter']
+                    # [245.c] code_c=['Ludwig Bechstein ; Illustrator: Ludwig Richter']
+                    # [245.n] code_n=[]
+                    # [245.p] code_p=[]
+
+                    #     <datafield tag="245" ind1="0" ind2="0">
+                    #       <subfield code="a">&#152;Die&#156; Horen</subfield>
+                    #       <subfield code="n">1.1795, Stück 1-12 = Bd. 1-4</subfield>
+                    #       <subfield code="c">hrsg. von Schiller</subfield>
+
+                    #     <datafield tag="245" ind1="1" ind2="0">
+                    #       <subfield code="a">Am Kamin und andere unheimliche Geschichten</subfield>
+                    #       <subfield code="c">Theodor Storm. Mit Ill. von Roswitha Quadflieg. Ausgew. und mit einem Nachw. von Gottfried Honnefelder</subfield>
+
+
+
+                    # <datafield tag="245" ind1="0" ind2="0">
+                    #   <subfield code="a">Fliegergeschichten</subfield>
+                    #   <subfield code="n">Bd. 188.</subfield>
+                    #   <subfield code="p">Über der Hölle des Mauna Loa / Otto Behrens</subfield>
+
+                    # <datafield tag="245" ind1="1" ind2="0">
+                    #   <subfield code="a">&#152;Die&#156; Odyssee der PN-9</subfield>
+                    #   <subfield code="c">Fritz Moeglich. Hrsg.: Peter Supf</subfield>
+
 
                     # Caching subtitle
                     if code_a and code_b and code_c:
@@ -437,39 +527,6 @@ class DNB_DE(Source):
                             code_p_authors = code_p_authors_split[1].strip()
                             code_p_authors.removeprefix('[Von]').strip()
                             book['authors'].extend([code_p_authors])
-
-                    # ToDo:
-                    # 245.a] code_a=['Spannende Geschichten']
-                    # [245.c] code_c=['Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer']
-                    # [245.n] code_n=['17']
-                    # [245.p] code_p=['Start ins Ungewisse / [Von] Heinz Helfgen']
-
-                    #     <datafield tag="245" ind1="1" ind2="0">
-                    #       <subfield code="a">Auf dem Jakobsweg</subfield>
-                    #       <subfield code="b">Tagebuch einer Pilgerreise nach Santiago de Compostela</subfield>
-                    #       <subfield code="c">Paulo Coelho. Aus dem Brasilianischen von Maralde Meyer-Minnemann</subfield>
-
-                    # ToDo: 245.c] code_c=['Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer']
-
-                    #     <datafield tag="245" ind1="1" ind2="0">
-                    #       <subfield code="a">Märchen aus Bayern</subfield>
-                    #       <subfield code="b">Märchen der Welt</subfield>
-                    #       <subfield code="c">Karl Spiegel</subfield>
-
-                    # [245.a] code_a=['Deutsches Märchenbuch']
-                    # [245.b] code_b=['Mit Illustrationen von Ludwig Richter']
-                    # [245.c] code_c=['Ludwig Bechstein ; Illustrator: Ludwig Richter']
-                    # [245.n] code_n=[]
-                    # [245.p] code_p=[]
-
-                    #     <datafield tag="245" ind1="0" ind2="0">
-                    #       <subfield code="a">&#152;Die&#156; Horen</subfield>
-                    #       <subfield code="n">1.1795, Stück 1-12 = Bd. 1-4</subfield>
-                    #       <subfield code="c">hrsg. von Schiller</subfield>
-
-                    #     <datafield tag="245" ind1="1" ind2="0">
-                    #       <subfield code="a">Am Kamin und andere unheimliche Geschichten</subfield>
-                    #       <subfield code="c">Theodor Storm. Mit Ill. von Roswitha Quadflieg. Ausgew. und mit einem Nachw. von Gottfried Honnefelder</subfield>
 
                     # Title
                     if code_p:
@@ -901,18 +958,21 @@ class DNB_DE(Source):
                         book['series_index'] = series_index
 
                 # Adjust title, if series and index in title
-                match = re.search(book['series'] + ".*" + str(int(book['series_index'])) + ".*:(.*)", book['title'])
-                if match:
-                    book['title'] = match.group(1).strip()
-                    log.info("book['title'] after stripping series and index=%s" % book['title'])
-                else:
-                    # title, perhaps with subtitle
-                    title_split = book['title'].split(": ")
-                    book['title'] = title_split[0]
-                    if len(title_split) > 1:
-                        book['title'] = title_split[0]  # title without subtitle
-                        log.info("book['title'] after stripping subtitle=%s" % book['title'])
-                        book['subtitle'] = title_split[1]
+                if book['series']:
+                    # Re-format series_index (book['series_index'] is of type string)
+                    # to remove leading zeros before searching.
+                    match = re.search(book['series'] + ".*" + str(int(book['series_index'])) + ".*:(.*)", book['title'])
+                    if match:
+                        book['title'] = match.group(1).strip()
+                        log.info("book['title'] after stripping series and index=%s" % book['title'])
+                    else:
+                        # title, perhaps with subtitle
+                        title_split = book['title'].split(": ")
+                        book['title'] = title_split[0]
+                        if len(title_split) > 1:
+                            book['title'] = title_split[0]  # title without subtitle
+                            log.info("book['title'] after stripping subtitle=%s" % book['title'])
+                            book['subtitle'] = title_split[1]
 
 
                 ##### Field 689 #####
@@ -1177,8 +1237,8 @@ class DNB_DE(Source):
 
                 # Avoiding Calibre's merge behavior for identical titles and authors.
                 # (This behavior suppresses other editions of a title.)
-                if len(results) > 1 and book['pubdate']:
-                    book['title'] = book['title'] + " (" + str(book['pubdate'].year) + ")"
+                if len(results) > 1:
+                    book['title'] = book['title'] + " (" + book['idn'] + ")"
 
                 authors = list(map(lambda i: self.remove_sorting_characters(i), book['authors']))
 
@@ -1321,6 +1381,7 @@ class DNB_DE(Source):
             # create some variations of given title
             title_v = []
             if title:
+
                 # simply use given title
                 title_v.append([ title ])
 
@@ -1341,6 +1402,16 @@ class DNB_DE(Source):
                     title, strip_joiners=True, strip_subtitle=True)) if (len(x)>1 or x.isnumeric())])
 
             ## create queries
+            # Titelsuche
+            # tit
+            # Sämtliche Titelfelder werden mit tit durchsucht, er liegt hinter dem Suchschlüssel
+            # Titel in der Erweiterten Suche. Titelfelder sind zum Beispiel Haupttitel, Titelzusätze, Serientitel und
+            # Titel von Werken (Normdaten). Beispiel: tit=Joseph Brüder
+            # tst
+            # Es wird der vollständige Titel gesucht, das heißt der Titel muss exakt bekannt sein und der führende
+            # Artikel eingegeben werden. Beispiel: tst="Der Atlas für den Weltreisenden". Rechtstrunkierung ist möglich,
+            # Beispiel: tst="Der Vogelhändler*". Der Index tst liegt hinter dem Suchschlüssel Vollständiger Titel
+
             # title and author given:
             if authors_v and title_v:
 

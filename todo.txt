@@ -1,0 +1,159 @@
+Running identify query with parameters: 
+{'title': 'Schiffbruch zwischen Erde und Mond', 'authors': None, 'identifiers': {}, 'timeout': 30} 
+Using plugins: DNB_DE (3, 2, 4) 
+The log from individual plugins is below 
+
+****************************** DNB_DE (3, 2, 4) ****************************** 
+Found 1 results 
+Downloading from DNB_DE took 2.1100242137908936 
+
+
+--- 
+Title               : Schiffbruch zwischen Erde und Mond
+Title sort          : Schiffbruch zwischen Erde und Mond
+Author(s)           : [Von] Henry Gamarick. Ill.: G. Büsemeyer [u.a.]
+Publisher           : Gütersloh : Rufer-Verl.
+Series              : Spannende Geschichten #119
+Languages           : de
+Published           : 1956-01-01T10:30:00+00:00
+Identifiers         : dnb-idn:451512480
+Comments            : 
+Herausgeber:	Günther Bicknese. Ill. von Günter Büsemeyer
+Medienart:	ohne hilfsmittel zu benutzen
+Umfang:	47 S.
+Bezugsbedingungen:	geh. : je -.25
+---
+MARC21 fields:	016, 020, 035, 035, 035, 040, 041, 044, 245, 264, 300, 336, 337, 338, 366, 773, 850
+Quelle:	https://d-nb.info/451512480 
+Query String: tit="Schiffbruch zwischen Erde und Mond" NOT (mat=film OR mat=music OR mat=microfiches OR cod=tt)
+Query URL: https://services.dnb.de/sru/dnb?version=1.1&maximumRecords=10&operation=searchRetrieve&recordSchema=MARC21-xml&query=tit%3D%22Schiffbruch%20zwischen%20Erde%20und%20Mond%22%20NOT%20%28mat%3Dfilm%20OR%20mat%3Dmusic%20OR%20mat%3Dmicrofiches%20OR%20cod%3Dtt%29
+Got records: 1
+Parsing records
+[264.b] Publisher: Rufer-Verl.
+[264.c] Publication Year: 1956-01-01 12:30:00
+added_entry=False
+[245.a] code_a=['Spannende Geschichten']
+[245.c] code_c=['Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer']
+[245.n] code_n=['119']
+[245.p] code_p=['Schiffbruch zwischen Erde und Mond / [Von] Henry Gamarick. Ill.: G. Büsemeyer [u.a.]']
+code_c=['']
+[245] Series: Spannende Geschichten
+[245] Series_Index: 119
+[245] Title: Schiffbruch zwischen Erde und Mond
+clean_title(), title=Schiffbruch zwischen Erde und Mond
+[245] Title_Sort: Schiffbruch zwischen Erde und Mond
+[300] field=
+[300.a] code_a=['47 S.']
+[016.a] Identifier IDN: 451512480
+[041.a] Languages: de
+book= {'series': 'Spannende Geschichten', 'series_index': '119', 'pubdate': datetime.datetime(1956, 1, 1, 12, 30), 'originally_published': None, 'language': None, 'languages': ['de'], 'title': 'Schiffbruch zwischen Erde und Mond', 'title_sort': 'Schiffbruch zwischen Erde und Mond', 'subtitle': None, 'authors': ['[Von] Henry Gamarick. Ill.: G. Büsemeyer [u.a.]'], 'author_sort': None, 'edition': None, 'editor': 'Günther Bicknese. Ill. von Günter Büsemeyer', 'artist': None, 'translator': None, 'extent': '47 S.', 'other_physical_details': None, 'dimensions': None, 'accompanying_material': None, 'terms_of_availability': 'geh. : je -.25', 'mediatype': 'ohne hilfsmittel zu benutzen', 'tags': [], 'comments': '\nHerausgeber:\tGünther Bicknese. Ill. von Günter Büsemeyer\nMedienart:\tohne hilfsmittel zu benutzen\nUmfang:\t47 S.\nBezugsbedingungen:\tgeh. : je -.25\n---\nMARC21 fields:\t016, 020, 035, 035, 035, 040, 041, 044, 245, 264, 300, 336, 337, 338, 366, 773, 850\nQuelle:\thttps://d-nb.info/451512480', 'record_uri': 'https://d-nb.info/451512480', 'idn': '451512480', 'urn': None, 'isbn': None, 'gnd': None, 'ddc': [], 'ddc_subject_area': [], 'subjects_gnd': [], 'subjects_non_gnd': [], 'publisher_name': 'Rufer-Verl.', 'publisher_location': 'Gütersloh', 'alternative_xmls': []}
+self.prefer_results_with_isbn=False
+Final formatted result: 
+Title               : Schiffbruch zwischen Erde und Mond
+Title sort          : Schiffbruch zwischen Erde und Mond
+Author(s)           : [Von] Henry Gamarick. Ill.: G. Büsemeyer [u.a.]
+Publisher           : Gütersloh : Rufer-Verl.
+Series              : Spannende Geschichten #119
+Languages           : de
+Published           : 1956-01-01T10:30:00+00:00
+Identifiers         : dnb-idn:451512480
+Comments            : 
+Herausgeber:	Günther Bicknese. Ill. von Günter Büsemeyer
+Medienart:	ohne hilfsmittel zu benutzen
+Umfang:	47 S.
+Bezugsbedingungen:	geh. : je -.25
+---
+MARC21 fields:	016, 020, 035, 035, 035, 040, 041, 044, 245, 264, 300, 336, 337, 338, 366, 773, 850
+Quelle:	https://d-nb.info/451512480
+-----
+Query String: tit="Schiffbruch" AND tit="zwischen" AND tit="Erde" AND tit="Mond" NOT (mat=film OR mat=music OR mat=microfiches OR cod=tt)
+Query URL: https://services.dnb.de/sru/dnb?version=1.1&maximumRecords=10&operation=searchRetrieve&recordSchema=MARC21-xml&query=tit%3D%22Schiffbruch%22%20AND%20tit%3D%22zwischen%22%20AND%20tit%3D%22Erde%22%20AND%20tit%3D%22Mond%22%20NOT%20%28mat%3Dfilm%20OR%20mat%3Dmusic%20OR%20mat%3Dmicrofiches%20OR%20cod%3Dtt%29
+Got records: 1
+Parsing records
+[264.b] Publisher: Rufer-Verl.
+[264.c] Publication Year: 1956-01-01 12:30:00
+added_entry=False
+[245.a] code_a=['Spannende Geschichten']
+[245.c] code_c=['Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer']
+[245.n] code_n=['119']
+[245.p] code_p=['Schiffbruch zwischen Erde und Mond / [Von] Henry Gamarick. Ill.: G. Büsemeyer [u.a.]']
+code_c=['']
+[245] Series: Spannende Geschichten
+[245] Series_Index: 119
+[245] Title: Schiffbruch zwischen Erde und Mond
+clean_title(), title=Schiffbruch zwischen Erde und Mond
+[245] Title_Sort: Schiffbruch zwischen Erde und Mond
+[300] field=
+[300.a] code_a=['47 S.']
+[016.a] Identifier IDN: 451512480
+[041.a] Languages: de
+book= {'series': 'Spannende Geschichten', 'series_index': '119', 'pubdate': datetime.datetime(1956, 1, 1, 12, 30), 'originally_published': None, 'language': None, 'languages': ['de'], 'title': 'Schiffbruch zwischen Erde und Mond', 'title_sort': 'Schiffbruch zwischen Erde und Mond', 'subtitle': None, 'authors': ['[Von] Henry Gamarick. Ill.: G. Büsemeyer [u.a.]'], 'author_sort': None, 'edition': None, 'editor': 'Günther Bicknese. Ill. von Günter Büsemeyer', 'artist': None, 'translator': None, 'extent': '47 S.', 'other_physical_details': None, 'dimensions': None, 'accompanying_material': None, 'terms_of_availability': 'geh. : je -.25', 'mediatype': 'ohne hilfsmittel zu benutzen', 'tags': [], 'comments': '\nHerausgeber:\tGünther Bicknese. Ill. von Günter Büsemeyer\nMedienart:\tohne hilfsmittel zu benutzen\nUmfang:\t47 S.\nBezugsbedingungen:\tgeh. : je -.25\n---\nMARC21 fields:\t016, 020, 035, 035, 035, 040, 041, 044, 245, 264, 300, 336, 337, 338, 366, 773, 850\nQuelle:\thttps://d-nb.info/451512480', 'record_uri': 'https://d-nb.info/451512480', 'idn': '451512480', 'urn': None, 'isbn': None, 'gnd': None, 'ddc': [], 'ddc_subject_area': [], 'subjects_gnd': [], 'subjects_non_gnd': [], 'publisher_name': 'Rufer-Verl.', 'publisher_location': 'Gütersloh', 'alternative_xmls': []}
+self.prefer_results_with_isbn=False
+Final formatted result: 
+Title               : Schiffbruch zwischen Erde und Mond
+Title sort          : Schiffbruch zwischen Erde und Mond
+Author(s)           : [Von] Henry Gamarick. Ill.: G. Büsemeyer [u.a.]
+Publisher           : Gütersloh : Rufer-Verl.
+Series              : Spannende Geschichten #119
+Languages           : de
+Published           : 1956-01-01T10:30:00+00:00
+Identifiers         : dnb-idn:451512480
+Comments            : 
+Herausgeber:	Günther Bicknese. Ill. von Günter Büsemeyer
+Medienart:	ohne hilfsmittel zu benutzen
+Umfang:	47 S.
+Bezugsbedingungen:	geh. : je -.25
+---
+MARC21 fields:	016, 020, 035, 035, 035, 040, 041, 044, 245, 264, 300, 336, 337, 338, 366, 773, 850
+Quelle:	https://d-nb.info/451512480
+-----
+Query String: per="Schiffbruch zwischen Erde und Mond" NOT (mat=film OR mat=music OR mat=microfiches OR cod=tt)
+Query URL: https://services.dnb.de/sru/dnb?version=1.1&maximumRecords=10&operation=searchRetrieve&recordSchema=MARC21-xml&query=per%3D%22Schiffbruch%20zwischen%20Erde%20und%20Mond%22%20NOT%20%28mat%3Dfilm%20OR%20mat%3Dmusic%20OR%20mat%3Dmicrofiches%20OR%20cod%3Dtt%29
+Got records: 0
+Query String: "Schiffbruch zwischen Erde und Mond" NOT (mat=film OR mat=music OR mat=microfiches OR cod=tt)
+Query URL: https://services.dnb.de/sru/dnb?version=1.1&maximumRecords=10&operation=searchRetrieve&recordSchema=MARC21-xml&query=%22Schiffbruch%20zwischen%20Erde%20und%20Mond%22%20NOT%20%28mat%3Dfilm%20OR%20mat%3Dmusic%20OR%20mat%3Dmicrofiches%20OR%20cod%3Dtt%29
+Got records: 1
+Parsing records
+[264.b] Publisher: Rufer-Verl.
+[264.c] Publication Year: 1956-01-01 12:30:00
+added_entry=False
+[245.a] code_a=['Spannende Geschichten']
+[245.c] code_c=['Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer']
+[245.n] code_n=['119']
+[245.p] code_p=['Schiffbruch zwischen Erde und Mond / [Von] Henry Gamarick. Ill.: G. Büsemeyer [u.a.]']
+code_c=['']
+[245] Series: Spannende Geschichten
+[245] Series_Index: 119
+[245] Title: Schiffbruch zwischen Erde und Mond
+clean_title(), title=Schiffbruch zwischen Erde und Mond
+[245] Title_Sort: Schiffbruch zwischen Erde und Mond
+[300] field=
+[300.a] code_a=['47 S.']
+[016.a] Identifier IDN: 451512480
+[041.a] Languages: de
+book= {'series': 'Spannende Geschichten', 'series_index': '119', 'pubdate': datetime.datetime(1956, 1, 1, 12, 30), 'originally_published': None, 'language': None, 'languages': ['de'], 'title': 'Schiffbruch zwischen Erde und Mond', 'title_sort': 'Schiffbruch zwischen Erde und Mond', 'subtitle': None, 'authors': ['[Von] Henry Gamarick. Ill.: G. Büsemeyer [u.a.]'], 'author_sort': None, 'edition': None, 'editor': 'Günther Bicknese. Ill. von Günter Büsemeyer', 'artist': None, 'translator': None, 'extent': '47 S.', 'other_physical_details': None, 'dimensions': None, 'accompanying_material': None, 'terms_of_availability': 'geh. : je -.25', 'mediatype': 'ohne hilfsmittel zu benutzen', 'tags': [], 'comments': '\nHerausgeber:\tGünther Bicknese. Ill. von Günter Büsemeyer\nMedienart:\tohne hilfsmittel zu benutzen\nUmfang:\t47 S.\nBezugsbedingungen:\tgeh. : je -.25\n---\nMARC21 fields:\t016, 020, 035, 035, 035, 040, 041, 044, 245, 264, 300, 336, 337, 338, 366, 773, 850\nQuelle:\thttps://d-nb.info/451512480', 'record_uri': 'https://d-nb.info/451512480', 'idn': '451512480', 'urn': None, 'isbn': None, 'gnd': None, 'ddc': [], 'ddc_subject_area': [], 'subjects_gnd': [], 'subjects_non_gnd': [], 'publisher_name': 'Rufer-Verl.', 'publisher_location': 'Gütersloh', 'alternative_xmls': []}
+self.prefer_results_with_isbn=False
+Final formatted result: 
+Title               : Schiffbruch zwischen Erde und Mond
+Title sort          : Schiffbruch zwischen Erde und Mond
+Author(s)           : [Von] Henry Gamarick. Ill.: G. Büsemeyer [u.a.]
+Publisher           : Gütersloh : Rufer-Verl.
+Series              : Spannende Geschichten #119
+Languages           : de
+Published           : 1956-01-01T10:30:00+00:00
+Identifiers         : dnb-idn:451512480
+Comments            : 
+Herausgeber:	Günther Bicknese. Ill. von Günter Büsemeyer
+Medienart:	ohne hilfsmittel zu benutzen
+Umfang:	47 S.
+Bezugsbedingungen:	geh. : je -.25
+---
+MARC21 fields:	016, 020, 035, 035, 035, 040, 041, 044, 245, 264, 300, 336, 337, 338, 366, 773, 850
+Quelle:	https://d-nb.info/451512480
+----- 
+
+******************************************************************************** 
+The identify phase took 2.28 seconds 
+The longest time (2.110024) was taken by: DNB_DE 
+Merging results from different sources 
+We have 1 merged results, merging took: 0.00 seconds 
