@@ -377,7 +377,7 @@ class DNB_DE(Source):
                                 code_c = list(map(lambda x: x.replace(delimiter, '%%e:'), code_c))
                             for delimiter in ['Hrsg. von ', 'hrsg. von ', '. Hrsg.: ', 'Ausgew. und mit einem Nachw. von ']:
                                 code_c = list(map(lambda x: x.replace(delimiter, '%%e:'), code_c))  ## Mark editor
-                            for delimiter in ['Illustrator: ', 'Illustriert von ', 'illustriert von ', 'Ill. von ']:
+                            for delimiter in ['Illustrator: ', 'Illustriert von ', 'illustriert von ', 'Ill. von ', 'Textill.:']:
                                 code_c = list(map(lambda x: x.replace(delimiter, '%%a:'), code_c))  ## Mark artist
                             for delimiter in ['Übers.:', 'Übersetzt von']:
                                 # log.info("[delimiter=%s" % delimiter)
@@ -389,7 +389,7 @@ class DNB_DE(Source):
                                 code_c = list(map(lambda x: x.replace(delimiter, '%%t:'), code_c))  ## Mark translator
                         log.info("[245.c] code_c after uniforming identifiers=%s" % code_c)
 
-                        # Step 2: Identifiying parts by divide and conquer
+                        # Step 2: Identifiying parts
                         for code_c_element in code_c:
                             match = re.search("%%e:(.*?)%%", code_c_element)  # Search until first '%%' (non-greedy)
                             if match:
@@ -467,25 +467,40 @@ class DNB_DE(Source):
                     if code_a and code_b and code_c:
                         book['subtitle'] = code_b[0]
 
-                    if code_a and code_n and code_p and code_c:
-                        pass
-
-                    # a = series, n = series index, p = title and author
-                    # 245.a] code_a=['Spannende Geschichten']
+                    # a = series, n = series index, p = title and author and perhaps more
+                    # [245.a] code_a=['Spannende Geschichten']
                     # [245.c] code_c=['Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer']
                     # [245.n] code_n=['17']
                     # [245.p] code_p=['Start ins Ungewisse / [Von] Heinz Helfgen']
+                    # ---
+                    # [245.a] code_a=['Spannende Geschichten']
+                    # [245.c] code_c=['Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer']
+                    # [245.n] code_n=['145']
+                    # [245.p] code_p=['SOS aus Unbekannt / [Von] Walter G. Brandecker. Textill.: H. Arlart u. G. Büsemeyer']
                     code_p_title = ''
                     code_p_authors = []
                     if code_a and code_c and code_n and code_p:
+                        # ToDo: Same procedure as for code_c (+ title)...
                         code_p_split = code_p[0].split(" / ")
                         code_p_title = code_p_split[0].strip()
                         book['title'] = code_p_title
                         log.info("book['title']=%s" % book['title'])
                         if len(code_p_split) > 1:
                             code_p_authors = [code_p_split[1].strip().replace('[Von]', '').strip()]
-                            book['authors'] = code_p_authors
-                            log.info("book['authors']=%s" % book['authors'])
+                            for delimiter in ['Textill.:', 'Illustrationen']:
+                                code_p_authors_split = code_p_authors[0].split(delimiter)
+                                if len(code_p_authors_split) > 1:
+                                    code_p_authors = [code_p_authors_split[0].strip().strip('.')]
+                                    book['authors'] = code_p_authors
+                                    log.info("book['authors']=%s" % book['authors'])
+                                    if book['artist']:
+                                        book['artist'] = (book['artist'] + '. ' + delimiter + ' '
+                                                          + code_p_authors_split[1].strip().strip('.'))
+                                    else:
+                                        book['artist'] = code_p_authors_split[1].strip().strip('.')
+                                else:
+                                    book['authors'] = code_p_authors
+                                    log.info("book['authors']=%s" % book['authors'])
 
                     # Title
                     if code_p:
