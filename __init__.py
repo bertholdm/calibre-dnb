@@ -411,7 +411,6 @@ class DNB_DE(Source):
                         # Is there a remainder?
                         for code_c_element in code_c:
                             code_c = list(map(lambda x: x.replace('%%', ''), code_c))  ## strip delimiters
-                            code_c = list(map(lambda x: x.replace(' ', ''), code_c))  ## strip delimiters
                         log.info("code_c after stripping=%s" % code_c)
                         # [245.a] code_a=['Deutsches Märchenbuch']
                         # [245.b] code_b=['Mit Illustrationen von Ludwig Richter']
@@ -426,6 +425,7 @@ class DNB_DE(Source):
                             code_c_authors = []
                         else:
                             code_c_authors = code_c
+                        log.info("code_c_authors=%s" % code_c_authors)
 
                     # ToDo:
 
@@ -621,9 +621,10 @@ class DNB_DE(Source):
                 ##### Field 245 and code c or p #####
                 if not book['authors']:
                     if code_c_authors:
-                        book['authors'] = [code_c_authors]
+                        book['authors'] = code_c_authors
                     if code_p_authors:
-                        book['authors'] = [code_p_authors]
+                        book['authors'] = code_p_authors
+                    book['authors'].extend(secondary_authors)
 
                 # if no "real" author was found use all involved persons as authors
                 if not book['authors']:
