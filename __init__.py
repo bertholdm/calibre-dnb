@@ -346,6 +346,7 @@ class DNB_DE(Source):
                         log.info("[245.b] code_b=%s" % code_b)
                     # Statement of responsibility etc. (Verfasserangabe etc.)
                     code_c = []
+                    code_c_authors = []
                     for i in field.xpath("./marc21:subfield[@code='c' and string-length(text())>0]", namespaces=ns):
                         code_c.append(i.text.strip())
                         log.info("[245.c] code_c=%s" % code_c)
@@ -479,7 +480,10 @@ class DNB_DE(Source):
                     # [245.p] code_p=['SOS aus Unbekannt / [Von] Walter G. Brandecker. Textill.: H. Arlart u. G. Büsemeyer']
                     code_p_title = ''
                     code_p_authors = []
-                    if code_a and code_c and code_n and code_p:
+                    if code_a and code_n and code_p:  # and not and code_c ?
+                        # [245.a] code_a=['Rolf Torring']
+                        # [245.n] code_n=['502']
+                        # [245.p] code_p=['\x98Die\x9c Teufelsfratze']
                         # ToDo: Same procedure as for code_c (+ title)...
                         code_p_split = code_p[0].split(" / ")
                         code_p_title = code_p_split[0].strip()
