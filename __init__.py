@@ -422,7 +422,7 @@ class DNB_DE(Source):
                         # [245.c] code_c=['Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer']
                         # [245.n] code_n=['17']
                         # [245.p] code_p=['Start ins Ungewisse / [Von] Heinz Helfgen']
-                        if code_c [0] == '':
+                        if code_c[0] == '':
                             code_c_authors = []
                         else:
                             code_c_authors = code_c
@@ -486,11 +486,18 @@ class DNB_DE(Source):
                         book['title'] = code_p_title
                         log.info("book['title']=%s" % book['title'])
                         if len(code_p_split) > 1:
-                            code_p_authors = [code_p_split[1].strip().replace('[Von]', '').strip()]
-                            for delimiter in ['Textill.:', 'Illustrationen']:
+                            code_p_authors = [code_p_split[1].strip().replace('[Von]', '').replace('[von]', '').strip()]
+                            for delimiter in ['Ill.:', 'Textill.:', 'Illustrationen']:
                                 code_p_authors_split = code_p_authors[0].split(delimiter)
                                 if len(code_p_authors_split) > 1:
                                     code_p_authors = [code_p_authors_split[0].strip().strip('.')]
+                                    # Cave: book without author
+                                    # [245.a] code_a=['Spannende Geschichten']
+                                    # [245.c] code_c=['Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer']
+                                    # [245.n] code_n=['128']
+                                    # [245.p] code_p=['Die Goldgräberbank von Sacramento / Ill.: H. Arlat ; G. Büsemeyer']
+                                    if code_p_authors[0] == '':
+                                        code_p_authors = []
                                     book['authors'] = code_p_authors
                                     log.info("book['authors']=%s" % book['authors'])
                                     if book['artist']:
@@ -498,6 +505,7 @@ class DNB_DE(Source):
                                                           + code_p_authors_split[1].strip().strip('.'))
                                     else:
                                         book['artist'] = code_p_authors_split[1].strip().strip('.')
+                                    break
                                 else:
                                     book['authors'] = code_p_authors
                                     log.info("book['authors']=%s" % book['authors'])
@@ -1216,12 +1224,21 @@ class DNB_DE(Source):
                 if len(results) > 1:
                     book['title'] = book['title'] + " (" + book['idn'] + ")"
 
-                authors = list(map(lambda i: self.remove_sorting_characters(i), book['authors']))
+                if book['authors']:
+                    authors = list(map(lambda i: self.remove_sorting_characters(i), book['authors']))
+                else:
+                    authors = []
 
-                mi = Metadata(
-                    self.remove_sorting_characters(book['title']),
-                    list(map(lambda i: re.sub("^(.+), (.+)$", r"\2 \1", i), authors))
-                )
+                if authors:
+                    mi = Metadata(
+                        self.remove_sorting_characters(book['title']),
+                        list(map(lambda i: re.sub("^(.+), (.+)$", r"\2 \1", i), authors))
+                    )
+                else:
+                    mi = Metadata(
+                        self.remove_sorting_characters(book['title']),
+                        authors
+                    )
 
                 # mi.author_sort = " & ".join(authors)  # Let Calibre itself doing the sort
 
