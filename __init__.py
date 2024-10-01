@@ -447,6 +447,21 @@ class DNB_DE(Source):
                     #       <subfield code="a">Am Kamin und andere unheimliche Geschichten</subfield>
                     #       <subfield code="c">Theodor Storm. Mit Ill. von Roswitha Quadflieg. Ausgew. und mit einem Nachw. von Gottfried Honnefelder</subfield>
 
+                    # c = author and perhaps editor, artist etc.
+                        # 245.c ['Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer']
+                        # [245.c] ['Ludwig Bechstein ; Illustrator: Ludwig Richter']
+                        # <subfield code="c">von Gérard de Villiers. [Übers.: Jürgen Hofmann]</subfield>
+                        # [delimiter=5b:55:308:62:65:72:73:2e:3a
+                        # [code_c[0]=von Gérard de Villiers. [Übers.: Jürgen Hofmann]
+                        # [code_c[0]=76:6f:6e:20:47:e9:72:61:72:64:20:64:65:20:56:69:6c:6c:69:65:72:73:2e:20:5b:dc:62:65:72:73:2e:3a:20:4a:fc:72:67:65:6e:20:48:6f:66:6d:61:6e:6e:5d
+                        # Ü in delimiter is x'55', Ü in decoded xml (code_c) is x'dc' => compare fails. So normalize
+                        # the delimiter before compare.
+
+                    # a = series, n = series index, p = title and author
+                    # <subfield code="a">Spannende Geschichten</subfield>
+                    # <subfield code="n">119.</subfield>
+                    # <subfield code="p">Schiffbruch zwischen Erde und Mond / [Von] Henry Gamarick. Ill.: G. Büsemeyer [u.a.]</subfield>
+                    # <subfield code="c">Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer</subfield>
 
 
                     # <datafield tag="245" ind1="0" ind2="0">
@@ -463,58 +478,6 @@ class DNB_DE(Source):
                     if code_a and code_b and code_c:
                         book['subtitle'] = code_b[0]
 
-                    # c = author and perhaps editor, artist etc.
-                    code_c_authors = None
-                    if code_a and code_c:
-
-                        # ToDo: consider regex
-
-                        # 245.c ['Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer']
-                        for delimiter in ['Hrsg. von ', 'hrsg. von ', '. Hrsg.: ']:
-                            code_c_split = code_c[0].split(delimiter)
-                            code_c_authors = code_c_split[0]
-                            if len(code_c_split) > 1:
-                                book['editor'] = code_c_split[1].strip()
-                                code_c = [code_c[0].replace(delimiter + book['editor'], '')]
-                                log.info("code_c=%s" % code_c)
-                                break
-                        # [245.c] ['Ludwig Bechstein ; Illustrator: Ludwig Richter']
-                        for delimiter in ['Illustrator: ', 'Illustriert von ', 'illustriert von ', 'Ill. von ']:
-                            code_c_split = code_c[0].split(delimiter)
-                            code_c_authors = code_c_split[0]
-                            code_c_authors = code_c_authors.strip(';').strip()
-                            if len(code_c_split) > 1:
-                                book['artist'] = code_c_split[1].strip()
-                                code_c = [code_c[0].replace(book['artist'], '')]
-                                log.info("code_c=%s" % code_c)
-                                break
-                        # <subfield code="c">von Gérard de Villiers. [Übers.: Jürgen Hofmann]</subfield>
-                        # [delimiter=5b:55:308:62:65:72:73:2e:3a
-                        # [code_c[0]=von Gérard de Villiers. [Übers.: Jürgen Hofmann]
-                        # [code_c[0]=76:6f:6e:20:47:e9:72:61:72:64:20:64:65:20:56:69:6c:6c:69:65:72:73:2e:20:5b:dc:62:65:72:73:2e:3a:20:4a:fc:72:67:65:6e:20:48:6f:66:6d:61:6e:6e:5d
-                        # Ü in delimiter is x'55', Ü in decoded xml (code_c) is x'dc' => compare fails. So normalize
-                        # the delimiter before compare.
-                        for delimiter in ['[Übers.:', 'Übers.:', 'Übersetzt von']:
-                            # log.info("[delimiter=%s" % delimiter)
-                            # log.info("[delimiter=%s" % ":".join("{:02x}".format(ord(c)) for c in delimiter))
-                            delimiter = unicodedata_normalize("NFKC", delimiter)
-                            # log.info("[delimiter, normalized=%s" % ":".join("{:02x}".format(ord(c)) for c in delimiter))
-                            # log.info("[code_c[0]=%s" % code_c[0])
-                            # log.info("[code_c[0]=%s" % ":".join("{:02x}".format(ord(c)) for c in code_c[0]))
-                            code_c_split = code_c[0].split(delimiter)
-                            code_c_authors = code_c_split[0]
-                            code_c_authors = code_c_authors.strip(';').strip()
-                            if len(code_c_split) > 1:
-                                book['translator'] = code_c_split[1].strip(']').strip()
-                                code_c = [code_c[0].replace(book['translator'], '')]
-                                log.info("code_c=%s" % code_c)
-                                break
-
-                    # a = series, n = series index, p = title and author
-                    # <subfield code="a">Spannende Geschichten</subfield>
-                    # <subfield code="n">119.</subfield>
-                    # <subfield code="p">Schiffbruch zwischen Erde und Mond / [Von] Henry Gamarick. Ill.: G. Büsemeyer [u.a.]</subfield>
-                    # <subfield code="c">Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer</subfield>
                     if code_a and code_n and code_p and code_c:
                         pass
 
