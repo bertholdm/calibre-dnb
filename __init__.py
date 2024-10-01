@@ -373,11 +373,13 @@ class DNB_DE(Source):
                         # Step 1: Mark parts by uniforming identifiers
                         for code_c_element in code_c:
                             code_c = [s + '%%' for s in code_c]  # Mark end of code c entry
+                            for delimiter in ['[', ']', ';']:  # General replacings
+                                code_c = list(map(lambda x: x.replace(delimiter, '%%e:'), code_c))
                             for delimiter in ['Hrsg. von ', 'hrsg. von ', '. Hrsg.: ', 'Ausgew. und mit einem Nachw. von ']:
                                 code_c = list(map(lambda x: x.replace(delimiter, '%%e:'), code_c))  ## Mark editor
                             for delimiter in ['Illustrator: ', 'Illustriert von ', 'illustriert von ', 'Ill. von ']:
                                 code_c = list(map(lambda x: x.replace(delimiter, '%%a:'), code_c))  ## Mark artist
-                            for delimiter in ['[Übers.:', 'Übers.:', 'Übersetzt von']:
+                            for delimiter in ['Übers.:', 'Übersetzt von']:
                                 # log.info("[delimiter=%s" % delimiter)
                                 # log.info("[delimiter=%s" % ":".join("{:02x}".format(ord(c)) for c in delimiter))
                                 delimiter = unicodedata_normalize("NFKC", delimiter)
@@ -411,32 +413,31 @@ class DNB_DE(Source):
                             code_c = list(map(lambda x: x.replace('%%', ''), code_c))  ## strip delimiters
                             code_c = list(map(lambda x: x.replace(' ', ''), code_c))  ## strip delimiters
                         log.info("code_c after stripping=%s" % code_c)
-
-
+                        # [245.a] code_a=['Deutsches Märchenbuch']
+                        # [245.b] code_b=['Mit Illustrationen von Ludwig Richter']
+                        # [245.c] code_c=['Ludwig Bechstein ; Illustrator: Ludwig Richter']
+                        # [245.n] code_n=[]
+                        # [245.p] code_p=[]
+                        # 245.a] code_a=['Spannende Geschichten']
+                        # [245.c] code_c=['Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer']
+                        # [245.n] code_n=['17']
+                        # [245.p] code_p=['Start ins Ungewisse / [Von] Heinz Helfgen']
+                        if code_c [0] == '':
+                            code_c_authors = []
+                        else:
+                            code_c_authors = code_c
 
                     # ToDo:
-                    # 245.a] code_a=['Spannende Geschichten']
-                    # [245.c] code_c=['Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer']
-                    # [245.n] code_n=['17']
-                    # [245.p] code_p=['Start ins Ungewisse / [Von] Heinz Helfgen']
 
                     #     <datafield tag="245" ind1="1" ind2="0">
                     #       <subfield code="a">Auf dem Jakobsweg</subfield>
                     #       <subfield code="b">Tagebuch einer Pilgerreise nach Santiago de Compostela</subfield>
                     #       <subfield code="c">Paulo Coelho. Aus dem Brasilianischen von Maralde Meyer-Minnemann</subfield>
 
-                    # ToDo: 245.c] code_c=['Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer']
-
                     #     <datafield tag="245" ind1="1" ind2="0">
                     #       <subfield code="a">Märchen aus Bayern</subfield>
                     #       <subfield code="b">Märchen der Welt</subfield>
                     #       <subfield code="c">Karl Spiegel</subfield>
-
-                    # [245.a] code_a=['Deutsches Märchenbuch']
-                    # [245.b] code_b=['Mit Illustrationen von Ludwig Richter']
-                    # [245.c] code_c=['Ludwig Bechstein ; Illustrator: Ludwig Richter']
-                    # [245.n] code_n=[]
-                    # [245.p] code_p=[]
 
                     #     <datafield tag="245" ind1="0" ind2="0">
                     #       <subfield code="a">&#152;Die&#156; Horen</subfield>
@@ -447,24 +448,12 @@ class DNB_DE(Source):
                     #       <subfield code="a">Am Kamin und andere unheimliche Geschichten</subfield>
                     #       <subfield code="c">Theodor Storm. Mit Ill. von Roswitha Quadflieg. Ausgew. und mit einem Nachw. von Gottfried Honnefelder</subfield>
 
-                    # c = author and perhaps editor, artist etc.
-                        # 245.c ['Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer']
-                        # [245.c] ['Ludwig Bechstein ; Illustrator: Ludwig Richter']
-                        # <subfield code="c">von Gérard de Villiers. [Übers.: Jürgen Hofmann]</subfield>
-                        # [delimiter=5b:55:308:62:65:72:73:2e:3a
-                        # [code_c[0]=von Gérard de Villiers. [Übers.: Jürgen Hofmann]
-                        # [code_c[0]=76:6f:6e:20:47:e9:72:61:72:64:20:64:65:20:56:69:6c:6c:69:65:72:73:2e:20:5b:dc:62:65:72:73:2e:3a:20:4a:fc:72:67:65:6e:20:48:6f:66:6d:61:6e:6e:5d
-                        # Ü in delimiter is x'55', Ü in decoded xml (code_c) is x'dc' => compare fails. So normalize
-                        # the delimiter before compare.
-
                     # a = series, n = series index, p = title and author
                     # <subfield code="a">Spannende Geschichten</subfield>
                     # <subfield code="n">119.</subfield>
                     # <subfield code="p">Schiffbruch zwischen Erde und Mond / [Von] Henry Gamarick. Ill.: G. Büsemeyer [u.a.]</subfield>
                     # <subfield code="c">Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer</subfield>
 
-
-                    # <datafield tag="245" ind1="0" ind2="0">
                     #   <subfield code="a">Fliegergeschichten</subfield>
                     #   <subfield code="n">Bd. 188.</subfield>
                     #   <subfield code="p">Über der Hölle des Mauna Loa / Otto Behrens</subfield>
@@ -482,26 +471,34 @@ class DNB_DE(Source):
                         pass
 
                     # a = series, n = series index, p = title and author
-                    code_p_authors = None
-                    if code_a and code_n and code_p:
-                        code_p_authors_split = code_p[0].split(" / ")
-                        code_p = [code_p_authors_split[0]]
-                        if len(code_p_authors_split) > 1:
-                            code_p_authors = code_p_authors_split[1].strip()
-                            code_p_authors.removeprefix('[Von]').strip()
-                            book['authors'].extend([code_p_authors])
+                    # 245.a] code_a=['Spannende Geschichten']
+                    # [245.c] code_c=['Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer']
+                    # [245.n] code_n=['17']
+                    # [245.p] code_p=['Start ins Ungewisse / [Von] Heinz Helfgen']
+                    code_p_title = ''
+                    code_p_authors = []
+                    if code_a and code_c and code_n and code_p:
+                        code_p_split = code_p[0].split(" / ")
+                        code_p_title = code_p_split[0].strip()
+                        book['title'] = code_p_title
+                        log.info("book['title']=%s" % book['title'])
+                        if len(code_p_split) > 1:
+                            code_p_authors = [code_p_split[1].strip().replace('[Von]', '').strip()]
+                            book['authors'] = code_p_authors
+                            log.info("book['authors']=%s" % book['authors'])
 
                     # Title
                     if code_p:
-                        title_parts = code_p
+                        title_parts = [code_p_title]
                     else:
                         title_parts = code_a
+                    log.info("title_parts=%s" % title_parts)
 
                     # Looks like we have a series
                     if code_a and code_n:
                         # set title ("Name of this Book")
-                        if code_p:
-                            title_parts = [code_p[-1]]
+                        # if code_p:
+                        #     title_parts = [code_p[-1]]
 
                         # build series name
                         series_parts = [code_a[0]]
@@ -538,6 +535,7 @@ class DNB_DE(Source):
                             except IndexError:
                                 pass
 
+                    log.info("title_parts=%s" % title_parts)
                     book['title'] = " : ".join(title_parts)
                     log.info("[245] Title: %s" % book['title'])
                     book['title'] = self.clean_title(log, book['title'])
