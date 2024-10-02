@@ -478,7 +478,6 @@ class DNB_DE(Source):
                     #   <subfield code="a">&#152;Die&#156; Odyssee der PN-9</subfield>
                     #   <subfield code="c">Fritz Moeglich. Hrsg.: Peter Supf</subfield>
 
-                    # Caching subtitle
                     if code_a and code_b and code_c:
                         # perhabps title - series, subseries and author
                         # [245.a] code_a=['\x98Ein\x9c Glas voll Mord – DuMonts Digitale Kriminal-Bibliothek']
@@ -510,6 +509,23 @@ class DNB_DE(Source):
                                 log.info("book['editor']=%s" % book['editor'])
                                 code_c = list(map(lambda x: x.replace('%%e:' + match.group(1), ''), code_c))  ## strip match
 
+                    # Caching subtitle
+                    if code_a and code_b and not code_c:
+                        # [245.a] code_a=['Tödliche Weihnachten – DuMonts Digitale Kriminal-Bibliothek']
+                        # [245.b] code_b=['Ein mörderisches Adventspaket']
+                        # [245.n] code_n=[]
+                        # [245.p] code_p=[]
+                        for code_a_element in code_a:
+                            for delimiter in ['DuMonts Digitale Kriminal-Bibliothek']:  # main series
+                                match = re.search(delimiter, code_a_element)
+                                if match:
+                                    code_a = list(map(lambda x: x.replace(delimiter, ''), code_a))
+                                    book['series'] = delimiter
+                                    for code_a_element in code_a:
+                                        for general_dash in ['-', '–', '—']:  # hyphen, en dash, em dash
+                                            general_dash = delimiter = unicodedata_normalize("NFKC", general_dash)
+                                            code_a = list(map(lambda x: x.strip().strip(general_dash.strip()), code_a))
+                                    break  # Search until first match
                         if code_b[0]:
                             book['subtitle'] = code_b[0]
 
@@ -654,14 +670,29 @@ class DNB_DE(Source):
                     name = re.sub(" \[.*\]$", "", i.text.strip())
                     secondary_authors.append(name)
 
-                #       <subfield code="a">Meyer-Minnemann, Maralde</subfield>
-                #       <subfield code="e">Übersetzer</subfield>
-                #       <subfield code="4">trl</subfield>
-                #       <subfield code="2">gnd</subfield>
+                # <subfield code="a">Meyer-Minnemann, Maralde</subfield>
+                # <subfield code="e">Übersetzer</subfield>
+                # <subfield code="4">trl</subfield>
+                # <subfield code="2">gnd</subfield>
                 for i in record.xpath("./marc21:datafield[@tag='700']/marc21:subfield[@code='4' and "
                                       "text()='trl']/../marc21:subfield[@code='a' and "
                                       "string-length(text())>0]", namespaces=ns):
-                    book['translator'] = re.sub(" \[.*\]$", "", i.text.strip())
+                    if book['translator']:
+                        book['translator'] = book['translator'] + ' / ' + re.sub(" \[.*\]$", "", i.text.strip())
+                    else:
+                        book['translator'] = re.sub(" \[.*\]$", "", i.text.strip())
+                # <subfield code="a">MacLeod, Charlotte</subfield>
+                # <subfield code="d">1922-2005</subfield>
+                # <subfield code="e">Herausgeber</subfield>
+                # <subfield code="4">edt</subfield>
+                # <subfield code="2">gnd</subfield>
+                for i in record.xpath("./marc21:datafield[@tag='700']/marc21:subfield[@code='4' and "
+                                      "text()='edt']/../marc21:subfield[@code='a' and "
+                                      "string-length(text())>0]", namespaces=ns):
+                    if book['editor']:
+                        book['editor'] = book['editor'] + ' / ' + re.sub(" \[.*\]$", "", i.text.strip())
+                    else:
+                        book['editor'] = re.sub(" \[.*\]$", "", i.text.strip())
 
                 if secondary_authors:
                     book['authors'].extend(secondary_authors)
@@ -717,6 +748,18 @@ class DNB_DE(Source):
                         if len(code_a_split) > 1:
                             book['title']  = book['title'] + ' / ' + code_a_split[0]
                             book['authors'].append(code_a_split[1])
+
+
+                ##### Field 730: "ADDED ENTRY – UNIFORM TITLE"  #####
+                # a: Uniform title (Einheitstitel)
+                for field in record.xpath("./marc21:datafield[@tag='730']", namespaces=ns):
+                    for i in field.xpath("./marc21:subfield[@code='a' and string-length(text())>0]", namespaces=ns):
+                        log.info("[730.a]: %s" % i)
+                        book['tags'].append(i)
+                        if book['subseries']:
+                            book['subseries'] = book['subseries'] + ' / ' + i
+                        else:
+                            book['subseries'] = i
 
 
                 ##### Field 300: "PHYSICAL DESCRIPTION"  #####

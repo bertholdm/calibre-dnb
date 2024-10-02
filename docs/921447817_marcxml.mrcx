@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <record xmlns="http://www.loc.gov/MARC21/slim" type="Bibliographic">
+    <leader>00000pam a2200000 c 4500</leader>
+    <controlfield tag="001">921447817</controlfield>
+    <controlfield tag="003">DE-101</controlfield>
+    <controlfield tag="005">20171202174240.0</controlfield>
+    <controlfield tag="007">tu</controlfield>
+    <controlfield tag="008">921013s1993    gw ||||| |||| 00||||ger  </controlfield>
+    <datafield tag="015" ind1=" " ind2=" ">
+      <subfield code="a">93,A36,1172</subfield>
+      <subfield code="z">93,N06,0588</subfield>
+      <subfield code="2">dnb</subfield>
+    </datafield>
+    <datafield tag="016" ind1="7" ind2=" ">
+      <subfield code="2">DE-101</subfield>
+      <subfield code="a">921447817</subfield>
+    </datafield>
+    <datafield tag="020" ind1=" " ind2=" ">
+      <subfield code="a">9783770119608</subfield>
+      <subfield code="c">kart. : DM 12.80</subfield>
+      <subfield code="9">978-3-7701-1960-8</subfield>
+    </datafield>
+    <datafield tag="020" ind1=" " ind2=" ">
+      <subfield code="a">3770119606</subfield>
+      <subfield code="c">kart. : DM 12.80</subfield>
+      <subfield code="9">3-7701-1960-6</subfield>
+    </datafield>
+    <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">(DE-599)DNB921447817</subfield>
+    </datafield>
+    <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">(OCoLC)75319046</subfield>
+    </datafield>
+    <datafield tag="040" ind1=" " ind2=" ">
+      <subfield code="a">1100</subfield>
+      <subfield code="b">ger</subfield>
+      <subfield code="c">DE-101</subfield>
+      <subfield code="d">9999</subfield>
+    </datafield>
+    <datafield tag="041" ind1=" " ind2=" ">
+      <subfield code="a">ger</subfield>
+    </datafield>
+    <datafield tag="044" ind1=" " ind2=" ">
+      <subfield code="c">XA-DE</subfield>
+    </datafield>
+    <datafield tag="084" ind1=" " ind2=" ">
+      <subfield code="a">59</subfield>
+      <subfield code="a">810</subfield>
+      <subfield code="a">820</subfield>
+      <subfield code="a">830</subfield>
+      <subfield code="a">839</subfield>
+      <subfield code="a">840</subfield>
+      <subfield code="a">850</subfield>
+      <subfield code="a">860</subfield>
+      <subfield code="a">870</subfield>
+      <subfield code="a">880</subfield>
+      <subfield code="a">890</subfield>
+      <subfield code="a">B</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="2">sdnb</subfield>
+    </datafield>
+    <datafield tag="100" ind1="1" ind2=" ">
+      <subfield code="0">(DE-588)120119188</subfield>
+      <subfield code="0">https://d-nb.info/gnd/120119188</subfield>
+      <subfield code="0">(DE-101)120119188</subfield>
+      <subfield code="a">MacLeod, Charlotte</subfield>
+      <subfield code="d">1922-2005</subfield>
+      <subfield code="e">Verfasser</subfield>
+      <subfield code="4">aut</subfield>
+      <subfield code="2">gnd</subfield>
+    </datafield>
+    <datafield tag="245" ind1="1" ind2="0">
+      <subfield code="a">Kabeljau und Kaviar</subfield>
+      <subfield code="c">Charlotte MacLeod. [Aus dem Amerikan. von Beate Felten]</subfield>
+    </datafield>
+    <datafield tag="264" ind1=" " ind2="1">
+      <subfield code="a">Köln</subfield>
+      <subfield code="b">DuMont</subfield>
+      <subfield code="c">1993</subfield>
+    </datafield>
+    <datafield tag="300" ind1=" " ind2=" ">
+      <subfield code="a">230 S.</subfield>
+      <subfield code="c">18 cm</subfield>
+    </datafield>
+    <datafield tag="336" ind1=" " ind2=" ">
+      <subfield code="a">Text</subfield>
+      <subfield code="b">txt</subfield>
+      <subfield code="2">rdacontent</subfield>
+    </datafield>
+    <datafield tag="337" ind1=" " ind2=" ">
+      <subfield code="a">ohne Hilfsmittel zu benutzen</subfield>
+      <subfield code="b">n</subfield>
+      <subfield code="2">rdamedia</subfield>
+    </datafield>
+    <datafield tag="338" ind1=" " ind2=" ">
+      <subfield code="a">Band</subfield>
+      <subfield code="b">nc</subfield>
+      <subfield code="2">rdacarrier</subfield>
+    </datafield>
+    <datafield tag="490" ind1="1" ind2=" ">
+      <subfield code="a">DuMonts Kriminal-Bibliothek</subfield>
+      <subfield code="v">1041</subfield>
+    </datafield>
+    <datafield tag="830" ind1=" " ind2="0">
+      <subfield code="a">DuMonts Kriminal-Bibliothek</subfield>
+      <subfield code="v">1041</subfield>
+      <subfield code="w">(DE-101)551157623</subfield>
+      <subfield code="w">(DE-600)2294310-9</subfield>
+      <subfield code="9">41041</subfield>
+      <subfield code="7">as</subfield>
+    </datafield>
+    <datafield tag="850" ind1=" " ind2=" ">
+      <subfield code="a">DE-101a</subfield>
+      <subfield code="a">DE-101b</subfield>
+    </datafield>
+    <datafield tag="925" ind1="r" ind2=" ">
+      <subfield code="a">ra</subfield>
+    </datafield>
+  </record>
