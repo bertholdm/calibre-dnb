@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ISFDB3\n"
-"POT-Creation-Date: 2024-09-30 16:46+0200\n"
-"PO-Revision-Date: 2024-09-30 16:46+0200\n"
+"POT-Creation-Date: 2024-10-02 15:15+0200\n"
+"PO-Revision-Date: 2024-10-02 15:15+0200\n"
 "Last-Translator: Michael Detambel <info@michael-detambel.de>\n"
 "Language-Team: Michael Detambel\n"
 "Language: de_DE@formal\n"
@@ -18,7 +18,7 @@ msgstr ""
 msgid "Downloads metadata from the DNB (Deutsche National Bibliothek)."
 msgstr "Lädt Metadaten aus der DNB (Deutsche National Bibliothek)."
 
-#: __init__.py:1136
+#: __init__.py:1230
 msgid ""
 "\n"
 "ISBN:\t"
@@ -26,7 +26,7 @@ msgstr ""
 "\n"
 "ISBN:\t"
 
-#: __init__.py:1138
+#: __init__.py:1232
 msgid ""
 "\n"
 "Subtitle:\t"
@@ -34,8 +34,16 @@ msgstr ""
 "\n"
 "Untertitel:\t"
 
+#: __init__.py:1234
+msgid ""
+"\n"
+"Subseries:\t"
+msgstr ""
+"\n"
+"Unterserie:\t"
+
 # Weitere isfdb-Texte
-#: __init__.py:1140
+#: __init__.py:1238
 msgid ""
 "\n"
 "Editor:\t"
@@ -43,7 +51,7 @@ msgstr ""
 "\n"
 "Herausgeber:\t"
 
-#: __init__.py:1142
+#: __init__.py:1240
 msgid ""
 "\n"
 "Artist:\t"
@@ -51,7 +59,15 @@ msgstr ""
 "\n"
 "Künstler:\t"
 
-#: __init__.py:1144
+#: __init__.py:1242
+msgid ""
+"\n"
+"Original language:\t"
+msgstr ""
+"\n"
+"Ausgangssprache:\t"
+
+#: __init__.py:1244
 msgid ""
 "\n"
 "Translator:\t"
@@ -60,7 +76,7 @@ msgstr ""
 "Übersetzer:\t"
 
 # Weitere isfdb-Texte
-#: __init__.py:1146
+#: __init__.py:1246
 msgid ""
 "\n"
 "Edition:\t"
@@ -68,7 +84,7 @@ msgstr ""
 "\n"
 "Auflage:\t"
 
-#: __init__.py:1148
+#: __init__.py:1248
 msgid ""
 "\n"
 "Media type:\t"
@@ -76,7 +92,7 @@ msgstr ""
 "\n"
 "Medienart:\t"
 
-#: __init__.py:1150
+#: __init__.py:1250
 msgid ""
 "\n"
 "Extent:\t"
@@ -84,7 +100,7 @@ msgstr ""
 "\n"
 "Umfang:\t"
 
-#: __init__.py:1152
+#: __init__.py:1252
 msgid ""
 "\n"
 "Other physical details:\t"
@@ -92,7 +108,7 @@ msgstr ""
 "\n"
 "Andere physische Details:\t"
 
-#: __init__.py:1154
+#: __init__.py:1254
 msgid ""
 "\n"
 "Dimensions:\t"
@@ -100,7 +116,7 @@ msgstr ""
 "\n"
 "Maße:\t"
 
-#: __init__.py:1156
+#: __init__.py:1256
 msgid ""
 "\n"
 "Accompanying material:\t"
@@ -108,7 +124,7 @@ msgstr ""
 "\n"
 "Begleitmaterial:\t"
 
-#: __init__.py:1158
+#: __init__.py:1258
 msgid ""
 "\n"
 "Terms of availability:\t"
@@ -116,7 +132,7 @@ msgstr ""
 "\n"
 "Bezugsbedingungen:\t"
 
-#: __init__.py:1160
+#: __init__.py:1260
 msgid ""
 "\n"
 "DDC subject area:\t"
@@ -124,7 +140,7 @@ msgstr ""
 "\n"
 "DDC Sachgruppe:\t"
 
-#: __init__.py:1163
+#: __init__.py:1263
 msgid ""
 "\n"
 "GND subjects:\t"
@@ -132,7 +148,7 @@ msgstr ""
 "\n"
 "GND Einträge:\t"
 
-#: __init__.py:1166
+#: __init__.py:1266
 msgid ""
 "\n"
 "Non-GND subjects:\t"
@@ -140,14 +156,17 @@ msgstr ""
 "\n"
 "Nicht-GND Einträge:\t"
 
-#: __init__.py:1168
+#: __init__.py:1268
 msgid ""
 "\n"
 "---\n"
 "MARC21 fields:\t"
 msgstr ""
+"\n"
+"---\n"
+"MARC21 Felder:\t"
 
-#: __init__.py:1175
+#: __init__.py:1275
 msgid ""
 "\n"
 "Source:\t"
@@ -650,9 +669,6 @@ msgstr ""
 
 #~ msgid "first printing"
 #~ msgstr "Erstdruck"
-
-#~ msgid "Original title"
-#~ msgstr "Originaltitel"
 
 #~ msgid "The Page count"
 #~ msgstr "Die Seitenzählung"
@@ -1191,9 +1207,6 @@ msgstr ""
 
 #~ msgid "Candidates for user defined fields"
 #~ msgstr "Informationen für benutzerdefinierte Felder"
-
-#~ msgid "Series: "
-#~ msgstr "Serie: "
 
 #~ msgid "Publisher's book number"
 #~ msgstr "Verlagsnummer"

@@ -478,7 +478,6 @@ class DNB_DE(Source):
                     #   <subfield code="a">&#152;Die&#156; Odyssee der PN-9</subfield>
                     #   <subfield code="c">Fritz Moeglich. Hrsg.: Peter Supf</subfield>
 
-
                     # Caching subtitle
                     if code_a and code_b and code_c:
                         # perhabps title - series, subseries and author
@@ -502,6 +501,7 @@ class DNB_DE(Source):
                                         for general_dash in ['-', '–', '—']:  # hyphen, en dash, em dash
                                             general_dash = delimiter = unicodedata_normalize("NFKC", general_dash)
                                             code_a = list(map(lambda x: x.strip().strip(general_dash.strip()), code_a))
+                                    book['series'] = delimiter
                                     break  # Search until first match
 
                             match = re.search("%%e:(.*?)%%", code_c_element)  # Search until first '%%' (non-greedy)
@@ -1231,7 +1231,7 @@ class DNB_DE(Source):
                     if book['subtitle']:
                         book['comments'] = book['comments'] + _('\nSubtitle:\t') + book['subtitle']
                     if book['subseries']:
-                        book['comments'] = book['comments'] + _('\nSuberies:\t') + book['subseries']
+                        book['comments'] = book['comments'] + _('\nSubseries:\t') + book['subseries']
                         if book['subseries_index']:
                             book['comments'] = book['comments'] + ' [' + book['subseries_index'] + ']'
                     if book['editor']:
@@ -1599,8 +1599,10 @@ class DNB_DE(Source):
                     return None
 
                 # Skip series info if it starts with the first word of the publisher's name (which must be at least 4 characters long)
+                # But only, if publishers name is not qualified (publisher: DuMont, series: DuMonts Bibliothek...). So
+                # let the pattern ending with space.
                 match = re.search(
-                    '^(\w\w\w\w+)', self.remove_sorting_characters(publisher_name))
+                    '^(\w\w\w\w+) ', self.remove_sorting_characters(publisher_name))
                 if match:
                     pubcompany = match.group(1)
                     if re.search('^\W*' + pubcompany, series, flags=re.IGNORECASE):
@@ -1609,7 +1611,7 @@ class DNB_DE(Source):
 
             # do not accept some other unwanted series names
             # TODO: Has issues with Umlauts in regex (or series string?)
-            # Do it with unicodedata_normalize("NFKC", string)
+            # Perhaps we should do it with unicodedata_normalize("NFKC", string)
             # TODO: Make user configurable
             for i in [
                 '^Roman$', '^Science-fiction$',
