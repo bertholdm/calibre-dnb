@@ -169,6 +169,7 @@ class DNB_DE(Source):
                     'edition': None,
                     'editor': None,
                     'artist': None,
+                    'original_language': None,
                     'translator': None,
                     'extent': None,
                     'other_physical_details': None,
@@ -375,9 +376,11 @@ class DNB_DE(Source):
 
                         # Step 1: Mark parts by uniforming identifiers
                         for code_c_element in code_c:
+                            log.info("[245.c] code_c_element=%s" % code_c_element)
                             code_c = [s + '%%' for s in code_c]  # Mark end of code c entry
-                            for delimiter in ['[', ']', ';']:  # General replacings
-                                code_c = list(map(lambda x: x.replace(delimiter, ''), code_c))
+                            code_c = list(map(lambda x: x.replace('[', ''), code_c))  # General replacings
+                            code_c = list(map(lambda x: x.replace(']', ''), code_c))
+                            code_c = list(map(lambda x: x.replace(';', ''), code_c))
                             for delimiter in ['Hrsg. von ', 'hrsg. von ', '. Hrsg.: ', 'Ausgew. und mit einem Nachw. von ']:
                                 code_c = list(map(lambda x: x.replace(delimiter, '%%e:'), code_c))  ## Mark editor
                             for delimiter in ['Illustrator: ', 'Illustriert von ', 'illustriert von ', 'Ill. von ', 'Textill.:']:
@@ -390,12 +393,16 @@ class DNB_DE(Source):
                                 # log.info("[code_c[0]=%s" % code_c[0])
                                 # log.info("[code_c[0]=%s" % ":".join("{:02x}".format(ord(c)) for c in code_c[0]))
                                 code_c = list(map(lambda x: x.replace(delimiter, '%%t:'), code_c))  ## Mark translator
+                        for code_c_element in code_c:
                             # Use regex to extracting translator
-                            for pattern in ['([A|a]us [dem|d\.] .* [von|v\.]) (.*)']:
+                            for pattern in ['(\. [Aa]us (?:dem|d\.) (.*) von) (.*)%%']:
+                                log.info("[245.c] code_c_element=%s" % code_c_element)
                                 match = re.search(pattern, code_c_element)  # Search until first '%%' (non-greedy)
                                 if match:
                                     code_c = list(map(lambda x: x.replace(match.group(1), '%%t:'), code_c))  ## Mark translator
-                                    break
+                                    if match.group(2) and match.group(3):
+                                        book['original_language'] = match.group(2)
+                                        book['original_language'].removesuffix('en')
                         log.info("[245.c] code_c after uniforming identifiers=%s" % code_c)
 
                         # Step 2: Identifiying parts
@@ -1231,6 +1238,8 @@ class DNB_DE(Source):
                         book['comments'] = book['comments'] + _('\nEditor:\t') + book['editor']
                     if book['artist']:
                         book['comments'] = book['comments'] + _('\nArtist:\t') + book['artist']
+                    if book['original_language']:
+                        book['comments'] = book['comments'] + _('\nOriginal language:\t') + book['original_language']
                     if book['translator']:
                         book['comments'] = book['comments'] + _('\nTranslator:\t') + book['translator']
                     if book['edition']:
