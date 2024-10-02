@@ -162,6 +162,8 @@ class DNB_DE(Source):
                     'title': None,
                     'title_sort': None,
                     'subtitle': None,
+                    'subseries': None,
+                    'subseries_index': None,
                     'authors': [],
                     'author_sort': None,
                     'edition': None,
@@ -375,7 +377,7 @@ class DNB_DE(Source):
                         for code_c_element in code_c:
                             code_c = [s + '%%' for s in code_c]  # Mark end of code c entry
                             for delimiter in ['[', ']', ';']:  # General replacings
-                                code_c = list(map(lambda x: x.replace(delimiter, '%%e:'), code_c))
+                                code_c = list(map(lambda x: x.replace(delimiter, ''), code_c))
                             for delimiter in ['Hrsg. von ', 'hrsg. von ', '. Hrsg.: ', 'Ausgew. und mit einem Nachw. von ']:
                                 code_c = list(map(lambda x: x.replace(delimiter, '%%e:'), code_c))  ## Mark editor
                             for delimiter in ['Illustrator: ', 'Illustriert von ', 'illustriert von ', 'Ill. von ', 'Textill.:']:
@@ -388,6 +390,12 @@ class DNB_DE(Source):
                                 # log.info("[code_c[0]=%s" % code_c[0])
                                 # log.info("[code_c[0]=%s" % ":".join("{:02x}".format(ord(c)) for c in code_c[0]))
                                 code_c = list(map(lambda x: x.replace(delimiter, '%%t:'), code_c))  ## Mark translator
+                            # Use regex to extracting translator
+                            for pattern in ['([A|a]us [dem|d\.] .* [von|v\.]) (.*)']:
+                                match = re.search(pattern, code_c_element)  # Search until first '%%' (non-greedy)
+                                if match:
+                                    code_c = list(map(lambda x: x.replace(match.group(1), '%%t:'), code_c))  ## Mark translator
+                                    break
                         log.info("[245.c] code_c after uniforming identifiers=%s" % code_c)
 
                         # Step 2: Identifiying parts
@@ -466,7 +474,37 @@ class DNB_DE(Source):
 
                     # Caching subtitle
                     if code_a and code_b and code_c:
-                        book['subtitle'] = code_b[0]
+                        # perhabps title - series, subseries and author
+                        # [245.a] code_a=['\x98Ein\x9c Glas voll Mord – DuMonts Digitale Kriminal-Bibliothek']
+                        # [245.b] code_b=['Inspektor Madoc-Rhys']
+                        # [245.c] code_c=['Charlotte MacLeod']
+                        # [245.n] code_n=[]
+                        # [245.p] code_p=[]
+                        # Step 2: Identifiying parts
+                        for code_a_element in code_a:
+                            for delimiter in ['DuMonts Digitale Kriminal-Bibliothek']:  # main series
+                                match = re.search(delimiter, code_a_element)
+                                if match:
+                                    code_a = list(map(lambda x: x.replace(delimiter, ''), code_a))
+                                    book['series'] = delimiter
+                                    if code_c:
+                                        book['subseries'] = code_b[0]  # ToDo: subseries_index?
+                                        code_b[0] = None
+                                        book['tags'].append(book['subseries'])
+                                    for code_a_element in code_a:
+                                        for general_dash in ['-', '–', '—']:  # hyphen, en dash, em dash
+                                            general_dash = delimiter = unicodedata_normalize("NFKC", general_dash)
+                                            code_a = list(map(lambda x: x.strip().strip(general_dash.strip()), code_a))
+                                    break  # Search until first match
+
+                            match = re.search("%%e:(.*?)%%", code_c_element)  # Search until first '%%' (non-greedy)
+                            if match:
+                                book['editor'] = match.group(1).strip().strip('.').strip()
+                                log.info("book['editor']=%s" % book['editor'])
+                                code_c = list(map(lambda x: x.replace('%%e:' + match.group(1), ''), code_c))  ## strip match
+
+                        if code_b[0]:
+                            book['subtitle'] = code_b[0]
 
                     # a = series, n = series index, p = title and author and perhaps more
                     # [245.a] code_a=['Spannende Geschichten']
@@ -950,7 +988,10 @@ class DNB_DE(Source):
                 if book['series']:
                     # Re-format series_index (book['series_index'] is of type string)
                     # to remove leading zeros before searching.
-                    match = re.search(book['series'] + ".*" + str(int(book['series_index'])) + ".*:(.*)", book['title'])
+                    if book['series_index']:
+                        match = re.search(book['series'] + ".*" + str(int(book['series_index'])) + ".*:(.*)", book['title'])
+                    else:
+                        match = re.search(book['series'] + ".*:(.*)", book['title'])
                     if match:
                         book['title'] = match.group(1).strip()
                         log.info("book['title'] after stripping series and index=%s" % book['title'])
@@ -1182,6 +1223,10 @@ class DNB_DE(Source):
                         book['comments'] = book['comments'] + _('\nISBN:\t') + book['isbn']
                     if book['subtitle']:
                         book['comments'] = book['comments'] + _('\nSubtitle:\t') + book['subtitle']
+                    if book['subseries']:
+                        book['comments'] = book['comments'] + _('\nSuberies:\t') + book['subseries']
+                        if book['subseries_index']:
+                            book['comments'] = book['comments'] + ' [' + book['subseries_index'] + ']'
                     if book['editor']:
                         book['comments'] = book['comments'] + _('\nEditor:\t') + book['editor']
                     if book['artist']:
@@ -1555,6 +1600,7 @@ class DNB_DE(Source):
 
             # do not accept some other unwanted series names
             # TODO: Has issues with Umlauts in regex (or series string?)
+            # Do it with unicodedata_normalize("NFKC", string)
             # TODO: Make user configurable
             for i in [
                 '^Roman$', '^Science-fiction$',
@@ -1564,7 +1610,7 @@ class DNB_DE(Source):
                 '^Sammlung Luchterhand$', '^blanvalet$', '^KiWi$', '^Piper$', '^C.H. Beck', '^Rororo', '^Goldmann$', '^Moewig$', '^Fischer Klassik$', '^hey! shorties$', '^Ullstein',
                 '^Unionsverlag', '^Ariadne-Krimi', '^C.-Bertelsmann', '^Phantastische Bibliothek$', '^Beck Paperback$', '^Beck\'sche Reihe$', '^Knaur', '^Volk-und-Welt',
                 '^Allgemeine', '^Premium', '^Horror-Bibliothek$']:
-                if re.search(i, series, flags=re.IGNORECASE):
+                if re.search(unicodedata_normalize("NFKC", i), series, flags=re.IGNORECASE):
                     log.info("[Series Cleaning] Series %s contains unwanted string %s, ignoring" % (series, i))
                     return None
         return series
