@@ -381,7 +381,9 @@ class DNB_DE(Source):
                             code_c = list(map(lambda x: x.replace('[', ''), code_c))  # General replacings
                             code_c = list(map(lambda x: x.replace(']', ''), code_c))
                             code_c = list(map(lambda x: x.replace(';', ''), code_c))
-                            for delimiter in ['Hrsg. von ', 'hrsg. von ', '. Hrsg.: ', 'Ausgew. und mit einem Nachw. von ']:
+                            for delimiter in ['Hrsg. von ', 'hrsg. von ', '. Hrsg.: ', 'Ausgew. und mit einem Nachw. von ',
+                                              'hrsg. und eingeleitet von ', 'Hrsg. u. eingel. von ',
+                                              'hrsg. u. mit e. Einl. vers. von ']:
                                 code_c = list(map(lambda x: x.replace(delimiter, '%%e:'), code_c))  ## Mark editor
                             for delimiter in ['Illustrator: ', 'Illustriert von ', 'illustriert von ', 'Ill. von ', 'Textill.:']:
                                 code_c = list(map(lambda x: x.replace(delimiter, '%%a:'), code_c))  ## Mark artist
@@ -482,6 +484,11 @@ class DNB_DE(Source):
                     # [245.c] code_c=['M. W. Meyer. Neu bearb. von Cuno Hoffmeister']
                     # [245.n] code_n=[]
                     # [245.p] code_p=[]
+
+                    # [245.a] code_a=['Deutsche Dichtung']
+                    # [245.c] code_c=['hrsg. und eingeleitet von Stefan George und Karl Wolfskehl']
+                    # [245.n] code_n=['1']
+                    # [245.p] code_p=['Jean Paul']
 
                     if code_a and code_b and code_c:
                         # perhabps title - series, subseries and author
