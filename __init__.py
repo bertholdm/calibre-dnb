@@ -478,6 +478,11 @@ class DNB_DE(Source):
                     #   <subfield code="a">&#152;Die&#156; Odyssee der PN-9</subfield>
                     #   <subfield code="c">Fritz Moeglich. Hrsg.: Peter Supf</subfield>
 
+                    # [245.a] code_a=['\x98Die\x9c Welt der Planeten']
+                    # [245.c] code_c=['M. W. Meyer. Neu bearb. von Cuno Hoffmeister']
+                    # [245.n] code_n=[]
+                    # [245.p] code_p=[]
+
                     if code_a and code_b and code_c:
                         # perhabps title - series, subseries and author
                         # [245.a] code_a=['\x98Ein\x9c Glas voll Mord – DuMonts Digitale Kriminal-Bibliothek']
@@ -510,9 +515,15 @@ class DNB_DE(Source):
                                 code_c = list(map(lambda x: x.replace('%%e:' + match.group(1), ''), code_c))  ## strip match
 
                     # Caching subtitle
-                    if code_a and code_b and not code_c:
+                    if code_a and code_b:  #  and not code_c:
                         # [245.a] code_a=['Tödliche Weihnachten – DuMonts Digitale Kriminal-Bibliothek']
                         # [245.b] code_b=['Ein mörderisches Adventspaket']
+                        # [245.n] code_n=[]
+                        # [245.p] code_p=[]
+                        #
+                        # [245.a] code_a=['XML und VBA lernen']
+                        # [245.b] code_b=['Anfangen, anwenden, verstehen']
+                        # [245.c] code_c=['René Martin']
                         # [245.n] code_n=[]
                         # [245.p] code_p=[]
                         for code_a_element in code_a:
@@ -948,9 +959,23 @@ class DNB_DE(Source):
 
                     else:
                         # Assumption above was wrong. Try to extract at least the series_index
-                        match = re.search("(\d+[,\.\d+]?)", attr_v)
+                        #       <subfield code="a">Abhandlungen</subfield>
+                        #       <subfield code="v">Bd. 20, Abth. 1 = [1]</subfield>
+                        # "(\d+[,\.\d]+?)" gives as match 1 for the subfield v above: "20,",
+                        match = re.search("(\d+[,\.]\d+?)", attr_v)
                         if match:
-                            series_index = match.group(1)
+                            # Strip non-numeric characters at the end of the string
+                            digits = []
+                            for char in match.group(1):
+                                if char.isdigit():
+                                    digits.append(char)
+                                else:
+                                    break
+                            if digits:
+                                series_index = int(''.join(digits))
+                            else:
+                                series_index = 0.0
+                            # series_index = match.group(1)
                             log.info("[490.v] Series_Index: %s" % series_index)
 
                     # Use Series Name from attribute "a" if not already found in attribute "v"
@@ -1019,9 +1044,23 @@ class DNB_DE(Source):
                         break
 
                     # Series Index
+                    #       <subfield code="a">Abhandlungen</subfield>
+                    #       <subfield code="v">Bd. 20, Abth. 1 = [1]</subfield>
+                    # "(\d+[,\.\d]+?)" gives as match 1 for the subfield v above: "20,",
                     match = re.search("(\d+[,\.\d+]?)", i.xpath("./marc21:subfield[@code='v']", namespaces=ns)[0].text.strip())
                     if match:
-                        series_index = match.group(1)
+                        # Strip non-numeric characters at the end of the string
+                        digits = []
+                        for char in match.group(1):
+                            if char.isdigit():
+                                digits.append(char)
+                            else:
+                                break
+                        if digits:
+                            series_index = int(''.join(digits))
+                        else:
+                            series_index = 0.0
+                        # series_index = match.group(1)
                         log.info("[830.v] Series_Index: %s" % series_index)
 
                     # Series
@@ -1036,6 +1075,7 @@ class DNB_DE(Source):
 
                 # Adjust title, if series and index in title
                 if book['series']:
+                    log.info("book['series']={0}, book['series_index=']={1}".format(book['series'], book['series_index']))
                     # Re-format series_index (book['series_index'] is of type string)
                     # to remove leading zeros before searching.
                     if book['series_index']:

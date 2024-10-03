@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <record xmlns="http://www.loc.gov/MARC21/slim" type="Bibliographic">
+    <leader>00000nam a2200000uc 4500</leader>
+    <controlfield tag="001">1221319361</controlfield>
+    <controlfield tag="003">DE-101</controlfield>
+    <controlfield tag="005">20210210181759.0</controlfield>
+    <controlfield tag="007">cr||||||||||||</controlfield>
+    <controlfield tag="008">201112r20201900gw |||||o|||| 00||||ger  </controlfield>
+    <datafield tag="015" ind1=" " ind2=" ">
+      <subfield code="a">20,O12</subfield>
+      <subfield code="2">dnb</subfield>
+    </datafield>
+    <datafield tag="016" ind1="7" ind2=" ">
+      <subfield code="2">DE-101</subfield>
+      <subfield code="a">1221319361</subfield>
+    </datafield>
+    <datafield tag="024" ind1="7" ind2=" ">
+      <subfield code="2">urn</subfield>
+      <subfield code="a">urn:nbn:de:101:1-2020111215194578606390</subfield>
+    </datafield>
+    <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">(DE-599)DNB1221319361</subfield>
+    </datafield>
+    <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">(OCoLC)1236859824</subfield>
+    </datafield>
+    <datafield tag="040" ind1=" " ind2=" ">
+      <subfield code="a">1240</subfield>
+      <subfield code="b">ger</subfield>
+      <subfield code="c">DE-101</subfield>
+      <subfield code="d">9999</subfield>
+    </datafield>
+    <datafield tag="041" ind1=" " ind2=" ">
+      <subfield code="8">1\p</subfield>
+      <subfield code="a">ger</subfield>
+    </datafield>
+    <datafield tag="044" ind1=" " ind2=" ">
+      <subfield code="c">XA-DE-BY</subfield>
+    </datafield>
+    <datafield tag="082" ind1="7" ind2="4">
+      <subfield code="8">9\p</subfield>
+      <subfield code="a">551.21</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="2">23kdnb</subfield>
+    </datafield>
+    <datafield tag="083" ind1="7" ind2=" ">
+      <subfield code="8">10\p</subfield>
+      <subfield code="a">550</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="2">23sdnb</subfield>
+    </datafield>
+    <datafield tag="084" ind1=" " ind2=" ">
+      <subfield code="a">AX 17220</subfield>
+      <subfield code="2">rvk</subfield>
+    </datafield>
+    <datafield tag="100" ind1="1" ind2=" ">
+      <subfield code="8">2\p</subfield>
+      <subfield code="0">(DE-588)116129980</subfield>
+      <subfield code="0">https://d-nb.info/gnd/116129980</subfield>
+      <subfield code="0">(DE-101)116129980</subfield>
+      <subfield code="a">Bergeat, Alfred</subfield>
+      <subfield code="d">1866-1924</subfield>
+      <subfield code="e">Verfasser</subfield>
+      <subfield code="4">aut</subfield>
+      <subfield code="2">gnd</subfield>
+    </datafield>
+    <datafield tag="245" ind1="1" ind2="0">
+      <subfield code="a">&#152;Die&#156; äolischen Inseln</subfield>
+      <subfield code="b">Stromboli, Panaria, Salina, Lipari, Vulcano, Filicudi und Alicudi</subfield>
+      <subfield code="c">von Alfred Bergeat</subfield>
+    </datafield>
+    <datafield tag="264" ind1=" " ind2="1">
+      <subfield code="a">München</subfield>
+      <subfield code="b">Verlag der Bayerischen Akademie der Wissenschaften</subfield>
+      <subfield code="c">2020</subfield>
+    </datafield>
+    <datafield tag="300" ind1=" " ind2=" ">
+      <subfield code="a">Online-Ressource</subfield>
+    </datafield>
+    <datafield tag="336" ind1=" " ind2=" ">
+      <subfield code="a">Text</subfield>
+      <subfield code="b">txt</subfield>
+      <subfield code="2">rdacontent</subfield>
+    </datafield>
+    <datafield tag="337" ind1=" " ind2=" ">
+      <subfield code="a">Computermedien</subfield>
+      <subfield code="b">c</subfield>
+      <subfield code="2">rdamedia</subfield>
+    </datafield>
+    <datafield tag="338" ind1=" " ind2=" ">
+      <subfield code="a">Online-Ressource</subfield>
+      <subfield code="b">cr</subfield>
+      <subfield code="2">rdacarrier</subfield>
+    </datafield>
+    <datafield tag="490" ind1="1" ind2=" ">
+      <subfield code="a">Abhandlungen</subfield>
+      <subfield code="v">Bd. 20, Abth. 1 = [1]</subfield>
+    </datafield>
+    <datafield tag="506" ind1="0" ind2=" ">
+      <subfield code="a">Open Access</subfield>
+      <subfield code="f">Unrestricted online access</subfield>
+      <subfield code="u">http://purl.org/coar/access_right/c_abf2</subfield>
+      <subfield code="2">star</subfield>
+    </datafield>
+    <datafield tag="540" ind1=" " ind2=" ">
+      <subfield code="a">cc-by-4.0.de</subfield>
+      <subfield code="u">https://creativecommons.org/licenses/by/4.0/legalcode.de</subfield>
+      <subfield code="2">cc</subfield>
+    </datafield>
+    <datafield tag="583" ind1="1" ind2=" ">
+      <subfield code="a">Archivierung/Langzeitarchivierung gewährleistet</subfield>
+      <subfield code="5">DE-101</subfield>
+      <subfield code="2">pdager</subfield>
+    </datafield>
+    <datafield tag="650" ind1=" " ind2="7">
+      <subfield code="8">6\p</subfield>
+      <subfield code="0">(DE-588)4128227-9</subfield>
+      <subfield code="0">https://d-nb.info/gnd/4128227-9</subfield>
+      <subfield code="0">(DE-101)041282272</subfield>
+      <subfield code="a">Insel</subfield>
+      <subfield code="2">gnd</subfield>
+    </datafield>
+    <datafield tag="651" ind1=" " ind2="7">
+      <subfield code="8">3\p</subfield>
+      <subfield code="0">(DE-588)4341375-4</subfield>
+      <subfield code="0">https://d-nb.info/gnd/4341375-4</subfield>
+      <subfield code="0">(DE-101)941314537</subfield>
+      <subfield code="a">Stromboli</subfield>
+      <subfield code="2">gnd</subfield>
+    </datafield>
+    <datafield tag="651" ind1=" " ind2="7">
+      <subfield code="8">4\p</subfield>
+      <subfield code="0">(DE-588)4505458-7</subfield>
+      <subfield code="0">https://d-nb.info/gnd/4505458-7</subfield>
+      <subfield code="0">(DE-101)953852911</subfield>
+      <subfield code="a">Alicudi</subfield>
+      <subfield code="2">gnd</subfield>
+    </datafield>
+    <datafield tag="651" ind1=" " ind2="7">
+      <subfield code="8">5\p</subfield>
+      <subfield code="0">(DE-588)4551989-4</subfield>
+      <subfield code="0">https://d-nb.info/gnd/4551989-4</subfield>
+      <subfield code="0">(DE-101)956926606</subfield>
+      <subfield code="a">Filicudi</subfield>
+      <subfield code="2">gnd</subfield>
+    </datafield>
+    <datafield tag="651" ind1=" " ind2="7">
+      <subfield code="8">7\p</subfield>
+      <subfield code="0">(DE-588)4114428-4</subfield>
+      <subfield code="0">https://d-nb.info/gnd/4114428-4</subfield>
+      <subfield code="0">(DE-101)041144287</subfield>
+      <subfield code="a">Lipari</subfield>
+      <subfield code="2">gnd</subfield>
+    </datafield>
+    <datafield tag="651" ind1=" " ind2="7">
+      <subfield code="8">8\p</subfield>
+      <subfield code="0">(DE-588)4377881-1</subfield>
+      <subfield code="0">https://d-nb.info/gnd/4377881-1</subfield>
+      <subfield code="0">(DE-101)944574947</subfield>
+      <subfield code="a">Vulcano</subfield>
+      <subfield code="2">gnd</subfield>
+    </datafield>
+    <datafield tag="776" ind1="0" ind2="8">
+      <subfield code="i">Reproduktion von</subfield>
+      <subfield code="a">Bergeat, Alfred</subfield>
+      <subfield code="t">Die äolischen Inseln. Stromboli, Panaria, Salina, Lipari, Vulcano, Filicudi und Alicudi</subfield>
+      <subfield code="d">München, , 1900</subfield>
+    </datafield>
+    <datafield tag="830" ind1=" " ind2="0">
+      <subfield code="a">Abhandlungen</subfield>
+      <subfield code="v">Bd. 20, Abth. 1 = [1]</subfield>
+    </datafield>
+    <datafield tag="850" ind1=" " ind2=" ">
+      <subfield code="a">DE-101a</subfield>
+      <subfield code="a">DE-101b</subfield>
+    </datafield>
+    <datafield tag="856" ind1="4" ind2="0">
+      <subfield code="u">https://nbn-resolving.org/urn:nbn:de:101:1-2020111215194578606390</subfield>
+      <subfield code="x">Resolving-System</subfield>
+    </datafield>
+    <datafield tag="856" ind1=" " ind2="0">
+      <subfield code="u">https://d-nb.info/1221319361/34</subfield>
+      <subfield code="x">Langzeitarchivierung Nationalbibliothek</subfield>
+    </datafield>
+    <datafield tag="856" ind1="4" ind2=" ">
+      <subfield code="u">http://publikationen.badw.de/de/003071156</subfield>
+    </datafield>
+    <datafield tag="883" ind1="1" ind2=" ">
+      <subfield code="8">1\p</subfield>
+      <subfield code="a">npi</subfield>
+      <subfield code="d">20201112</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="u">https://d-nb.info/provenance/plan#npi</subfield>
+    </datafield>
+    <datafield tag="883" ind1="1" ind2=" ">
+      <subfield code="8">2\p</subfield>
+      <subfield code="a">npi</subfield>
+      <subfield code="d">20201112</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="u">https://d-nb.info/provenance/plan#npi</subfield>
+    </datafield>
+    <datafield tag="883" ind1="0" ind2=" ">
+      <subfield code="8">3\p</subfield>
+      <subfield code="a">aepgnd</subfield>
+      <subfield code="c">0,35714</subfield>
+      <subfield code="d">20201113</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="u">https://d-nb.info/provenance/plan#aepgnd</subfield>
+    </datafield>
+    <datafield tag="883" ind1="0" ind2=" ">
+      <subfield code="8">4\p</subfield>
+      <subfield code="a">aepgnd</subfield>
+      <subfield code="c">0,25000</subfield>
+      <subfield code="d">20201113</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="u">https://d-nb.info/provenance/plan#aepgnd</subfield>
+    </datafield>
+    <datafield tag="883" ind1="0" ind2=" ">
+      <subfield code="8">5\p</subfield>
+      <subfield code="a">aepgnd</subfield>
+      <subfield code="c">0,25000</subfield>
+      <subfield code="d">20201113</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="u">https://d-nb.info/provenance/plan#aepgnd</subfield>
+    </datafield>
+    <datafield tag="883" ind1="0" ind2=" ">
+      <subfield code="8">6\p</subfield>
+      <subfield code="a">aepgnd</subfield>
+      <subfield code="c">0,22951</subfield>
+      <subfield code="d">20201113</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="u">https://d-nb.info/provenance/plan#aepgnd</subfield>
+    </datafield>
+    <datafield tag="883" ind1="0" ind2=" ">
+      <subfield code="8">7\p</subfield>
+      <subfield code="a">aepgnd</subfield>
+      <subfield code="c">0,16667</subfield>
+      <subfield code="d">20201113</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="u">https://d-nb.info/provenance/plan#aepgnd</subfield>
+    </datafield>
+    <datafield tag="883" ind1="0" ind2=" ">
+      <subfield code="8">8\p</subfield>
+      <subfield code="a">aepgnd</subfield>
+      <subfield code="c">0,13095</subfield>
+      <subfield code="d">20201113</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="u">https://d-nb.info/provenance/plan#aepgnd</subfield>
+    </datafield>
+    <datafield tag="883" ind1="0" ind2=" ">
+      <subfield code="8">9\p</subfield>
+      <subfield code="a">aepkn</subfield>
+      <subfield code="c">0,78466</subfield>
+      <subfield code="d">20201113</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="u">https://d-nb.info/provenance/plan#aepkn</subfield>
+    </datafield>
+    <datafield tag="883" ind1="0" ind2=" ">
+      <subfield code="8">10\p</subfield>
+      <subfield code="a">aepsg</subfield>
+      <subfield code="c">0,89162</subfield>
+      <subfield code="d">20201113</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="u">https://d-nb.info/provenance/plan#aepsg</subfield>
+    </datafield>
+    <datafield tag="925" ind1="r" ind2=" ">
+      <subfield code="a">ro</subfield>
+      <subfield code="a">rb</subfield>
+    </datafield>
+    <datafield tag="927" ind1=" " ind2=" ">
+      <subfield code="a">51544170</subfield>
+    </datafield>
+  </record>
