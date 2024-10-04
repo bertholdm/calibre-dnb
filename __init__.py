@@ -383,7 +383,7 @@ class DNB_DE(Source):
                             code_c = list(map(lambda x: x.replace(';', ''), code_c))
                             for delimiter in ['Hrsg. von ', 'hrsg. von ', '. Hrsg.: ', 'Ausgew. und mit einem Nachw. von ',
                                               'hrsg. und eingeleitet von ', 'Hrsg. u. eingel. von ',
-                                              'hrsg. u. mit e. Einl. vers. von ']:
+                                              'hrsg. u. mit e. Einl. vers. von ', 'Ausgew. u. bearb. von ']:
                                 code_c = list(map(lambda x: x.replace(delimiter, '%%e:'), code_c))  ## Mark editor
                             for delimiter in ['Illustrator: ', 'Illustriert von ', 'illustriert von ', 'Ill. von ', 'Textill.:']:
                                 code_c = list(map(lambda x: x.replace(delimiter, '%%a:'), code_c))  ## Mark artist
@@ -405,6 +405,15 @@ class DNB_DE(Source):
                                     if match.group(2) and match.group(3):
                                         book['original_language'] = match.group(2)
                                         book['original_language'].removesuffix('en')
+                        for code_c_element in code_c:
+                            # Use regex to extracting artist
+                            # Mit 95 Bildern nach Aquarellen von
+                            for pattern in ['(Mit .* Bildern .* von) (.*)%%']:
+                                log.info("[245.c] code_c_element=%s" % code_c_element)
+                                match = re.search(pattern, code_c_element)  # Search until first '%%' (non-greedy)
+                                if match:
+                                    code_c = list(map(lambda x: x.replace(match.group(1), '%%a:'), code_c))  ## Mark artist
+
                         log.info("[245.c] code_c after uniforming identifiers=%s" % code_c)
 
                         # Step 2: Identifiying parts
@@ -442,7 +451,8 @@ class DNB_DE(Source):
                         if code_c[0] == '':
                             code_c_authors = []
                         else:
-                            code_c_authors = code_c
+                            for code_c_element in code_c:
+                                code_c_authors = list(map(lambda x: x.strip('.').strip(';').strip(), code_c))
                         log.info("code_c_authors=%s" % code_c_authors)
 
                     # ToDo:
