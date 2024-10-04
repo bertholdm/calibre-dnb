@@ -957,7 +957,7 @@ class DNB_DE(Source):
                                 indexpart = parts[1]
                                 textpart = parts[0]
 
-                            match = re.search("(\d+[,\.\d+]?)", indexpart)
+                            match = re.search("(\d+(?:[\.,]\d+)?)", indexpart)
                             if match:
                                 series_index = match.group(1)
                                 series = textpart.strip()
@@ -966,23 +966,16 @@ class DNB_DE(Source):
 
                     else:
                         # Assumption above was wrong. Try to extract at least the series_index
+                        #       <subfield code="a">JACK RYAN</subfield>
+                        #       <subfield code="v">25</subfield>
+                        # "(\d+[,\.\d]+?)" gives as match 1 for the subfield v above: "25",
                         #       <subfield code="a">Abhandlungen</subfield>
                         #       <subfield code="v">Bd. 20, Abth. 1 = [1]</subfield>
                         # "(\d+[,\.\d]+?)" gives as match 1 for the subfield v above: "20,",
-                        match = re.search("(\d+[,\.]\d+?)", attr_v)
+                        # => The regex matches integer an float values
+                        match = re.search("(\d+(?:[\.,]\d+)?)", attr_v)
                         if match:
-                            # Strip non-numeric characters at the end of the string
-                            digits = []
-                            for char in match.group(1):
-                                if char.isdigit():
-                                    digits.append(char)
-                                else:
-                                    break
-                            if digits:
-                                series_index = int(''.join(digits))
-                            else:
-                                series_index = 0.0
-                            # series_index = match.group(1)
+                            series_index = match.group(1)
                             log.info("[490.v] Series_Index: %s" % series_index)
 
                     # Use Series Name from attribute "a" if not already found in attribute "v"
@@ -1010,7 +1003,7 @@ class DNB_DE(Source):
                         series = match.group(1)
                         series_index = match.group(2)
                         log.info("[246.a] Series: %s" % series)
-                        log.info("[246.a] Series_Index: %s" % book['series_index'])
+                        log.info("[246.a] Series_Index: %s" % series_index)
 
                         series = self.clean_series(log, match.group(1), book['publisher_name'])
 
@@ -1030,7 +1023,9 @@ class DNB_DE(Source):
                     match = re.search("(\d+[,\.\d+]?)", i.xpath("./marc21:subfield[@code='v']", namespaces=ns)[0].text.strip())
                     if match:
                         series_index = match.group(1)
-                        log.info("[800.v] Series_Index: %s" % series_index)
+                        if series_index.endswith(','):
+                            series_index = series_index[:-1] + '.'
+                        log.info("[490.v] Series_Index: %s" % series_index)
 
                     # Series
                     series = i.xpath("./marc21:subfield[@code='t']", namespaces=ns)[0].text.strip()
@@ -1054,21 +1049,10 @@ class DNB_DE(Source):
                     #       <subfield code="a">Abhandlungen</subfield>
                     #       <subfield code="v">Bd. 20, Abth. 1 = [1]</subfield>
                     # "(\d+[,\.\d]+?)" gives as match 1 for the subfield v above: "20,",
-                    match = re.search("(\d+[,\.\d+]?)", i.xpath("./marc21:subfield[@code='v']", namespaces=ns)[0].text.strip())
+                    match = re.search("(\d+(?:[\.,]\d+)?)", i.xpath("./marc21:subfield[@code='v']", namespaces=ns)[0].text.strip())
                     if match:
-                        # Strip non-numeric characters at the end of the string
-                        digits = []
-                        for char in match.group(1):
-                            if char.isdigit():
-                                digits.append(char)
-                            else:
-                                break
-                        if digits:
-                            series_index = int(''.join(digits))
-                        else:
-                            series_index = 0.0
-                        # series_index = match.group(1)
-                        log.info("[830.v] Series_Index: %s" % series_index)
+                        series_index = float(match.group(1))
+                        log.info("[490.v] Series_Index: %s" % series_index)
 
                     # Series
                     series = i.xpath("./marc21:subfield[@code='a']", namespaces=ns)[0].text.strip()
