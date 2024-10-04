@@ -555,7 +555,10 @@ class DNB_DE(Source):
                                             code_a = list(map(lambda x: x.strip().strip(general_dash.strip()), code_a))
                                     break  # Search until first match
                         if code_b[0]:
-                            book['subtitle'] = code_b[0]
+                            if code_b[0] not in ['Roman', 'Erzählung', 'Kriminalroman']:
+                                book['subtitle'] = code_b[0]
+                            else:
+                                book['tags'].append(code_b[0])
 
                     # a = series, n = series index, p = title and author and perhaps more
                     # [245.a] code_a=['Spannende Geschichten']
