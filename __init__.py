@@ -452,7 +452,7 @@ class DNB_DE(Source):
                             code_c_authors = []
                         else:
                             for code_c_element in code_c:
-                                code_c_authors = list(map(lambda x: x.strip('.').strip(';').strip(), code_c))
+                                code_c_authors = list(map(lambda x: x.strip().strip('.').strip(';').strip(), code_c))
                         log.info("code_c_authors=%s" % code_c_authors)
 
                     # ToDo:
