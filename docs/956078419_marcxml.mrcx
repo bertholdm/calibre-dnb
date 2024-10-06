@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <record xmlns="http://www.loc.gov/MARC21/slim" type="Bibliographic">
+    <leader>00000pam a2200000 cc4500</leader>
+    <controlfield tag="001">956078419</controlfield>
+    <controlfield tag="003">DE-101</controlfield>
+    <controlfield tag="005">20240629133858.0</controlfield>
+    <controlfield tag="007">tu</controlfield>
+    <controlfield tag="008">990323s1999    gw ||||| |||| 00||||ger  </controlfield>
+    <datafield tag="015" ind1=" " ind2=" ">
+      <subfield code="a">99,A47,0575</subfield>
+      <subfield code="z">99,N16,0364</subfield>
+      <subfield code="2">dnb</subfield>
+    </datafield>
+    <datafield tag="016" ind1="7" ind2=" ">
+      <subfield code="2">DE-101</subfield>
+      <subfield code="a">956078419</subfield>
+    </datafield>
+    <datafield tag="020" ind1=" " ind2=" ">
+      <subfield code="a">9783827220165</subfield>
+      <subfield code="c">: DM 99.95, EUR 51.10, S 730.00</subfield>
+      <subfield code="9">978-3-8272-2016-5</subfield>
+    </datafield>
+    <datafield tag="020" ind1=" " ind2=" ">
+      <subfield code="c">Pp.</subfield>
+    </datafield>
+    <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">(DE-599)DNB956078419</subfield>
+    </datafield>
+    <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">(OCoLC)76029703</subfield>
+    </datafield>
+    <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">(OCoLC)722849449</subfield>
+    </datafield>
+    <datafield tag="040" ind1=" " ind2=" ">
+      <subfield code="a">1240</subfield>
+      <subfield code="b">ger</subfield>
+      <subfield code="c">DE-101</subfield>
+      <subfield code="d">0292</subfield>
+    </datafield>
+    <datafield tag="041" ind1=" " ind2=" ">
+      <subfield code="a">ger</subfield>
+      <subfield code="h">eng</subfield>
+    </datafield>
+    <datafield tag="044" ind1=" " ind2=" ">
+      <subfield code="c">XA-DE</subfield>
+    </datafield>
+    <datafield tag="082" ind1="7" ind2="4">
+      <subfield code="a">28</subfield>
+      <subfield code="a">17</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="2">22sdnb</subfield>
+    </datafield>
+    <datafield tag="090" ind1=" " ind2=" ">
+      <subfield code="a">b</subfield>
+    </datafield>
+    <datafield tag="245" ind1="0" ind2="0">
+      <subfield code="a">ABAP 4 in 21 Tagen</subfield>
+      <subfield code="n">Buch.</subfield>
+      <subfield code="c">Ken Greenwood. Dt. Übers.: Lutz Thiele ; Jens Knöpfe</subfield>
+    </datafield>
+    <datafield tag="264" ind1="3" ind2="1">
+      <subfield code="a">München</subfield>
+      <subfield code="b">Markt-und-Technik-Verl.</subfield>
+      <subfield code="c">1999</subfield>
+    </datafield>
+    <datafield tag="300" ind1=" " ind2=" ">
+      <subfield code="a">774 S.</subfield>
+      <subfield code="b">Ill., graph. Darst.</subfield>
+      <subfield code="c">25 cm</subfield>
+    </datafield>
+    <datafield tag="336" ind1=" " ind2=" ">
+      <subfield code="a">Text</subfield>
+      <subfield code="b">txt</subfield>
+      <subfield code="2">rdacontent</subfield>
+    </datafield>
+    <datafield tag="337" ind1=" " ind2=" ">
+      <subfield code="a">ohne Hilfsmittel zu benutzen</subfield>
+      <subfield code="b">n</subfield>
+      <subfield code="2">rdamedia</subfield>
+    </datafield>
+    <datafield tag="338" ind1=" " ind2=" ">
+      <subfield code="a">Band</subfield>
+      <subfield code="b">nc</subfield>
+      <subfield code="2">rdacarrier</subfield>
+    </datafield>
+    <datafield tag="773" ind1="0" ind2="8">
+      <subfield code="q">b</subfield>
+      <subfield code="w">(DE-101)956078370</subfield>
+    </datafield>
+    <datafield tag="850" ind1=" " ind2=" ">
+      <subfield code="a">DE-101a</subfield>
+      <subfield code="a">DE-101b</subfield>
+    </datafield>
+    <datafield tag="856" ind1="4" ind2="2">
+      <subfield code="m">B:DE-101</subfield>
+      <subfield code="q">application/pdf</subfield>
+      <subfield code="u">https://d-nb.info/956078419/04</subfield>
+      <subfield code="3">Inhaltsverzeichnis</subfield>
+    </datafield>
+    <datafield tag="925" ind1="r" ind2=" ">
+      <subfield code="a">ra</subfield>
+    </datafield>
+  </record>

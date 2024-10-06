@@ -402,7 +402,7 @@ class DNB_DE(Source):
                                 code_c = list(map(lambda x: x.replace(delimiter, '%%e:'), code_c))  ## Mark editor
                             for delimiter in ['Illustrator: ', 'Illustriert von ', 'illustriert von ', 'Ill. von ', 'Textill.:']:
                                 code_c = list(map(lambda x: x.replace(delimiter, '%%a:'), code_c))  ## Mark artist
-                            for delimiter in ['Übers.:', 'Übersetzt von']:
+                            for delimiter in ['Übersetzt von', 'Dt. Übers.:', 'Übers.:']:
                                 # log.info("[delimiter=%s" % delimiter)
                                 # log.info("[delimiter=%s" % ":".join("{:02x}".format(ord(c)) for c in delimiter))
                                 delimiter = unicodedata_normalize("NFKC", delimiter)
@@ -579,7 +579,7 @@ class DNB_DE(Source):
                                     break  # Search until first match
                         if code_b[0]:
                             if code_b[0] not in ['Roman', 'Erzählung', 'Kriminalroman']:
-                                book['subtitle'] = code_b[0]
+                                book['subtitle'] = code_b[0].strip('[]')
                             else:
                                 book['tags'].append(code_b[0])
 
