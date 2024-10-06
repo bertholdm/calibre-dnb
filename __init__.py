@@ -265,7 +265,7 @@ class DNB_DE(Source):
                             if '[s. l.]' not in i.text and '[s.l.]' not in i.text:
                                 location_parts.append(i.text.strip())
                         if location_parts:
-                            book['publisher_location'] = ' '.join(location_parts).strip('[]')
+                            book['publisher_location'] = ' ; '.join(location_parts).strip('[]')
 
                     if not book['publisher_name']:
                         try:
@@ -395,8 +395,8 @@ class DNB_DE(Source):
                             code_c = [s + '%%' for s in code_c]  # Mark end of code c entry
                             code_c = list(map(lambda x: x.replace('[', ''), code_c))  # General replacings
                             code_c = list(map(lambda x: x.replace(']', ''), code_c))
-                            code_c = list(map(lambda x: x.replace(';', ''), code_c))
-                            for delimiter in ['Hrsg. von ', 'hrsg. von ', '. Hrsg.: ', 'Ausgew. und mit einem Nachw. von ',
+                            # code_c = list(map(lambda x: x.replace(';', ''), code_c))
+                            for delimiter in ['Hrsg. von ', 'hrsg. von ', 'Hrsg.: ', 'Ausgew. und mit einem Nachw. von ',
                                               'hrsg. und eingeleitet von ', 'Hrsg. u. eingel. von ',
                                               'hrsg. u. mit e. Einl. vers. von ', 'Ausgew. u. bearb. von ']:
                                 code_c = list(map(lambda x: x.replace(delimiter, '%%e:'), code_c))  ## Mark editor
@@ -436,6 +436,14 @@ class DNB_DE(Source):
                             match = re.search("%%e:(.*?)%%", code_c_element)  # Search until first '%%' (non-greedy)
                             if match:
                                 book['editor'] = match.group(1).strip().strip('.').strip()
+                                log.info("book['editor']=%s" % book['editor'])
+                                code_c = list(map(lambda x: x.replace('%%e:' + match.group(1), ''), code_c))  ## strip match
+                        # Cave: more than one match possible:
+                        # code_c_element=%%e:Akademischer Verein Hütte e.V., Berlin. %%e:Horst Czichos ; Manfred Hennecke%%
+                        for code_c_element in code_c:
+                            match = re.search("%%e:(.*?)%%", code_c_element)  # Search until first '%%' (non-greedy)
+                            if match:
+                                book['editor'] = book['editor'] + ' / ' + match.group(1).strip().strip('.').strip()
                                 log.info("book['editor']=%s" % book['editor'])
                                 code_c = list(map(lambda x: x.replace('%%e:' + match.group(1), ''), code_c))  ## strip match
                         for code_c_element in code_c:
@@ -734,6 +742,17 @@ class DNB_DE(Source):
                 # <subfield code="2">gnd</subfield>
                 for i in record.xpath("./marc21:datafield[@tag='700']/marc21:subfield[@code='4' and "
                                       "text()='edt']/../marc21:subfield[@code='a' and "
+                                      "string-length(text())>0]", namespaces=ns):
+                    if book['editor']:
+                        book['editor'] = book['editor'] + ' / ' + re.sub(" \[.*\]$", "", i.text.strip())
+                    else:
+                        book['editor'] = re.sub(" \[.*\]$", "", i.text.strip())
+                # <subfield code="a">Akademischer Verein Hütte</subfield>
+                # <subfield code="e">Herausgebendes Organ</subfield>
+                # <subfield code="4">isb</subfield>
+                # <subfield code="2">gnd</subfield>
+                for i in record.xpath("./marc21:datafield[@tag='700']/marc21:subfield[@code='4' and "
+                                      "text()='isb']/../marc21:subfield[@code='a' and "
                                       "string-length(text())>0]", namespaces=ns):
                     if book['editor']:
                         book['editor'] = book['editor'] + ' / ' + re.sub(" \[.*\]$", "", i.text.strip())
