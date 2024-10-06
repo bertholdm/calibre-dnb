@@ -253,20 +253,35 @@ class DNB_DE(Source):
                     if not book['publisher_location']:
                         location_parts = []
                         for i in field.xpath("./marc21:subfield[@code='a' and string-length(text())>0]", namespaces=ns):
-                            location_parts.append(i.text.strip())
+                            # Consider the sequence:
+                            # datafield 1:
+                            # <subfield code="a">[s. l.] @</subfield>
+                            # <subfield code="b">[s. n.] @</subfield>
+                            # <subfield code="c">1941</subfield>
+                            # datafield 2:
+                            # <subfield code="a">Leipzig</subfield>
+                            # <subfield code="b">Brockhaus</subfield>
+                            # May contain the abbreviation [S.l.] when the place is unknown.
+                            if '[s. l.]' not in i.text and '[s.l.]' not in i.text:
+                                location_parts.append(i.text.strip())
                         if location_parts:
                             book['publisher_location'] = ' '.join(location_parts).strip('[]')
 
                     if not book['publisher_name']:
                         try:
-                            book['publisher_name'] = field.xpath("./marc21:subfield[@code='b' and string-length(text())>0]", namespaces=ns)[0].text.strip()
+                            # May contain the abbreviation [s.n.] when the name is unknown.
+                            publisher_parts = field.xpath("./marc21:subfield[@code='b' "
+                                                                 "and string-length(text())>0]", namespaces=ns)[0].text.strip()
+                            if '[s. n.]' not in publisher_parts and '[s.n.]' not in publisher_parts:
+                                book['publisher_name'] = publisher_parts
                             log.info("[264.b] Publisher: %s" % book['publisher_name'])
                         except IndexError:
                             pass
 
                     if not book['pubdate']:
                         try:
-                            pubdate = field.xpath("./marc21:subfield[@code='c' and string-length(text())>=4]", namespaces=ns)[0].text.strip()
+                            pubdate = field.xpath("./marc21:subfield[@code='c' "
+                                                  "and string-length(text())>=4]", namespaces=ns)[0].text.strip()
                             match = re.search("(\d{4})", pubdate)
                             year = match.group(1)
                             book['pubdate'] = datetime.datetime(int(year), 1, 1, 12, 30, 0)
