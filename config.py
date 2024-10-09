@@ -25,6 +25,8 @@ KEY_CAN_GET_MULTIPLE_COVERS = 'canGetMultipleCovers'
 KEY_EDITOR_PATTERNS = 'editorPatterns'
 KEY_ARTIST_PATTERNS = 'artistPatterns'
 KEY_TRANSLATOR_PATTERNS = 'translatorPatterns'
+# ToDo: ['Vorw. von Gustav Meyrink']
+KEY_SHOW_MARC21_FIELD_NUMBERS = 'showMarc21FieldNumbers'
 
 DEFAULT_STORE_VALUES = {
     KEY_GUESS_SERIES: True,
@@ -36,11 +38,13 @@ DEFAULT_STORE_VALUES = {
     KEY_STOP_AFTER_FIRST_HIT: True,
     KEY_PREFER_RESULTS_WITH_ISBN: True,
     KEY_CAN_GET_MULTIPLE_COVERS: False,
-    KEY_EDITOR_PATTERNS : ['Hrsg. von ', 'hrsg. von ', 'Hrsg.:', 'Ausgew. und mit einem Nachw. von ',
-                          'hrsg. und eingeleitet von ', 'Hrsg. u. eingel. von ', 'hrsg. u. mit e. Einl. vers. von ',
-                          'Ausgew. u. bearb. von '],
+    # ToDo: ['Hrsg. Felix Schloemp. [Die Bilder sind v. Paul Scheurich]']
+    # ToDo: 'Hrsg. von Felix Schloemp. M. e. Vorw. von Gustav Meyrink u. Bild. von Paul Schenrich']
+    KEY_EDITOR_PATTERNS: ['[Hh]rsg. von ', 'Hrsg.:', 'Ausgew. und mit einem Nachw. von ', 'hrsg. und eingeleitet von ',
+                          'Hrsg. u. eingel. von ', 'hrsg. u. mit e. Einl. vers. von ', 'Ausgew. u. bearb. von '],
     KEY_ARTIST_PATTERNS: ['Illustrator: ', '[Ii]llustriert von ', 'Ill. von ', 'Textill.:'],
     KEY_TRANSLATOR_PATTERNS: ['Übersetzt von ', 'Dt. Übers.:', 'Übers.:', '(\. [Aa]us (?:dem|d\.) (.*) von) (.*)%%'],
+    KEY_SHOW_MARC21_FIELD_NUMBERS: False,
 }
 
 # This is where all preferences for this plugin will be stored
@@ -179,7 +183,7 @@ class ConfigWidget(DefaultConfigWidget):
 
         self.editorPatterns_textarea = QPlainTextEdit(self)
         self.editorPatterns_textarea.setPlainText(
-            c.get(KEY_EDITOR_PATTERNS, '\n'.join(DEFAULT_STORE_VALUES[KEY_EDITOR_PATTERNS])))
+            '\n'.join(c.get(KEY_EDITOR_PATTERNS, DEFAULT_STORE_VALUES[KEY_EDITOR_PATTERNS])))
         other_group_box_layout.addWidget(
             self.editorPatterns_textarea, 13, 1, 1, 1)
 
@@ -192,7 +196,7 @@ class ConfigWidget(DefaultConfigWidget):
 
         self.artistPatterns_textarea = QPlainTextEdit(self)
         self.artistPatterns_textarea.setPlainText(
-            c.get(KEY_ARTIST_PATTERNS, '\n'.join(DEFAULT_STORE_VALUES[KEY_ARTIST_PATTERNS])))
+            '\n'.join(c.get(KEY_ARTIST_PATTERNS, DEFAULT_STORE_VALUES[KEY_ARTIST_PATTERNS])))
         other_group_box_layout.addWidget(
             self.artistPatterns_textarea, 14, 1, 1, 1)
 
@@ -205,9 +209,21 @@ class ConfigWidget(DefaultConfigWidget):
 
         self.translatorPatterns_textarea = QPlainTextEdit(self)
         self.translatorPatterns_textarea.setPlainText(
-            c.get(KEY_TRANSLATOR_PATTERNS, '\n'.join(DEFAULT_STORE_VALUES[KEY_TRANSLATOR_PATTERNS])))
+            '\n'.join(c.get(KEY_TRANSLATOR_PATTERNS, DEFAULT_STORE_VALUES[KEY_TRANSLATOR_PATTERNS])))
         other_group_box_layout.addWidget(
             self.translatorPatterns_textarea, 15, 1, 1, 1)
+
+        # Show MARC21 field numbers?
+        showMarc21FieldNumbers_label = QLabel(
+            _('Show MARC21 field numbers:'), self)
+        showMarc21FieldNumbers_label.setToolTip(_('Show MARC21 field numbers in comments for reference purposes.\n'))
+        other_group_box_layout.addWidget(showMarc21FieldNumbers_label, 16, 0, 1, 1)
+
+        self.showMarc21FieldNumbers_checkbox = QCheckBox(self)
+        self.showMarc21FieldNumbers_checkbox.setChecked(
+            c.get(KEY_SHOW_MARC21_FIELD_NUMBERS, DEFAULT_STORE_VALUES[KEY_SHOW_MARC21_FIELD_NUMBERS]))
+        other_group_box_layout.addWidget(
+            self.showMarc21FieldNumbers_checkbox, 16, 1, 1, 1)
 
 
     def commit(self):
@@ -224,5 +240,6 @@ class ConfigWidget(DefaultConfigWidget):
         new_prefs[KEY_EDITOR_PATTERNS] = self.editorPatterns_textarea.toPlainText().split("\n")
         new_prefs[KEY_ARTIST_PATTERNS] = self.artistPatterns_textarea.toPlainText().split("\n")
         new_prefs[KEY_TRANSLATOR_PATTERNS] = self.translatorPatterns_textarea.toPlainText().split("\n")
+        new_prefs[KEY_SHOW_MARC21_FIELD_NUMBERS] = self.showMarc21FieldNumbers_checkbox.isChecked()
 
         plugin_prefs[STORE_NAME] = new_prefs

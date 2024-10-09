@@ -103,6 +103,9 @@ class DNB_DE(Source):
             cfg.KEY_ARTIST_PATTERNS, [])
         self.cfg_translator_patterns = cfg.plugin_prefs[cfg.STORE_NAME].get(
             cfg.KEY_TRANSLATOR_PATTERNS, [])
+        self.cfg_show_marc21_field_numbers = cfg.plugin_prefs[cfg.STORE_NAME].get(
+            cfg.KEY_SHOW_MARC21_FIELD_NUMBERS, False)
+
 
     @classmethod
     def set_prefer_results_with_isbn(cls, prefer):
@@ -392,7 +395,7 @@ class DNB_DE(Source):
                         code_p.append(i.text.strip())
                     log.info("[245.p] code_p=%s" % code_p)
 
-                    # Remainder of title (Zusatz zum Titel)
+                    # Extract remainder of title (Zusatz zum Titel)
                     if code_c:
 
                         # Step 1: Mark parts by uniforming identifiers
@@ -1391,7 +1394,7 @@ class DNB_DE(Source):
                     if book['subjects_non_gnd']:
                         book['comments'] = book['comments'] + _(
                             '\nNon-GND subjects:\t') + ' / '.join(book['subjects_non_gnd'])
-                    if marc21_fields:
+                    if marc21_fields and self.cfg_show_marc21_field_numbers == True:
                         book['comments'] = book['comments'] + _('\n---\nMARC21 fields:\t') + ', '.join(marc21_fields)
 
                 # Indicate path to source
@@ -1730,7 +1733,7 @@ class DNB_DE(Source):
                 # let the pattern ending with space.
                 match = re.search(
                     '^(\w\w\w\w+) ', self.remove_sorting_characters(publisher_name))
-                if match:
+                if match:  # ToDo: and prefer series not start with publisher name -- there may be reasons to add such series names
                     pubcompany = match.group(1)
                     if re.search('^\W*' + pubcompany, series, flags=re.IGNORECASE):
                         log.info("[Series Cleaning] Series %s starts with publisher, ignoring" % series)
