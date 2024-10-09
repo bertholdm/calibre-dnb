@@ -10,7 +10,7 @@ __copyright__ = '2017, Bernhard Geier <geierb@geierb.de>'
 __docformat__ = 'restructuredtext en'
 
 
-from PyQt5.Qt import QLabel, QGridLayout, QGroupBox, QCheckBox, QButtonGroup, QRadioButton
+from PyQt5.Qt import QLabel, QGridLayout, QGroupBox, QCheckBox, QButtonGroup, QRadioButton, QPlainTextEdit
 
 STORE_NAME = 'Options'
 
@@ -22,6 +22,7 @@ KEY_APPEND_SUBTITLE_TO_TITLE = 'appendSubtitleToTitle'
 KEY_STOP_AFTER_FIRST_HIT = 'stopAfterFirstHit'
 KEY_PREFER_RESULTS_WITH_ISBN = 'preferResultsWithIsbn'
 KEY_CAN_GET_MULTIPLE_COVERS = 'canGetMultipleCovers'
+KEY_EDITOR_PATTERNS = 'editorPatterns'
 
 DEFAULT_STORE_VALUES = {
     KEY_GUESS_SERIES: True,
@@ -33,6 +34,9 @@ DEFAULT_STORE_VALUES = {
     KEY_STOP_AFTER_FIRST_HIT: True,
     KEY_PREFER_RESULTS_WITH_ISBN: True,
     KEY_CAN_GET_MULTIPLE_COVERS: False,
+    KEY_EDITOR_PATTERNS : ['Hrsg. von ', 'hrsg. von ', 'Hrsg.: ', 'Ausgew. und mit einem Nachw. von ',
+                          'hrsg. und eingeleitet von ', 'Hrsg. u. eingel. von ', 'hrsg. u. mit e. Einl. vers. von ',
+                          'Ausgew. u. bearb. von ']
 }
 
 # This is where all preferences for this plugin will be stored
@@ -123,7 +127,7 @@ class ConfigWidget(DefaultConfigWidget):
         other_group_box_layout.addWidget(
             self.appendSubtitleToTitle_checkbox, 9, 1, 1, 1)
 
-        # Stop after first hit
+        # Stop after first hit?
         stopAfterFirstHit_label = QLabel(
             _('Stop after first hit:'), self)
         stopAfterFirstHit_label.setToolTip(_('Stop search after first book record is found.\n'))
@@ -162,6 +166,19 @@ class ConfigWidget(DefaultConfigWidget):
         other_group_box_layout.addWidget(
             self.canGetMultipleCovers_checkbox, 12, 1, 1, 1)
 
+        # Patterns for editor detection
+        editorPatterns_label = QLabel(
+            _('Patterns to detect editors:'), self)
+        editorPatterns_label.setToolTip(_('RegEx pattern to detect editors, without the editor\' name itself. '
+                                          'One pattern per line.'))
+        other_group_box_layout.addWidget(editorPatterns_label, 13, 0, 1, 1)
+
+        self.editorPatterns_textarea = QPlainTextEdit(self)
+        self.editorPatterns_textarea.setPlainText(
+            c.get(KEY_EDITOR_PATTERNS, '\n'.join(DEFAULT_STORE_VALUES[KEY_EDITOR_PATTERNS])))
+        other_group_box_layout.addWidget(
+            self.editorPatterns_textarea, 13, 1, 3, 1)
+
 
     def commit(self):
         DefaultConfigWidget.commit(self)
@@ -174,5 +191,6 @@ class ConfigWidget(DefaultConfigWidget):
         new_prefs[KEY_STOP_AFTER_FIRST_HIT] = self.stopAfterFirstHit_checkbox.isChecked()
         new_prefs[KEY_PREFER_RESULTS_WITH_ISBN] = self.preferResultsWithIsbn_checkbox.isChecked()
         new_prefs[KEY_CAN_GET_MULTIPLE_COVERS] = self.canGetMultipleCovers_checkbox.isChecked()
+        new_prefs[KEY_EDITOR_PATTERNS] = self.editorPatterns_textarea.toPlainText().split("\n")
 
         plugin_prefs[STORE_NAME] = new_prefs

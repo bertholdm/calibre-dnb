@@ -97,6 +97,8 @@ class DNB_DE(Source):
             cfg.KEY_CAN_GET_MULTIPLE_COVERS, True)
         self.can_get_multiple_covers = self.cfg_can_get_multiple_covers
         self.set_can_get_multiple_covers(self.cfg_can_get_multiple_covers)
+        self.cfg_editor_patterns = cfg.plugin_prefs[cfg.STORE_NAME].get(
+            cfg.KEY_EDITOR_PATTERNS, [])
 
     @classmethod
     def set_prefer_results_with_isbn(cls, prefer):
@@ -116,6 +118,7 @@ class DNB_DE(Source):
 
     def identify(self, log, result_queue, abort, title=None, authors=[], identifiers={}, timeout=30):
         self.load_config()
+        log.info("Parsing records")
 
         if authors is None:
             authors = []
@@ -606,7 +609,7 @@ class DNB_DE(Source):
                         log.info("book['title']=%s" % book['title'])
                         if len(code_p_split) > 1:
                             code_p_authors = [code_p_split[1].strip().replace('[Von]', '').replace('[von]', '').strip()]
-                            for delimiter in ['Ill.:', 'Textill.:', 'Illustrationen']:
+                            for delimiter in ['Ill.:', 'Textill.:', 'Illustrationen', 'Zeichn.:']:
                                 code_p_authors_split = code_p_authors[0].split(delimiter)
                                 if len(code_p_authors_split) > 1:
                                     code_p_authors = [code_p_authors_split[0].strip().strip('.')]
