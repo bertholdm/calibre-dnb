@@ -99,6 +99,10 @@ class DNB_DE(Source):
         self.set_can_get_multiple_covers(self.cfg_can_get_multiple_covers)
         self.cfg_editor_patterns = cfg.plugin_prefs[cfg.STORE_NAME].get(
             cfg.KEY_EDITOR_PATTERNS, [])
+        self.cfg_artist_patterns = cfg.plugin_prefs[cfg.STORE_NAME].get(
+            cfg.KEY_ARTIST_PATTERNS, [])
+        self.cfg_translator_patterns = cfg.plugin_prefs[cfg.STORE_NAME].get(
+            cfg.KEY_TRANSLATOR_PATTERNS, [])
 
     @classmethod
     def set_prefer_results_with_isbn(cls, prefer):
@@ -118,7 +122,6 @@ class DNB_DE(Source):
 
     def identify(self, log, result_queue, abort, title=None, authors=[], identifiers={}, timeout=30):
         self.load_config()
-        log.info("Parsing records")
 
         if authors is None:
             authors = []

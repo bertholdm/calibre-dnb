@@ -23,6 +23,8 @@ KEY_STOP_AFTER_FIRST_HIT = 'stopAfterFirstHit'
 KEY_PREFER_RESULTS_WITH_ISBN = 'preferResultsWithIsbn'
 KEY_CAN_GET_MULTIPLE_COVERS = 'canGetMultipleCovers'
 KEY_EDITOR_PATTERNS = 'editorPatterns'
+KEY_ARTIST_PATTERNS = 'artistPatterns'
+KEY_TRANSLATOR_PATTERNS = 'translatorPatterns'
 
 DEFAULT_STORE_VALUES = {
     KEY_GUESS_SERIES: True,
@@ -34,9 +36,11 @@ DEFAULT_STORE_VALUES = {
     KEY_STOP_AFTER_FIRST_HIT: True,
     KEY_PREFER_RESULTS_WITH_ISBN: True,
     KEY_CAN_GET_MULTIPLE_COVERS: False,
-    KEY_EDITOR_PATTERNS : ['Hrsg. von ', 'hrsg. von ', 'Hrsg.: ', 'Ausgew. und mit einem Nachw. von ',
+    KEY_EDITOR_PATTERNS : ['Hrsg. von ', 'hrsg. von ', 'Hrsg.:', 'Ausgew. und mit einem Nachw. von ',
                           'hrsg. und eingeleitet von ', 'Hrsg. u. eingel. von ', 'hrsg. u. mit e. Einl. vers. von ',
-                          'Ausgew. u. bearb. von ']
+                          'Ausgew. u. bearb. von '],
+    KEY_ARTIST_PATTERNS: ['Illustrator: ', '[Ii]llustriert von ', 'Ill. von ', 'Textill.:'],
+    KEY_TRANSLATOR_PATTERNS: ['Übersetzt von ', 'Dt. Übers.:', 'Übers.:', '(\. [Aa]us (?:dem|d\.) (.*) von) (.*)%%'],
 }
 
 # This is where all preferences for this plugin will be stored
@@ -169,7 +173,7 @@ class ConfigWidget(DefaultConfigWidget):
         # Patterns for editor detection
         editorPatterns_label = QLabel(
             _('Patterns to detect editors:'), self)
-        editorPatterns_label.setToolTip(_('RegEx pattern to detect editors, without the editor\' name itself. '
+        editorPatterns_label.setToolTip(_('RegEx pattern to detect editors, without the editor\'s name itself. '
                                           'One pattern per line.'))
         other_group_box_layout.addWidget(editorPatterns_label, 13, 0, 1, 1)
 
@@ -177,7 +181,33 @@ class ConfigWidget(DefaultConfigWidget):
         self.editorPatterns_textarea.setPlainText(
             c.get(KEY_EDITOR_PATTERNS, '\n'.join(DEFAULT_STORE_VALUES[KEY_EDITOR_PATTERNS])))
         other_group_box_layout.addWidget(
-            self.editorPatterns_textarea, 13, 1, 3, 1)
+            self.editorPatterns_textarea, 13, 1, 1, 1)
+
+        # Patterns for artist detection
+        artistPatterns_label = QLabel(
+            _('Patterns to detect artists:'), self)
+        artistPatterns_label.setToolTip(_('RegEx pattern to detect artists, without the artist\'s name itself. '
+                                          'One pattern per line.'))
+        other_group_box_layout.addWidget(artistPatterns_label, 14, 0, 1, 1)
+
+        self.artistPatterns_textarea = QPlainTextEdit(self)
+        self.artistPatterns_textarea.setPlainText(
+            c.get(KEY_ARTIST_PATTERNS, '\n'.join(DEFAULT_STORE_VALUES[KEY_ARTIST_PATTERNS])))
+        other_group_box_layout.addWidget(
+            self.artistPatterns_textarea, 14, 1, 1, 1)
+
+        # Patterns for translator detection
+        translatorPatterns_label = QLabel(
+            _('Patterns to detect translators:'), self)
+        translatorPatterns_label.setToolTip(_('RegEx pattern to detect translators, without the translator\'s name itself. '
+                                          'One pattern per line.'))
+        other_group_box_layout.addWidget(translatorPatterns_label, 15, 0, 1, 1)
+
+        self.translatorPatterns_textarea = QPlainTextEdit(self)
+        self.translatorPatterns_textarea.setPlainText(
+            c.get(KEY_TRANSLATOR_PATTERNS, '\n'.join(DEFAULT_STORE_VALUES[KEY_TRANSLATOR_PATTERNS])))
+        other_group_box_layout.addWidget(
+            self.translatorPatterns_textarea, 15, 1, 1, 1)
 
 
     def commit(self):
@@ -192,5 +222,7 @@ class ConfigWidget(DefaultConfigWidget):
         new_prefs[KEY_PREFER_RESULTS_WITH_ISBN] = self.preferResultsWithIsbn_checkbox.isChecked()
         new_prefs[KEY_CAN_GET_MULTIPLE_COVERS] = self.canGetMultipleCovers_checkbox.isChecked()
         new_prefs[KEY_EDITOR_PATTERNS] = self.editorPatterns_textarea.toPlainText().split("\n")
+        new_prefs[KEY_ARTIST_PATTERNS] = self.artistPatterns_textarea.toPlainText().split("\n")
+        new_prefs[KEY_TRANSLATOR_PATTERNS] = self.translatorPatterns_textarea.toPlainText().split("\n")
 
         plugin_prefs[STORE_NAME] = new_prefs
