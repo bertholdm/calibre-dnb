@@ -45,8 +45,8 @@ DEFAULT_STORE_VALUES = {
                           'm. Bild. von ', 'mit Bildern von ', 'Die Bilder sind v. ', '(Mit .* Bildern .* von) (.*)%%'],
     # , '(\. [Aa]us (?:dem|d\.) (.*) von) (.*)%%' -- This pattern will be used in regex search for the original language
     KEY_TRANSLATOR_PATTERNS: ['neu übers. u. mit Anm. vers. von ', 'übers. und mit Anm. versehen von ',
-                              'übers. u. mit Anm. vers. von ', 'übers. u. mit Anm. versehen von ',
-                              'Übersetzt von ', 'Dt. Übers.:', 'Übers.:'],
+                              'übers. u. mit Anm. vers. von ', 'übers. u. mit Anm. versehen von ', 'nach dem Text von ',
+                              'ins .* übers.* von ', 'Übersetzt von ', 'Dt. Übers.:', 'Übers.:'],
     KEY_FOREWORD_PATTERNS: ['M. e. Vorw. von ', 'Vorwort von ', 'Vorw. von ', 'M. e. Geleitwort von '],
     KEY_SHOW_MARC21_FIELD_NUMBERS: False,
 }

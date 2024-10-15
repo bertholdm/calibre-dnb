@@ -405,43 +405,31 @@ class DNB_DE(Source):
                         code_c = [s + '%%' for s in code_c]  # Mark end of code c entry
                         # code_c = list(map(lambda x: x.replace('[', ''), code_c))  # General replacings
                         code_c = [re.sub('\[', '', code_c_element) for code_c_element in code_c]  # General replacings
-                        # code_c = list(map(lambda x: x.replace(']', ''), code_c))
                         code_c = [re.sub('\]', '', code_c_element) for code_c_element in code_c]  # General replacings
-                        # code_c = list(map(lambda x: x.replace(';', ''), code_c))
                         log.info("self.cfg_editor_patterns=%s" % self.cfg_editor_patterns)
+                        # No break after first match, because more than one person can be involved
                         for pattern in self.cfg_editor_patterns:
                             log.info("pattern={0}".format(pattern))
                             # code_c = list(map(lambda x: x.replace(delimiter, '%%e:'), code_c))  ## Mark editor
-                            code_c_new = [re.sub(pattern, '%%e:', code_c_element) for code_c_element in code_c]   ## Mark editor
-                            if not code_c_new == code_c:
-                                code_c= code_c_new
-                                log.info("code_c={0}".format(code_c))
-                                break  # Leave for loop if replacing has taken place
+                            code_c = [re.sub(pattern, '%%e:', code_c_element) for code_c_element in code_c]   ## Mark editor
+                            log.info("code_c={0}".format(code_c))
                         log.info("self.cfg_artist_patterns=%s" % self.cfg_artist_patterns)
                         for pattern in self.cfg_artist_patterns:
                             log.info("pattern={0}".format(pattern))
-                            code_c_new = [re.sub(pattern, '%%a:', code_c_element) for code_c_element in code_c]   ## Mark artist
-                            if not code_c_new == code_c:
-                                code_c= code_c_new
-                                log.info("code_c={0}".format(code_c))
-                                break  # Leave for loop if replacing has taken place
+                            code_c = [re.sub(pattern, '%%a:', code_c_element) for code_c_element in code_c]   ## Mark artist
+                            log.info("code_c={0}".format(code_c))
                         log.info("self.cfg_translator_patterns=%s" % self.cfg_translator_patterns)
                         for pattern in self.cfg_translator_patterns:
                             log.info("pattern={0}".format(pattern))
                             pattern = unicodedata_normalize("NFKC", pattern)  # Beware of German umlauts
-                            code_c_new = [re.sub(pattern, '%%t:', code_c_element) for code_c_element in code_c]   ## Mark translator
-                            if not code_c_new == code_c:
-                                code_c= code_c_new
-                                log.info("code_c={0}".format(code_c))
-                                break  # Leave for loop if replacing has taken place
+                            code_c = [re.sub(pattern, '%%t:', code_c_element) for code_c_element in code_c]   ## Mark translator
+                            log.info("code_c={0}".format(code_c))
                         log.info("self.cfg_foreword_patterns=%s" % self.cfg_foreword_patterns)
                         for pattern in self.cfg_foreword_patterns:
                             log.info("pattern={0}".format(pattern))
-                            code_c_new = [re.sub(pattern, '%%f:', code_c_element) for code_c_element in code_c]   ## Mark foreword
-                            if not code_c_new == code_c:
-                                code_c= code_c_new
-                                log.info("code_c={0}".format(code_c))
-                                break  # Leave for loop if replacing has taken place
+                            code_c = [re.sub(pattern, '%%f:', code_c_element) for code_c_element in code_c]   ## Mark foreword
+                            log.info("code_c={0}".format(code_c))
+                        log.info("self.cfg_foreword_patterns=%s" % self.cfg_foreword_patterns)
 
                         # Extract original language
                         for code_c_element in code_c:
@@ -457,37 +445,61 @@ class DNB_DE(Source):
 
                         log.info("[245.c] code_c after uniforming identifiers=%s" % code_c)
 
-                        # Step 2: Identifiying parts
+                        # Step 2: Identifiying parts (more than one part of same type possible)
+                        # ToDo: 245.c is non repetitive! $c - Statement of responsibility, etc. (NR)
+                        # ToDo: Put code duplication in loop? (memory issue in loop!)
                         for code_c_element in code_c:
                             match = re.search("%%e:(.*?)%%", code_c_element)  # Search until first '%%' (non-greedy)
                             if match:
-                                book['editor'] = match.group(1).strip().strip('.').strip()
+                                if book['editor']:
+                                    book['editor'] = book['editor'] + ' / ' + match.group(1).strip().strip('.').strip()
+                                else:
+                                    book['editor'] = match.group(1).strip().strip('.').strip()
                                 log.info("book['editor']=%s" % book['editor'])
                                 code_c = list(map(lambda x: x.replace('%%e:' + match.group(1), ''), code_c))  ## strip match
-                        # Cave: more than one match possible:
-                        # code_c_element=%%e:Akademischer Verein Hütte e.V., Berlin. %%e:Horst Czichos ; Manfred Hennecke%%
                         for code_c_element in code_c:
                             match = re.search("%%e:(.*?)%%", code_c_element)  # Search until first '%%' (non-greedy)
                             if match:
-                                book['editor'] = book['editor'] + ' / ' + match.group(1).strip().strip('.').strip()
+                                if book['editor']:
+                                    book['editor'] = book['editor'] + ' / ' + match.group(1).strip().strip('.').strip()
+                                else:
+                                    book['editor'] = match.group(1).strip().strip('.').strip()
                                 log.info("book['editor']=%s" % book['editor'])
                                 code_c = list(map(lambda x: x.replace('%%e:' + match.group(1), ''), code_c))  ## strip match
                         for code_c_element in code_c:
                             match = re.search("%%a:(.*?)%%", code_c_element)  # Search until first '%%' (non-greedy)
                             if match:
-                                book['artist'] = match.group(1).strip().strip('.').strip()
+                                if book['artist']:
+                                    book['artist'] = book['artist'] + ' / ' + match.group(1).strip().strip('.').strip()
+                                else:
+                                    book['artist'] = match.group(1).strip().strip('.').strip()
                                 log.info("book['artist']=%s" % book['artist'])
                                 code_c = list(map(lambda x: x.replace('%%a:' + match.group(1), ''), code_c))  ## strip match
                         for code_c_element in code_c:
                             match = re.search("%%t:(.*?)%%", code_c_element)  # Search until first '%%' (non-greedy)
                             if match:
-                                book['translator'] = match.group(1).strip().strip('.').strip()
+                                if book['translator']:
+                                    book['translator'] = book['translator'] + ' / ' + match.group(1).strip().strip('.').strip()
+                                else:
+                                    book['translator'] = match.group(1).strip().strip('.').strip()
+                                log.info("book['translator']=%s" % book['translator'])
+                                code_c = list(map(lambda x: x.replace('%%t:' + match.group(1), ''), code_c))  ## strip match
+                        for code_c_element in code_c:
+                            match = re.search("%%t:(.*?)%%", code_c_element)  # Search until first '%%' (non-greedy)
+                            if match:
+                                if book['translator']:
+                                    book['translator'] = book['translator'] + ' / ' + match.group(1).strip().strip('.').strip()
+                                else:
+                                    book['translator'] = match.group(1).strip().strip('.').strip()
                                 log.info("book['translator']=%s" % book['translator'])
                                 code_c = list(map(lambda x: x.replace('%%t:' + match.group(1), ''), code_c))  ## strip match
                         for code_c_element in code_c:
                             match = re.search("%%f:(.*?)%%", code_c_element)  # Search until first '%%' (non-greedy)
                             if match:
-                                book['foreword'] = match.group(1).strip().strip('.').strip()
+                                if book['foreword']:
+                                    book['foreword'] = book['foreword'] + ' / ' + match.group(1).strip().strip('.').strip()
+                                else:
+                                    book['foreword'] = match.group(1).strip().strip('.').strip()
                                 log.info("book['foreword']=%s" % book['foreword'])
                                 code_c = list(map(lambda x: x.replace('%%p:' + match.group(1), ''), code_c))  ## strip match
                         # Is there a remainder?
