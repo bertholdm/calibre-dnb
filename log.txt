@@ -1,0 +1,811 @@
+Running identify query with parameters: 
+{'title': 'Das Gilgamesch-Epos.', 'authors': ['Wolfram von Soden'], 'identifiers': {'isbn': '9783150072356', 'amazon': '3150072352'}, 'timeout': 30} 
+Using plugins: DNB_DE (3, 2, 4) 
+The log from individual plugins is below 
+
+****************************** DNB_DE (3, 2, 4) ****************************** 
+Found 10 results 
+Downloading from DNB_DE took 3.1566598415374756 
+
+
+--- 
+Title               : Das Gilgamesch-Epos (941548058)
+Title sort          : Gilgamesch-Epos, Das
+Author(s)           : übers. und mit Anm. vers. von Albert Schott. Neu
+Publisher           : Stuttgart : Reclam
+Tags                : <Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9d4840>
+Series              : Reclams Universal-Bibliothek #7235
+Languages           : de
+Published           : 1994-01-01T10:30:00+00:00
+Identifiers         : dnb-idn:941548058
+Comments            : 
+ISBN:	9783150072356
+Herausgeber:	Wolfram von Soden / Soden, Wolfram von
+Auflage:	[Nachdr.]
+Medienart:	ohne hilfsmittel zu benutzen
+Umfang:	126 S.
+Maße:	15 cm
+Bezugsbedingungen:	kart. : DM 6.00
+Quelle:	https://d-nb.info/941548058 
+
+
+--- 
+Title               : Das Gilgamesch-Epos (920373054)
+Title sort          : Gilgamesch-Epos, Das
+Author(s)           : übers. und mit Anm. versehen von Albert Schott. Neu
+Publisher           : Stuttgart : Reclam
+Tags                : <Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9dcf40>
+Series              : Reclams Universal-Bibliothek #7235
+Languages           : de
+Published           : 1992-01-01T10:30:00+00:00
+Identifiers         : dnb-idn:920373054
+Comments            : 
+ISBN:	9783150072356
+Herausgeber:	Wolfram von Soden / Soden, Wolfram von
+Auflage:	[Nachdr.]
+Medienart:	ohne hilfsmittel zu benutzen
+Umfang:	126 S.
+Maße:	16 cm
+Bezugsbedingungen:	kart. : DM 6.00
+Quelle:	https://d-nb.info/920373054 
+
+
+--- 
+Title               : Das Gilgamesch-Epos (900326522)
+Title sort          : Gilgamesch-Epos, Das
+Author(s)           : übers. u. mit Anm. versehen von Albert Schott. Neu
+Publisher           : Stuttgart : Reclam
+Tags                : <Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9b5180>
+Series              : Reclams Universal-Bibliothek #7235
+Languages           : de
+Published           : 1989-01-01T10:30:00+00:00
+Identifiers         : dnb-idn:900326522
+Comments            : 
+ISBN:	9783150072356
+Herausgeber:	Wolfram von Soden / Soden, Wolfram von
+Auflage:	[Nachdr.]
+Medienart:	ohne hilfsmittel zu benutzen
+Umfang:	126 S.
+Maße:	16 cm
+Bezugsbedingungen:	kart. : DM 5.20
+Quelle:	https://d-nb.info/900326522 
+
+
+--- 
+Title               : Das Gilgamesch-Epos (890286809)
+Title sort          : Gilgamesch-Epos, Das
+Author(s)           : übers. u. mit Anm. vers. von Albert Schott. Neu
+Publisher           : Stuttgart : Reclam
+Tags                : <Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9dea00>
+Series              : Reclams Universal-Bibliothek #7235
+Languages           : de
+Published           : 1988-01-01T10:30:00+00:00
+Identifiers         : dnb-idn:890286809
+Comments            : 
+ISBN:	9783150072356
+Herausgeber:	Wolfram von Soden / Soden, Wolfram von
+Auflage:	[Nachdr.]
+Medienart:	ohne hilfsmittel zu benutzen
+Umfang:	126 S.
+Maße:	16 cm
+Bezugsbedingungen:	kart. : DM 5.20
+Quelle:	https://d-nb.info/890286809 
+
+
+--- 
+Title               : Das Gilgamesch-Epos (870800612)
+Title sort          : Gilgamesch-Epos, Das
+Author(s)           : übers. u. mit Anm. vers. von Albert Schott. Neu
+Publisher           : Stuttgart : Reclam
+Tags                : <Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9b5f80>
+Series              : Reclams Universal-Bibliothek #7235
+Languages           : de
+Published           : 1986-01-01T10:30:00+00:00
+Identifiers         : dnb-idn:870800612
+Comments            : 
+ISBN:	9783150072356
+Herausgeber:	Wolfram von Soden / Schott, Albert
+Auflage:	[Nachdr.]
+Medienart:	ohne hilfsmittel zu benutzen
+Umfang:	126 S.
+Maße:	15 cm
+Bezugsbedingungen:	kart. : DM 4.80
+Quelle:	https://d-nb.info/870800612 
+
+
+--- 
+Title               : Das Gilgamesch-Epos (840917902)
+Title sort          : Gilgamesch-Epos, Das
+Author(s)           : übers. u. mit Anm. vers. von Albert Schott. Neu
+Publisher           : Stuttgart : Reclam
+Tags                : <Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9dec80>
+Series              : Reclams Universal-Bibliothek #7235
+Languages           : de
+Published           : 1984-01-01T10:30:00+00:00
+Identifiers         : dnb-idn:840917902
+Comments            : 
+ISBN:	9783150072356
+Herausgeber:	Wolfram von Soden / Schott, Albert
+Auflage:	[Nachdr.]
+Medienart:	ohne hilfsmittel zu benutzen
+Umfang:	126 S.
+Maße:	16 cm
+Bezugsbedingungen:	kart. : DM 4.60
+Quelle:	https://d-nb.info/840917902 
+
+
+--- 
+Title               : Das Gilgamesch-Epos (820711306)
+Title sort          : Gilgamesch-Epos, Das
+Author(s)           : übers. u. mit Anm. vers. von Albert Schott. Neu
+Publisher           : Stuttgart : Reclam
+Tags                : <Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7eda5940>
+Series              : Universal-Bibliothek #7235
+Languages           : de
+Published           : 1982-01-01T10:30:00+00:00
+Identifiers         : dnb-idn:820711306
+Comments            : 
+ISBN:	9783150072356
+Herausgeber:	Wolfram von Soden / Schott, Albert
+Auflage:	[Nachdr.]
+Medienart:	ohne hilfsmittel zu benutzen
+Umfang:	126 S.
+Maße:	16 cm
+Bezugsbedingungen:	kart. : DM 4.20
+Quelle:	https://d-nb.info/820711306 
+
+
+--- 
+Title               : Das Gilgamesch-Epos (810118327)
+Title sort          : Gilgamesch-Epos, Das
+Author(s)           : e:ue: e:üe:be:re:se:.e: e:ue:.e: e:me:ie:te: e:Ae:me:.e: e:ve:re:se:.e: e:ve:oe: e:Ae:le:be:re:te: e:Se:ce:he:oe:te:te:.e: e:Ee:re:ge:.e: e:ue:.e: e:te:ie:le:we:.e: e:ue: e:ge:se:te:ae:le:te:te: e:ve:oe: e:We:oe:le:fe:re:ae:me: e:ve:oe: e:Se:oe:de:%e:%e:
+Publisher           : Stuttgart : Reclam
+Tags                : <Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9e87c0>
+Series              : Universal-Bibliothek #7235
+Languages           : de
+Published           : 1980-01-01T10:30:00+00:00
+Identifiers         : dnb-idn:810118327
+Comments            : 
+ISBN:	9783150072356
+Herausgeber:	n / e / Schott, Albert
+Auflage:	[Nachdr.]
+Medienart:	ohne hilfsmittel zu benutzen
+Umfang:	119 S.
+Maße:	16 cm
+Bezugsbedingungen:	kart. : DM 1.80
+Quelle:	https://d-nb.info/810118327 
+
+
+--- 
+Title               : Das Gilgamesch-Epos (790190605)
+Title sort          : Gilgamesch-Epos, Das
+Author(s)           : e:ue: e:üe:be:re:se:.e: e:ue:.e: e:me:ie:te: e:Ae:me:.e: e:ve:re:se:.e: e:ve:oe: e:Ae:le:be:re:te: e:Se:ce:he:oe:te:te:.e: e:Ee:re:ge:.e: e:ue:.e: e:te:ie:le:we:.e: e:ue: e:ge:se:te:ae:le:te:te: e:ve:oe: e:We:oe:le:fe:re:ae:me: e:ve:oe: e:Se:oe:de:%e:%e:
+Publisher           : Stuttgart : Reclam
+Series              : Universal-Bibliothek #7235
+Languages           : de
+Published           : 1978-01-01T10:30:00+00:00
+Identifiers         : dnb-idn:790190605
+Comments            : 
+ISBN:	9783150072356
+Herausgeber:	n / e / Schott, Albert
+Auflage:	[Nachdr.]
+Medienart:	ohne hilfsmittel zu benutzen
+Umfang:	119 S.
+Maße:	16 cm
+Bezugsbedingungen:	kart. : DM 3.20
+Quelle:	https://d-nb.info/790190605 
+
+
+--- 
+Title               : Das Gilgamesch-Epos (770436935)
+Title sort          : Gilgamesch-Epos, Das
+Author(s)           : e:ue: e:üe:be:re:se:.e: e:ue:.e: e:me:ie:te: e:Ae:me:.e: e:ve:re:se:.e: e:ve:oe: e:Ae:le:be:re:te: e:Se:ce:he:oe:te:te:.e: e:Ee:re:ge:.e: e:ue:.e: e:te:ie:le:we:ie:se: e:ue: e:ge:se:te:ae:le:te:te: e:ve:oe: e:We:oe:le:fe:re:ae:me: e:ve:oe: e:Se:oe:de:%e:%e:
+Publisher           : Stuttgart : Reclam
+Series              : Universal-Bibliothek #7235
+Languages           : de
+Published           : 1977-01-01T10:30:00+00:00
+Identifiers         : dnb-idn:770436935
+Comments            : 
+ISBN:	9783150072356
+Herausgeber:	n / e / Schott, Albert
+Auflage:	[Nachdr.]
+Medienart:	ohne hilfsmittel zu benutzen
+Umfang:	119 S.
+Maße:	15 cm
+Bezugsbedingungen:	kart. : DM 3.20
+Quelle:	https://d-nb.info/770436935 
+Query String: num=9783150072356 AND num=9783150072356 NOT (mat=film OR mat=music OR mat=microfiches OR cod=tt)
+Query URL: https://services.dnb.de/sru/dnb?version=1.1&maximumRecords=10&operation=searchRetrieve&recordSchema=MARC21-xml&query=num%3D9783150072356%20AND%20num%3D9783150072356%20NOT%20%28mat%3Dfilm%20OR%20mat%3Dmusic%20OR%20mat%3Dmicrofiches%20OR%20cod%3Dtt%29
+Got records: 11
+Parsing records
+[264.b] Publisher: Reclam
+[264.c] Publication Year: 1994-01-01 12:30:00
+added_entry=False
+[245.a] code_a=['\x98Das\x9c Gilgamesch-Epos']
+[245.c] code_c=['übers. und mit Anm. vers. von Albert Schott. Neu hrsg. von Wolfram von Soden']
+[245.n] code_n=[]
+[245.p] code_p=[]
+pattern=Ausgew. und mit einem Nachw. von 
+pattern=hrsg. und eingeleitet von 
+pattern=Hrsg. u. eingel. von 
+pattern=hrsg. u. mit e. Einl. vers. von 
+pattern=Ausgew. u. bearb. von 
+pattern=[Hh]rsg. von 
+code_c=['übers. und mit Anm. vers. von Albert Schott. Neu %%e:Wolfram von Soden%%']
+[245.c] code_c_element=übers. und mit Anm. vers. von Albert Schott. Neu %%e:Wolfram von Soden%%
+[245.c] code_c_element=übers. und mit Anm. vers. von Albert Schott. Neu %%e:Wolfram von Soden%%
+[245.c] code_c after uniforming identifiers=['übers. und mit Anm. vers. von Albert Schott. Neu %%e:Wolfram von Soden%%']
+book['editor']=Wolfram von Soden
+code_c after stripping=['übers. und mit Anm. vers. von Albert Schott. Neu ']
+code_c_authors=['übers. und mit Anm. vers. von Albert Schott. Neu']
+title_parts=['\x98Das\x9c Gilgamesch-Epos']
+title_parts=['\x98Das\x9c Gilgamesch-Epos']
+[245] Title: Das Gilgamesch-Epos
+clean_title(), title=Das Gilgamesch-Epos
+[245] Title_Sort: Gilgamesch-Epos, Das
+[730.a]: <Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9d4840>
+[300] field=
+[300.a] code_a=['126 S.']
+[300.c] code_c=['15 cm']
+[016.a] Identifier IDN: 941548058
+[020.a] Identifier ISBN: 9783150072356
+[490.v] Series_Index: 7235
+[490.a] Series: Reclams Universal-Bibliothek
+book['series']=Reclams Universal-Bibliothek, book['series_index=']=7235
+[250.a] Edition: [Nachdr.]
+[041.a] Languages: de
+book= {'series': 'Reclams Universal-Bibliothek', 'series_index': '7235', 'pubdate': datetime.datetime(1994, 1, 1, 12, 30), 'originally_published': None, 'language': None, 'languages': ['de'], 'title': '\x98Das\x9c Gilgamesch-Epos', 'title_sort': 'Gilgamesch-Epos, \x98Das\x9c', 'subtitle': None, 'subseries': <Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9d4840>, 'subseries_index': None, 'authors': ['übers. und mit Anm. vers. von Albert Schott. Neu'], 'author_sort': None, 'edition': '[Nachdr.]', 'editor': 'Wolfram von Soden / Soden, Wolfram \x98von\x9c', 'foreword': None, 'artist': None, 'original_language': None, 'translator': None, 'extent': '126 S.', 'other_physical_details': None, 'dimensions': '15 cm', 'accompanying_material': None, 'terms_of_availability': 'kart. : DM 6.00', 'mediatype': 'ohne hilfsmittel zu benutzen', 'tags': [<Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9d4840>], 'comments': '\nISBN:\t9783150072356\nHerausgeber:\tWolfram von Soden / Soden, Wolfram \x98von\x9c\nAuflage:\t[Nachdr.]\nMedienart:\tohne hilfsmittel zu benutzen\nUmfang:\t126 S.\nMaße:\t15 cm\nBezugsbedingungen:\tkart. : DM 6.00\nQuelle:\thttps://d-nb.info/941548058', 'record_uri': 'https://d-nb.info/941548058', 'idn': '941548058', 'urn': None, 'isbn': '9783150072356', 'gnd': None, 'ddc': [], 'ddc_subject_area': [], 'subjects_gnd': [], 'subjects_non_gnd': [], 'publisher_name': 'Reclam', 'publisher_location': 'Stuttgart', 'alternative_xmls': []}
+self.prefer_results_with_isbn=False
+Final formatted result: 
+Title               : Das Gilgamesch-Epos (941548058)
+Title sort          : Gilgamesch-Epos, Das
+Author(s)           : übers. und mit Anm. vers. von Albert Schott. Neu
+Publisher           : Stuttgart : Reclam
+Tags                : <Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9d4840>
+Series              : Reclams Universal-Bibliothek #7235
+Languages           : de
+Published           : 1994-01-01T10:30:00+00:00
+Identifiers         : dnb-idn:941548058
+Comments            : 
+ISBN:	9783150072356
+Herausgeber:	Wolfram von Soden / Soden, Wolfram von
+Auflage:	[Nachdr.]
+Medienart:	ohne hilfsmittel zu benutzen
+Umfang:	126 S.
+Maße:	15 cm
+Bezugsbedingungen:	kart. : DM 6.00
+Quelle:	https://d-nb.info/941548058
+-----
+[264.b] Publisher: Reclam
+[264.c] Publication Year: 1992-01-01 12:30:00
+added_entry=False
+[245.a] code_a=['\x98Das\x9c Gilgamesch-Epos']
+[245.c] code_c=['übers. und mit Anm. versehen von Albert Schott. Neu hrsg. von Wolfram von Soden']
+[245.n] code_n=[]
+[245.p] code_p=[]
+pattern=Ausgew. und mit einem Nachw. von 
+pattern=hrsg. und eingeleitet von 
+pattern=Hrsg. u. eingel. von 
+pattern=hrsg. u. mit e. Einl. vers. von 
+pattern=Ausgew. u. bearb. von 
+pattern=[Hh]rsg. von 
+code_c=['übers. und mit Anm. versehen von Albert Schott. Neu %%e:Wolfram von Soden%%']
+[245.c] code_c_element=übers. und mit Anm. versehen von Albert Schott. Neu %%e:Wolfram von Soden%%
+[245.c] code_c_element=übers. und mit Anm. versehen von Albert Schott. Neu %%e:Wolfram von Soden%%
+[245.c] code_c after uniforming identifiers=['übers. und mit Anm. versehen von Albert Schott. Neu %%e:Wolfram von Soden%%']
+book['editor']=Wolfram von Soden
+code_c after stripping=['übers. und mit Anm. versehen von Albert Schott. Neu ']
+code_c_authors=['übers. und mit Anm. versehen von Albert Schott. Neu']
+title_parts=['\x98Das\x9c Gilgamesch-Epos']
+title_parts=['\x98Das\x9c Gilgamesch-Epos']
+[245] Title: Das Gilgamesch-Epos
+clean_title(), title=Das Gilgamesch-Epos
+[245] Title_Sort: Gilgamesch-Epos, Das
+[730.a]: <Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9dcf40>
+[300] field=
+[300.a] code_a=['126 S.']
+[300.c] code_c=['16 cm']
+[016.a] Identifier IDN: 920373054
+[020.a] Identifier ISBN: 9783150072356
+[490.v] Series_Index: 7235
+[490.a] Series: Reclams Universal-Bibliothek
+book['series']=Reclams Universal-Bibliothek, book['series_index=']=7235
+[250.a] Edition: [Nachdr.]
+[041.a] Languages: de
+book= {'series': 'Reclams Universal-Bibliothek', 'series_index': '7235', 'pubdate': datetime.datetime(1992, 1, 1, 12, 30), 'originally_published': None, 'language': None, 'languages': ['de'], 'title': '\x98Das\x9c Gilgamesch-Epos', 'title_sort': 'Gilgamesch-Epos, \x98Das\x9c', 'subtitle': None, 'subseries': <Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9dcf40>, 'subseries_index': None, 'authors': ['übers. und mit Anm. versehen von Albert Schott. Neu'], 'author_sort': None, 'edition': '[Nachdr.]', 'editor': 'Wolfram von Soden / Soden, Wolfram \x98von\x9c', 'foreword': None, 'artist': None, 'original_language': None, 'translator': None, 'extent': '126 S.', 'other_physical_details': None, 'dimensions': '16 cm', 'accompanying_material': None, 'terms_of_availability': 'kart. : DM 6.00', 'mediatype': 'ohne hilfsmittel zu benutzen', 'tags': [<Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9dcf40>], 'comments': '\nISBN:\t9783150072356\nHerausgeber:\tWolfram von Soden / Soden, Wolfram \x98von\x9c\nAuflage:\t[Nachdr.]\nMedienart:\tohne hilfsmittel zu benutzen\nUmfang:\t126 S.\nMaße:\t16 cm\nBezugsbedingungen:\tkart. : DM 6.00\nQuelle:\thttps://d-nb.info/920373054', 'record_uri': 'https://d-nb.info/920373054', 'idn': '920373054', 'urn': None, 'isbn': '9783150072356', 'gnd': None, 'ddc': [], 'ddc_subject_area': [], 'subjects_gnd': [], 'subjects_non_gnd': [], 'publisher_name': 'Reclam', 'publisher_location': 'Stuttgart', 'alternative_xmls': []}
+self.prefer_results_with_isbn=False
+Final formatted result: 
+Title               : Das Gilgamesch-Epos (920373054)
+Title sort          : Gilgamesch-Epos, Das
+Author(s)           : übers. und mit Anm. versehen von Albert Schott. Neu
+Publisher           : Stuttgart : Reclam
+Tags                : <Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9dcf40>
+Series              : Reclams Universal-Bibliothek #7235
+Languages           : de
+Published           : 1992-01-01T10:30:00+00:00
+Identifiers         : dnb-idn:920373054
+Comments            : 
+ISBN:	9783150072356
+Herausgeber:	Wolfram von Soden / Soden, Wolfram von
+Auflage:	[Nachdr.]
+Medienart:	ohne hilfsmittel zu benutzen
+Umfang:	126 S.
+Maße:	16 cm
+Bezugsbedingungen:	kart. : DM 6.00
+Quelle:	https://d-nb.info/920373054
+-----
+[264.b] Publisher: Reclam
+[264.c] Publication Year: 1989-01-01 12:30:00
+added_entry=False
+[245.a] code_a=['\x98Das\x9c Gilgamesch-Epos']
+[245.c] code_c=['übers. u. mit Anm. versehen von Albert Schott. Neu hrsg. von Wolfram von Soden']
+[245.n] code_n=[]
+[245.p] code_p=[]
+pattern=Ausgew. und mit einem Nachw. von 
+pattern=hrsg. und eingeleitet von 
+pattern=Hrsg. u. eingel. von 
+pattern=hrsg. u. mit e. Einl. vers. von 
+pattern=Ausgew. u. bearb. von 
+pattern=[Hh]rsg. von 
+code_c=['übers. u. mit Anm. versehen von Albert Schott. Neu %%e:Wolfram von Soden%%']
+[245.c] code_c_element=übers. u. mit Anm. versehen von Albert Schott. Neu %%e:Wolfram von Soden%%
+[245.c] code_c_element=übers. u. mit Anm. versehen von Albert Schott. Neu %%e:Wolfram von Soden%%
+[245.c] code_c after uniforming identifiers=['übers. u. mit Anm. versehen von Albert Schott. Neu %%e:Wolfram von Soden%%']
+book['editor']=Wolfram von Soden
+code_c after stripping=['übers. u. mit Anm. versehen von Albert Schott. Neu ']
+code_c_authors=['übers. u. mit Anm. versehen von Albert Schott. Neu']
+title_parts=['\x98Das\x9c Gilgamesch-Epos']
+title_parts=['\x98Das\x9c Gilgamesch-Epos']
+[245] Title: Das Gilgamesch-Epos
+clean_title(), title=Das Gilgamesch-Epos
+[245] Title_Sort: Gilgamesch-Epos, Das
+[730.a]: <Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9b5180>
+[300] field=
+[300.a] code_a=['126 S.']
+[300.c] code_c=['16 cm']
+[016.a] Identifier IDN: 900326522
+[020.a] Identifier ISBN: 9783150072356
+[490.v] Series_Index: 7235
+[490.a] Series: Reclams Universal-Bibliothek
+book['series']=Reclams Universal-Bibliothek, book['series_index=']=7235
+[250.a] Edition: [Nachdr.]
+[041.a] Languages: de
+book= {'series': 'Reclams Universal-Bibliothek', 'series_index': '7235', 'pubdate': datetime.datetime(1989, 1, 1, 12, 30), 'originally_published': None, 'language': None, 'languages': ['de'], 'title': '\x98Das\x9c Gilgamesch-Epos', 'title_sort': 'Gilgamesch-Epos, \x98Das\x9c', 'subtitle': None, 'subseries': <Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9b5180>, 'subseries_index': None, 'authors': ['übers. u. mit Anm. versehen von Albert Schott. Neu'], 'author_sort': None, 'edition': '[Nachdr.]', 'editor': 'Wolfram von Soden / Soden, Wolfram \x98von\x9c', 'foreword': None, 'artist': None, 'original_language': None, 'translator': None, 'extent': '126 S.', 'other_physical_details': None, 'dimensions': '16 cm', 'accompanying_material': None, 'terms_of_availability': 'kart. : DM 5.20', 'mediatype': 'ohne hilfsmittel zu benutzen', 'tags': [<Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9b5180>], 'comments': '\nISBN:\t9783150072356\nHerausgeber:\tWolfram von Soden / Soden, Wolfram \x98von\x9c\nAuflage:\t[Nachdr.]\nMedienart:\tohne hilfsmittel zu benutzen\nUmfang:\t126 S.\nMaße:\t16 cm\nBezugsbedingungen:\tkart. : DM 5.20\nQuelle:\thttps://d-nb.info/900326522', 'record_uri': 'https://d-nb.info/900326522', 'idn': '900326522', 'urn': None, 'isbn': '9783150072356', 'gnd': None, 'ddc': [], 'ddc_subject_area': [], 'subjects_gnd': [], 'subjects_non_gnd': [], 'publisher_name': 'Reclam', 'publisher_location': 'Stuttgart', 'alternative_xmls': []}
+self.prefer_results_with_isbn=False
+Final formatted result: 
+Title               : Das Gilgamesch-Epos (900326522)
+Title sort          : Gilgamesch-Epos, Das
+Author(s)           : übers. u. mit Anm. versehen von Albert Schott. Neu
+Publisher           : Stuttgart : Reclam
+Tags                : <Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9b5180>
+Series              : Reclams Universal-Bibliothek #7235
+Languages           : de
+Published           : 1989-01-01T10:30:00+00:00
+Identifiers         : dnb-idn:900326522
+Comments            : 
+ISBN:	9783150072356
+Herausgeber:	Wolfram von Soden / Soden, Wolfram von
+Auflage:	[Nachdr.]
+Medienart:	ohne hilfsmittel zu benutzen
+Umfang:	126 S.
+Maße:	16 cm
+Bezugsbedingungen:	kart. : DM 5.20
+Quelle:	https://d-nb.info/900326522
+-----
+[264.b] Publisher: Reclam
+[264.c] Publication Year: 1988-01-01 12:30:00
+added_entry=False
+[245.a] code_a=['\x98Das\x9c Gilgamesch-Epos']
+[245.c] code_c=['übers. u. mit Anm. vers. von Albert Schott. Neu hrsg. von Wolfram von Soden']
+[245.n] code_n=[]
+[245.p] code_p=[]
+pattern=Ausgew. und mit einem Nachw. von 
+pattern=hrsg. und eingeleitet von 
+pattern=Hrsg. u. eingel. von 
+pattern=hrsg. u. mit e. Einl. vers. von 
+pattern=Ausgew. u. bearb. von 
+pattern=[Hh]rsg. von 
+code_c=['übers. u. mit Anm. vers. von Albert Schott. Neu %%e:Wolfram von Soden%%']
+[245.c] code_c_element=übers. u. mit Anm. vers. von Albert Schott. Neu %%e:Wolfram von Soden%%
+[245.c] code_c_element=übers. u. mit Anm. vers. von Albert Schott. Neu %%e:Wolfram von Soden%%
+[245.c] code_c after uniforming identifiers=['übers. u. mit Anm. vers. von Albert Schott. Neu %%e:Wolfram von Soden%%']
+book['editor']=Wolfram von Soden
+code_c after stripping=['übers. u. mit Anm. vers. von Albert Schott. Neu ']
+code_c_authors=['übers. u. mit Anm. vers. von Albert Schott. Neu']
+title_parts=['\x98Das\x9c Gilgamesch-Epos']
+title_parts=['\x98Das\x9c Gilgamesch-Epos']
+[245] Title: Das Gilgamesch-Epos
+clean_title(), title=Das Gilgamesch-Epos
+[245] Title_Sort: Gilgamesch-Epos, Das
+[730.a]: <Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9dea00>
+[300] field=
+[300.a] code_a=['126 S.']
+[300.c] code_c=['16 cm']
+[016.a] Identifier IDN: 890286809
+[020.a] Identifier ISBN: 9783150072356
+[490.v] Series_Index: 7235
+[490.a] Series: Reclams Universal-Bibliothek
+book['series']=Reclams Universal-Bibliothek, book['series_index=']=7235
+[250.a] Edition: [Nachdr.]
+[041.a] Languages: de
+book= {'series': 'Reclams Universal-Bibliothek', 'series_index': '7235', 'pubdate': datetime.datetime(1988, 1, 1, 12, 30), 'originally_published': None, 'language': None, 'languages': ['de'], 'title': '\x98Das\x9c Gilgamesch-Epos', 'title_sort': 'Gilgamesch-Epos, \x98Das\x9c', 'subtitle': None, 'subseries': <Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9dea00>, 'subseries_index': None, 'authors': ['übers. u. mit Anm. vers. von Albert Schott. Neu'], 'author_sort': None, 'edition': '[Nachdr.]', 'editor': 'Wolfram von Soden / Soden, Wolfram \x98von\x9c', 'foreword': None, 'artist': None, 'original_language': None, 'translator': None, 'extent': '126 S.', 'other_physical_details': None, 'dimensions': '16 cm', 'accompanying_material': None, 'terms_of_availability': 'kart. : DM 5.20', 'mediatype': 'ohne hilfsmittel zu benutzen', 'tags': [<Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9dea00>], 'comments': '\nISBN:\t9783150072356\nHerausgeber:\tWolfram von Soden / Soden, Wolfram \x98von\x9c\nAuflage:\t[Nachdr.]\nMedienart:\tohne hilfsmittel zu benutzen\nUmfang:\t126 S.\nMaße:\t16 cm\nBezugsbedingungen:\tkart. : DM 5.20\nQuelle:\thttps://d-nb.info/890286809', 'record_uri': 'https://d-nb.info/890286809', 'idn': '890286809', 'urn': None, 'isbn': '9783150072356', 'gnd': None, 'ddc': [], 'ddc_subject_area': [], 'subjects_gnd': [], 'subjects_non_gnd': [], 'publisher_name': 'Reclam', 'publisher_location': 'Stuttgart', 'alternative_xmls': []}
+self.prefer_results_with_isbn=False
+Final formatted result: 
+Title               : Das Gilgamesch-Epos (890286809)
+Title sort          : Gilgamesch-Epos, Das
+Author(s)           : übers. u. mit Anm. vers. von Albert Schott. Neu
+Publisher           : Stuttgart : Reclam
+Tags                : <Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9dea00>
+Series              : Reclams Universal-Bibliothek #7235
+Languages           : de
+Published           : 1988-01-01T10:30:00+00:00
+Identifiers         : dnb-idn:890286809
+Comments            : 
+ISBN:	9783150072356
+Herausgeber:	Wolfram von Soden / Soden, Wolfram von
+Auflage:	[Nachdr.]
+Medienart:	ohne hilfsmittel zu benutzen
+Umfang:	126 S.
+Maße:	16 cm
+Bezugsbedingungen:	kart. : DM 5.20
+Quelle:	https://d-nb.info/890286809
+-----
+[264.b] Publisher: Reclam
+[264.c] Publication Year: 1986-01-01 12:30:00
+added_entry=False
+[245.a] code_a=['\x98Das\x9c Gilgamesch-Epos']
+[245.c] code_c=['übers. u. mit Anm. vers. von Albert Schott. Neu hrsg. von Wolfram von Soden']
+[245.n] code_n=[]
+[245.p] code_p=[]
+pattern=Ausgew. und mit einem Nachw. von 
+pattern=hrsg. und eingeleitet von 
+pattern=Hrsg. u. eingel. von 
+pattern=hrsg. u. mit e. Einl. vers. von 
+pattern=Ausgew. u. bearb. von 
+pattern=[Hh]rsg. von 
+code_c=['übers. u. mit Anm. vers. von Albert Schott. Neu %%e:Wolfram von Soden%%']
+[245.c] code_c_element=übers. u. mit Anm. vers. von Albert Schott. Neu %%e:Wolfram von Soden%%
+[245.c] code_c_element=übers. u. mit Anm. vers. von Albert Schott. Neu %%e:Wolfram von Soden%%
+[245.c] code_c after uniforming identifiers=['übers. u. mit Anm. vers. von Albert Schott. Neu %%e:Wolfram von Soden%%']
+book['editor']=Wolfram von Soden
+code_c after stripping=['übers. u. mit Anm. vers. von Albert Schott. Neu ']
+code_c_authors=['übers. u. mit Anm. vers. von Albert Schott. Neu']
+title_parts=['\x98Das\x9c Gilgamesch-Epos']
+title_parts=['\x98Das\x9c Gilgamesch-Epos']
+[245] Title: Das Gilgamesch-Epos
+clean_title(), title=Das Gilgamesch-Epos
+[245] Title_Sort: Gilgamesch-Epos, Das
+[730.a]: <Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9b5f80>
+[300] field=
+[300.a] code_a=['126 S.']
+[300.c] code_c=['15 cm']
+[016.a] Identifier IDN: 870800612
+[020.a] Identifier ISBN: 9783150072356
+[490.v] Series_Index: 7235
+[490.a] Series: Reclams Universal-Bibliothek
+book['series']=Reclams Universal-Bibliothek, book['series_index=']=7235
+[250.a] Edition: [Nachdr.]
+[041.a] Languages: de
+book= {'series': 'Reclams Universal-Bibliothek', 'series_index': '7235', 'pubdate': datetime.datetime(1986, 1, 1, 12, 30), 'originally_published': None, 'language': None, 'languages': ['de'], 'title': '\x98Das\x9c Gilgamesch-Epos', 'title_sort': 'Gilgamesch-Epos, \x98Das\x9c', 'subtitle': None, 'subseries': <Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9b5f80>, 'subseries_index': None, 'authors': ['übers. u. mit Anm. vers. von Albert Schott. Neu'], 'author_sort': None, 'edition': '[Nachdr.]', 'editor': 'Wolfram von Soden / Schott, Albert', 'foreword': None, 'artist': None, 'original_language': None, 'translator': None, 'extent': '126 S.', 'other_physical_details': None, 'dimensions': '15 cm', 'accompanying_material': None, 'terms_of_availability': 'kart. : DM 4.80', 'mediatype': 'ohne hilfsmittel zu benutzen', 'tags': [<Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9b5f80>], 'comments': '\nISBN:\t9783150072356\nHerausgeber:\tWolfram von Soden / Schott, Albert\nAuflage:\t[Nachdr.]\nMedienart:\tohne hilfsmittel zu benutzen\nUmfang:\t126 S.\nMaße:\t15 cm\nBezugsbedingungen:\tkart. : DM 4.80\nQuelle:\thttps://d-nb.info/870800612', 'record_uri': 'https://d-nb.info/870800612', 'idn': '870800612', 'urn': None, 'isbn': '9783150072356', 'gnd': None, 'ddc': [], 'ddc_subject_area': [], 'subjects_gnd': [], 'subjects_non_gnd': [], 'publisher_name': 'Reclam', 'publisher_location': 'Stuttgart', 'alternative_xmls': []}
+self.prefer_results_with_isbn=False
+Final formatted result: 
+Title               : Das Gilgamesch-Epos (870800612)
+Title sort          : Gilgamesch-Epos, Das
+Author(s)           : übers. u. mit Anm. vers. von Albert Schott. Neu
+Publisher           : Stuttgart : Reclam
+Tags                : <Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9b5f80>
+Series              : Reclams Universal-Bibliothek #7235
+Languages           : de
+Published           : 1986-01-01T10:30:00+00:00
+Identifiers         : dnb-idn:870800612
+Comments            : 
+ISBN:	9783150072356
+Herausgeber:	Wolfram von Soden / Schott, Albert
+Auflage:	[Nachdr.]
+Medienart:	ohne hilfsmittel zu benutzen
+Umfang:	126 S.
+Maße:	15 cm
+Bezugsbedingungen:	kart. : DM 4.80
+Quelle:	https://d-nb.info/870800612
+-----
+[264.b] Publisher: Reclam
+[264.c] Publication Year: 1984-01-01 12:30:00
+added_entry=False
+[245.a] code_a=['\x98Das\x9c Gilgamesch-Epos']
+[245.c] code_c=['übers. u. mit Anm. vers. von Albert Schott. Neu hrsg. von Wolfram von Soden']
+[245.n] code_n=[]
+[245.p] code_p=[]
+pattern=Ausgew. und mit einem Nachw. von 
+pattern=hrsg. und eingeleitet von 
+pattern=Hrsg. u. eingel. von 
+pattern=hrsg. u. mit e. Einl. vers. von 
+pattern=Ausgew. u. bearb. von 
+pattern=[Hh]rsg. von 
+code_c=['übers. u. mit Anm. vers. von Albert Schott. Neu %%e:Wolfram von Soden%%']
+[245.c] code_c_element=übers. u. mit Anm. vers. von Albert Schott. Neu %%e:Wolfram von Soden%%
+[245.c] code_c_element=übers. u. mit Anm. vers. von Albert Schott. Neu %%e:Wolfram von Soden%%
+[245.c] code_c after uniforming identifiers=['übers. u. mit Anm. vers. von Albert Schott. Neu %%e:Wolfram von Soden%%']
+book['editor']=Wolfram von Soden
+code_c after stripping=['übers. u. mit Anm. vers. von Albert Schott. Neu ']
+code_c_authors=['übers. u. mit Anm. vers. von Albert Schott. Neu']
+title_parts=['\x98Das\x9c Gilgamesch-Epos']
+title_parts=['\x98Das\x9c Gilgamesch-Epos']
+[245] Title: Das Gilgamesch-Epos
+clean_title(), title=Das Gilgamesch-Epos
+[245] Title_Sort: Gilgamesch-Epos, Das
+[730.a]: <Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9dec80>
+[300] field=
+[300.a] code_a=['126 S.']
+[300.c] code_c=['16 cm']
+[016.a] Identifier IDN: 840917902
+[020.a] Identifier ISBN: 9783150072356
+[490.v] Series_Index: 7235
+[490.a] Series: Reclams Universal-Bibliothek
+book['series']=Reclams Universal-Bibliothek, book['series_index=']=7235
+[250.a] Edition: [Nachdr.]
+[041.a] Languages: de
+book= {'series': 'Reclams Universal-Bibliothek', 'series_index': '7235', 'pubdate': datetime.datetime(1984, 1, 1, 12, 30), 'originally_published': None, 'language': None, 'languages': ['de'], 'title': '\x98Das\x9c Gilgamesch-Epos', 'title_sort': 'Gilgamesch-Epos, \x98Das\x9c', 'subtitle': None, 'subseries': <Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9dec80>, 'subseries_index': None, 'authors': ['übers. u. mit Anm. vers. von Albert Schott. Neu'], 'author_sort': None, 'edition': '[Nachdr.]', 'editor': 'Wolfram von Soden / Schott, Albert', 'foreword': None, 'artist': None, 'original_language': None, 'translator': None, 'extent': '126 S.', 'other_physical_details': None, 'dimensions': '16 cm', 'accompanying_material': None, 'terms_of_availability': 'kart. : DM 4.60', 'mediatype': 'ohne hilfsmittel zu benutzen', 'tags': [<Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9dec80>], 'comments': '\nISBN:\t9783150072356\nHerausgeber:\tWolfram von Soden / Schott, Albert\nAuflage:\t[Nachdr.]\nMedienart:\tohne hilfsmittel zu benutzen\nUmfang:\t126 S.\nMaße:\t16 cm\nBezugsbedingungen:\tkart. : DM 4.60\nQuelle:\thttps://d-nb.info/840917902', 'record_uri': 'https://d-nb.info/840917902', 'idn': '840917902', 'urn': None, 'isbn': '9783150072356', 'gnd': None, 'ddc': [], 'ddc_subject_area': [], 'subjects_gnd': [], 'subjects_non_gnd': [], 'publisher_name': 'Reclam', 'publisher_location': 'Stuttgart', 'alternative_xmls': []}
+self.prefer_results_with_isbn=False
+Final formatted result: 
+Title               : Das Gilgamesch-Epos (840917902)
+Title sort          : Gilgamesch-Epos, Das
+Author(s)           : übers. u. mit Anm. vers. von Albert Schott. Neu
+Publisher           : Stuttgart : Reclam
+Tags                : <Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9dec80>
+Series              : Reclams Universal-Bibliothek #7235
+Languages           : de
+Published           : 1984-01-01T10:30:00+00:00
+Identifiers         : dnb-idn:840917902
+Comments            : 
+ISBN:	9783150072356
+Herausgeber:	Wolfram von Soden / Schott, Albert
+Auflage:	[Nachdr.]
+Medienart:	ohne hilfsmittel zu benutzen
+Umfang:	126 S.
+Maße:	16 cm
+Bezugsbedingungen:	kart. : DM 4.60
+Quelle:	https://d-nb.info/840917902
+-----
+[264.b] Publisher: Reclam
+[264.c] Publication Year: 1982-01-01 12:30:00
+added_entry=False
+[245.a] code_a=['\x98Das\x9c Gilgamesch-Epos']
+[245.c] code_c=['übers. u. mit Anm. vers. von Albert Schott. Neu hrsg. von Wolfram von Soden']
+[245.n] code_n=[]
+[245.p] code_p=[]
+pattern=Ausgew. und mit einem Nachw. von 
+pattern=hrsg. und eingeleitet von 
+pattern=Hrsg. u. eingel. von 
+pattern=hrsg. u. mit e. Einl. vers. von 
+pattern=Ausgew. u. bearb. von 
+pattern=[Hh]rsg. von 
+code_c=['übers. u. mit Anm. vers. von Albert Schott. Neu %%e:Wolfram von Soden%%']
+[245.c] code_c_element=übers. u. mit Anm. vers. von Albert Schott. Neu %%e:Wolfram von Soden%%
+[245.c] code_c_element=übers. u. mit Anm. vers. von Albert Schott. Neu %%e:Wolfram von Soden%%
+[245.c] code_c after uniforming identifiers=['übers. u. mit Anm. vers. von Albert Schott. Neu %%e:Wolfram von Soden%%']
+book['editor']=Wolfram von Soden
+code_c after stripping=['übers. u. mit Anm. vers. von Albert Schott. Neu ']
+code_c_authors=['übers. u. mit Anm. vers. von Albert Schott. Neu']
+title_parts=['\x98Das\x9c Gilgamesch-Epos']
+title_parts=['\x98Das\x9c Gilgamesch-Epos']
+[245] Title: Das Gilgamesch-Epos
+clean_title(), title=Das Gilgamesch-Epos
+[245] Title_Sort: Gilgamesch-Epos, Das
+[730.a]: <Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7eda5940>
+[300] field=
+[300.a] code_a=['126 S.']
+[300.c] code_c=['16 cm']
+[016.a] Identifier IDN: 820711306
+[020.a] Identifier ISBN: 9783150072356
+[490.v] Series_Index: 7235
+[490.a] Series: Universal-Bibliothek
+book['series']=Universal-Bibliothek, book['series_index=']=7235
+[250.a] Edition: [Nachdr.]
+[041.a] Languages: de
+book= {'series': 'Universal-Bibliothek', 'series_index': '7235', 'pubdate': datetime.datetime(1982, 1, 1, 12, 30), 'originally_published': None, 'language': None, 'languages': ['de'], 'title': '\x98Das\x9c Gilgamesch-Epos', 'title_sort': 'Gilgamesch-Epos, \x98Das\x9c', 'subtitle': None, 'subseries': <Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7eda5940>, 'subseries_index': None, 'authors': ['übers. u. mit Anm. vers. von Albert Schott. Neu'], 'author_sort': None, 'edition': '[Nachdr.]', 'editor': 'Wolfram von Soden / Schott, Albert', 'foreword': None, 'artist': None, 'original_language': None, 'translator': None, 'extent': '126 S.', 'other_physical_details': None, 'dimensions': '16 cm', 'accompanying_material': None, 'terms_of_availability': 'kart. : DM 4.20', 'mediatype': 'ohne hilfsmittel zu benutzen', 'tags': [<Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7eda5940>], 'comments': '\nISBN:\t9783150072356\nHerausgeber:\tWolfram von Soden / Schott, Albert\nAuflage:\t[Nachdr.]\nMedienart:\tohne hilfsmittel zu benutzen\nUmfang:\t126 S.\nMaße:\t16 cm\nBezugsbedingungen:\tkart. : DM 4.20\nQuelle:\thttps://d-nb.info/820711306', 'record_uri': 'https://d-nb.info/820711306', 'idn': '820711306', 'urn': None, 'isbn': '9783150072356', 'gnd': None, 'ddc': [], 'ddc_subject_area': [], 'subjects_gnd': [], 'subjects_non_gnd': [], 'publisher_name': 'Reclam', 'publisher_location': 'Stuttgart', 'alternative_xmls': []}
+self.prefer_results_with_isbn=False
+Final formatted result: 
+Title               : Das Gilgamesch-Epos (820711306)
+Title sort          : Gilgamesch-Epos, Das
+Author(s)           : übers. u. mit Anm. vers. von Albert Schott. Neu
+Publisher           : Stuttgart : Reclam
+Tags                : <Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7eda5940>
+Series              : Universal-Bibliothek #7235
+Languages           : de
+Published           : 1982-01-01T10:30:00+00:00
+Identifiers         : dnb-idn:820711306
+Comments            : 
+ISBN:	9783150072356
+Herausgeber:	Wolfram von Soden / Schott, Albert
+Auflage:	[Nachdr.]
+Medienart:	ohne hilfsmittel zu benutzen
+Umfang:	126 S.
+Maße:	16 cm
+Bezugsbedingungen:	kart. : DM 4.20
+Quelle:	https://d-nb.info/820711306
+-----
+[264.b] Publisher: Reclam
+[264.c] Publication Year: 1980-01-01 12:30:00
+added_entry=False
+[245.a] code_a=['\x98Das\x9c Gilgamesch-Epos']
+[245.c] code_c=['neu übers. u. mit Anm. vers. von Albert Schott. Erg. u. teilw. neu gestaltet von Wolfram von Soden']
+[245.n] code_n=[]
+[245.p] code_p=[]
+pattern=Ausgew. und mit einem Nachw. von 
+pattern=hrsg. und eingeleitet von 
+pattern=Hrsg. u. eingel. von 
+pattern=hrsg. u. mit e. Einl. vers. von 
+pattern=Ausgew. u. bearb. von 
+pattern=[Hh]rsg. von 
+pattern=Hrsg.: 
+pattern=
+code_c=['%%e:n%%e:e%%e:u%%e: %%e:ü%%e:b%%e:e%%e:r%%e:s%%e:.%%e: %%e:u%%e:.%%e: %%e:m%%e:i%%e:t%%e: %%e:A%%e:n%%e:m%%e:.%%e: %%e:v%%e:e%%e:r%%e:s%%e:.%%e: %%e:v%%e:o%%e:n%%e: %%e:A%%e:l%%e:b%%e:e%%e:r%%e:t%%e: %%e:S%%e:c%%e:h%%e:o%%e:t%%e:t%%e:.%%e: %%e:E%%e:r%%e:g%%e:.%%e: %%e:u%%e:.%%e: %%e:t%%e:e%%e:i%%e:l%%e:w%%e:.%%e: %%e:n%%e:e%%e:u%%e: %%e:g%%e:e%%e:s%%e:t%%e:a%%e:l%%e:t%%e:e%%e:t%%e: %%e:v%%e:o%%e:n%%e: %%e:W%%e:o%%e:l%%e:f%%e:r%%e:a%%e:m%%e: %%e:v%%e:o%%e:n%%e: %%e:S%%e:o%%e:d%%e:e%%e:n%%e:%%%e:%%%e:']
+[245.c] code_c_element=%%e:n%%e:e%%e:u%%e: %%e:ü%%e:b%%e:e%%e:r%%e:s%%e:.%%e: %%e:u%%e:.%%e: %%e:m%%e:i%%e:t%%e: %%e:A%%e:n%%e:m%%e:.%%e: %%e:v%%e:e%%e:r%%e:s%%e:.%%e: %%e:v%%e:o%%e:n%%e: %%e:A%%e:l%%e:b%%e:e%%e:r%%e:t%%e: %%e:S%%e:c%%e:h%%e:o%%e:t%%e:t%%e:.%%e: %%e:E%%e:r%%e:g%%e:.%%e: %%e:u%%e:.%%e: %%e:t%%e:e%%e:i%%e:l%%e:w%%e:.%%e: %%e:n%%e:e%%e:u%%e: %%e:g%%e:e%%e:s%%e:t%%e:a%%e:l%%e:t%%e:e%%e:t%%e: %%e:v%%e:o%%e:n%%e: %%e:W%%e:o%%e:l%%e:f%%e:r%%e:a%%e:m%%e: %%e:v%%e:o%%e:n%%e: %%e:S%%e:o%%e:d%%e:e%%e:n%%e:%%%e:%%%e:
+[245.c] code_c_element=%%e:n%%e:e%%e:u%%e: %%e:ü%%e:b%%e:e%%e:r%%e:s%%e:.%%e: %%e:u%%e:.%%e: %%e:m%%e:i%%e:t%%e: %%e:A%%e:n%%e:m%%e:.%%e: %%e:v%%e:e%%e:r%%e:s%%e:.%%e: %%e:v%%e:o%%e:n%%e: %%e:A%%e:l%%e:b%%e:e%%e:r%%e:t%%e: %%e:S%%e:c%%e:h%%e:o%%e:t%%e:t%%e:.%%e: %%e:E%%e:r%%e:g%%e:.%%e: %%e:u%%e:.%%e: %%e:t%%e:e%%e:i%%e:l%%e:w%%e:.%%e: %%e:n%%e:e%%e:u%%e: %%e:g%%e:e%%e:s%%e:t%%e:a%%e:l%%e:t%%e:e%%e:t%%e: %%e:v%%e:o%%e:n%%e: %%e:W%%e:o%%e:l%%e:f%%e:r%%e:a%%e:m%%e: %%e:v%%e:o%%e:n%%e: %%e:S%%e:o%%e:d%%e:e%%e:n%%e:%%%e:%%%e:
+[245.c] code_c after uniforming identifiers=['%%e:n%%e:e%%e:u%%e: %%e:ü%%e:b%%e:e%%e:r%%e:s%%e:.%%e: %%e:u%%e:.%%e: %%e:m%%e:i%%e:t%%e: %%e:A%%e:n%%e:m%%e:.%%e: %%e:v%%e:e%%e:r%%e:s%%e:.%%e: %%e:v%%e:o%%e:n%%e: %%e:A%%e:l%%e:b%%e:e%%e:r%%e:t%%e: %%e:S%%e:c%%e:h%%e:o%%e:t%%e:t%%e:.%%e: %%e:E%%e:r%%e:g%%e:.%%e: %%e:u%%e:.%%e: %%e:t%%e:e%%e:i%%e:l%%e:w%%e:.%%e: %%e:n%%e:e%%e:u%%e: %%e:g%%e:e%%e:s%%e:t%%e:a%%e:l%%e:t%%e:e%%e:t%%e: %%e:v%%e:o%%e:n%%e: %%e:W%%e:o%%e:l%%e:f%%e:r%%e:a%%e:m%%e: %%e:v%%e:o%%e:n%%e: %%e:S%%e:o%%e:d%%e:e%%e:n%%e:%%%e:%%%e:']
+book['editor']=n
+book['editor']=n / e
+code_c after stripping=['e:ue: e:üe:be:re:se:.e: e:ue:.e: e:me:ie:te: e:Ae:me:.e: e:ve:re:se:.e: e:ve:oe: e:Ae:le:be:re:te: e:Se:ce:he:oe:te:te:.e: e:Ee:re:ge:.e: e:ue:.e: e:te:ie:le:we:.e: e:ue: e:ge:se:te:ae:le:te:te: e:ve:oe: e:We:oe:le:fe:re:ae:me: e:ve:oe: e:Se:oe:de:%e:%e:']
+code_c_authors=['e:ue: e:üe:be:re:se:.e: e:ue:.e: e:me:ie:te: e:Ae:me:.e: e:ve:re:se:.e: e:ve:oe: e:Ae:le:be:re:te: e:Se:ce:he:oe:te:te:.e: e:Ee:re:ge:.e: e:ue:.e: e:te:ie:le:we:.e: e:ue: e:ge:se:te:ae:le:te:te: e:ve:oe: e:We:oe:le:fe:re:ae:me: e:ve:oe: e:Se:oe:de:%e:%e:']
+title_parts=['\x98Das\x9c Gilgamesch-Epos']
+title_parts=['\x98Das\x9c Gilgamesch-Epos']
+[245] Title: Das Gilgamesch-Epos
+clean_title(), title=Das Gilgamesch-Epos
+[245] Title_Sort: Gilgamesch-Epos, Das
+[730.a]: <Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9e87c0>
+[300] field=
+[300.a] code_a=['119 S.']
+[300.c] code_c=['16 cm']
+[016.a] Identifier IDN: 810118327
+[020.a] Identifier ISBN: 9783150072356
+[490.v] Series_Index: 7235
+[490.a] Series: Universal-Bibliothek
+book['series']=Universal-Bibliothek, book['series_index=']=7235
+[250.a] Edition: [Nachdr.]
+[041.a] Languages: de
+book= {'series': 'Universal-Bibliothek', 'series_index': '7235', 'pubdate': datetime.datetime(1980, 1, 1, 12, 30), 'originally_published': None, 'language': None, 'languages': ['de'], 'title': '\x98Das\x9c Gilgamesch-Epos', 'title_sort': 'Gilgamesch-Epos, \x98Das\x9c', 'subtitle': None, 'subseries': <Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9e87c0>, 'subseries_index': None, 'authors': ['e:ue: e:üe:be:re:se:.e: e:ue:.e: e:me:ie:te: e:Ae:me:.e: e:ve:re:se:.e: e:ve:oe: e:Ae:le:be:re:te: e:Se:ce:he:oe:te:te:.e: e:Ee:re:ge:.e: e:ue:.e: e:te:ie:le:we:.e: e:ue: e:ge:se:te:ae:le:te:te: e:ve:oe: e:We:oe:le:fe:re:ae:me: e:ve:oe: e:Se:oe:de:%e:%e:'], 'author_sort': None, 'edition': '[Nachdr.]', 'editor': 'n / e / Schott, Albert', 'foreword': None, 'artist': None, 'original_language': None, 'translator': None, 'extent': '119 S.', 'other_physical_details': None, 'dimensions': '16 cm', 'accompanying_material': None, 'terms_of_availability': 'kart. : DM 1.80', 'mediatype': 'ohne hilfsmittel zu benutzen', 'tags': [<Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9e87c0>], 'comments': '\nISBN:\t9783150072356\nHerausgeber:\tn / e / Schott, Albert\nAuflage:\t[Nachdr.]\nMedienart:\tohne hilfsmittel zu benutzen\nUmfang:\t119 S.\nMaße:\t16 cm\nBezugsbedingungen:\tkart. : DM 1.80\nQuelle:\thttps://d-nb.info/810118327', 'record_uri': 'https://d-nb.info/810118327', 'idn': '810118327', 'urn': None, 'isbn': '9783150072356', 'gnd': None, 'ddc': [], 'ddc_subject_area': [], 'subjects_gnd': [], 'subjects_non_gnd': [], 'publisher_name': 'Reclam', 'publisher_location': 'Stuttgart', 'alternative_xmls': []}
+self.prefer_results_with_isbn=False
+Final formatted result: 
+Title               : Das Gilgamesch-Epos (810118327)
+Title sort          : Gilgamesch-Epos, Das
+Author(s)           : e:ue: e:üe:be:re:se:.e: e:ue:.e: e:me:ie:te: e:Ae:me:.e: e:ve:re:se:.e: e:ve:oe: e:Ae:le:be:re:te: e:Se:ce:he:oe:te:te:.e: e:Ee:re:ge:.e: e:ue:.e: e:te:ie:le:we:.e: e:ue: e:ge:se:te:ae:le:te:te: e:ve:oe: e:We:oe:le:fe:re:ae:me: e:ve:oe: e:Se:oe:de:%e:%e:
+Publisher           : Stuttgart : Reclam
+Tags                : <Element {http://www.loc.gov/MARC21/slim}subfield at 0x1de7e9e87c0>
+Series              : Universal-Bibliothek #7235
+Languages           : de
+Published           : 1980-01-01T10:30:00+00:00
+Identifiers         : dnb-idn:810118327
+Comments            : 
+ISBN:	9783150072356
+Herausgeber:	n / e / Schott, Albert
+Auflage:	[Nachdr.]
+Medienart:	ohne hilfsmittel zu benutzen
+Umfang:	119 S.
+Maße:	16 cm
+Bezugsbedingungen:	kart. : DM 1.80
+Quelle:	https://d-nb.info/810118327
+-----
+[264.b] Publisher: Reclam
+[264.c] Publication Year: 1978-01-01 12:30:00
+added_entry=False
+[245.a] code_a=['\x98Das\x9c Gilgamesch-Epos']
+[245.c] code_c=['neu übers. u. mit Anm. vers. von Albert Schott. Erg. u. teilw. neu gestaltet von Wolfram von Soden']
+[245.n] code_n=[]
+[245.p] code_p=[]
+pattern=Ausgew. und mit einem Nachw. von 
+pattern=hrsg. und eingeleitet von 
+pattern=Hrsg. u. eingel. von 
+pattern=hrsg. u. mit e. Einl. vers. von 
+pattern=Ausgew. u. bearb. von 
+pattern=[Hh]rsg. von 
+pattern=Hrsg.: 
+pattern=
+code_c=['%%e:n%%e:e%%e:u%%e: %%e:ü%%e:b%%e:e%%e:r%%e:s%%e:.%%e: %%e:u%%e:.%%e: %%e:m%%e:i%%e:t%%e: %%e:A%%e:n%%e:m%%e:.%%e: %%e:v%%e:e%%e:r%%e:s%%e:.%%e: %%e:v%%e:o%%e:n%%e: %%e:A%%e:l%%e:b%%e:e%%e:r%%e:t%%e: %%e:S%%e:c%%e:h%%e:o%%e:t%%e:t%%e:.%%e: %%e:E%%e:r%%e:g%%e:.%%e: %%e:u%%e:.%%e: %%e:t%%e:e%%e:i%%e:l%%e:w%%e:.%%e: %%e:n%%e:e%%e:u%%e: %%e:g%%e:e%%e:s%%e:t%%e:a%%e:l%%e:t%%e:e%%e:t%%e: %%e:v%%e:o%%e:n%%e: %%e:W%%e:o%%e:l%%e:f%%e:r%%e:a%%e:m%%e: %%e:v%%e:o%%e:n%%e: %%e:S%%e:o%%e:d%%e:e%%e:n%%e:%%%e:%%%e:']
+[245.c] code_c_element=%%e:n%%e:e%%e:u%%e: %%e:ü%%e:b%%e:e%%e:r%%e:s%%e:.%%e: %%e:u%%e:.%%e: %%e:m%%e:i%%e:t%%e: %%e:A%%e:n%%e:m%%e:.%%e: %%e:v%%e:e%%e:r%%e:s%%e:.%%e: %%e:v%%e:o%%e:n%%e: %%e:A%%e:l%%e:b%%e:e%%e:r%%e:t%%e: %%e:S%%e:c%%e:h%%e:o%%e:t%%e:t%%e:.%%e: %%e:E%%e:r%%e:g%%e:.%%e: %%e:u%%e:.%%e: %%e:t%%e:e%%e:i%%e:l%%e:w%%e:.%%e: %%e:n%%e:e%%e:u%%e: %%e:g%%e:e%%e:s%%e:t%%e:a%%e:l%%e:t%%e:e%%e:t%%e: %%e:v%%e:o%%e:n%%e: %%e:W%%e:o%%e:l%%e:f%%e:r%%e:a%%e:m%%e: %%e:v%%e:o%%e:n%%e: %%e:S%%e:o%%e:d%%e:e%%e:n%%e:%%%e:%%%e:
+[245.c] code_c_element=%%e:n%%e:e%%e:u%%e: %%e:ü%%e:b%%e:e%%e:r%%e:s%%e:.%%e: %%e:u%%e:.%%e: %%e:m%%e:i%%e:t%%e: %%e:A%%e:n%%e:m%%e:.%%e: %%e:v%%e:e%%e:r%%e:s%%e:.%%e: %%e:v%%e:o%%e:n%%e: %%e:A%%e:l%%e:b%%e:e%%e:r%%e:t%%e: %%e:S%%e:c%%e:h%%e:o%%e:t%%e:t%%e:.%%e: %%e:E%%e:r%%e:g%%e:.%%e: %%e:u%%e:.%%e: %%e:t%%e:e%%e:i%%e:l%%e:w%%e:.%%e: %%e:n%%e:e%%e:u%%e: %%e:g%%e:e%%e:s%%e:t%%e:a%%e:l%%e:t%%e:e%%e:t%%e: %%e:v%%e:o%%e:n%%e: %%e:W%%e:o%%e:l%%e:f%%e:r%%e:a%%e:m%%e: %%e:v%%e:o%%e:n%%e: %%e:S%%e:o%%e:d%%e:e%%e:n%%e:%%%e:%%%e:
+[245.c] code_c after uniforming identifiers=['%%e:n%%e:e%%e:u%%e: %%e:ü%%e:b%%e:e%%e:r%%e:s%%e:.%%e: %%e:u%%e:.%%e: %%e:m%%e:i%%e:t%%e: %%e:A%%e:n%%e:m%%e:.%%e: %%e:v%%e:e%%e:r%%e:s%%e:.%%e: %%e:v%%e:o%%e:n%%e: %%e:A%%e:l%%e:b%%e:e%%e:r%%e:t%%e: %%e:S%%e:c%%e:h%%e:o%%e:t%%e:t%%e:.%%e: %%e:E%%e:r%%e:g%%e:.%%e: %%e:u%%e:.%%e: %%e:t%%e:e%%e:i%%e:l%%e:w%%e:.%%e: %%e:n%%e:e%%e:u%%e: %%e:g%%e:e%%e:s%%e:t%%e:a%%e:l%%e:t%%e:e%%e:t%%e: %%e:v%%e:o%%e:n%%e: %%e:W%%e:o%%e:l%%e:f%%e:r%%e:a%%e:m%%e: %%e:v%%e:o%%e:n%%e: %%e:S%%e:o%%e:d%%e:e%%e:n%%e:%%%e:%%%e:']
+book['editor']=n
+book['editor']=n / e
+code_c after stripping=['e:ue: e:üe:be:re:se:.e: e:ue:.e: e:me:ie:te: e:Ae:me:.e: e:ve:re:se:.e: e:ve:oe: e:Ae:le:be:re:te: e:Se:ce:he:oe:te:te:.e: e:Ee:re:ge:.e: e:ue:.e: e:te:ie:le:we:.e: e:ue: e:ge:se:te:ae:le:te:te: e:ve:oe: e:We:oe:le:fe:re:ae:me: e:ve:oe: e:Se:oe:de:%e:%e:']
+code_c_authors=['e:ue: e:üe:be:re:se:.e: e:ue:.e: e:me:ie:te: e:Ae:me:.e: e:ve:re:se:.e: e:ve:oe: e:Ae:le:be:re:te: e:Se:ce:he:oe:te:te:.e: e:Ee:re:ge:.e: e:ue:.e: e:te:ie:le:we:.e: e:ue: e:ge:se:te:ae:le:te:te: e:ve:oe: e:We:oe:le:fe:re:ae:me: e:ve:oe: e:Se:oe:de:%e:%e:']
+title_parts=['\x98Das\x9c Gilgamesch-Epos']
+title_parts=['\x98Das\x9c Gilgamesch-Epos']
+[245] Title: Das Gilgamesch-Epos
+clean_title(), title=Das Gilgamesch-Epos
+[245] Title_Sort: Gilgamesch-Epos, Das
+[300] field=
+[300.a] code_a=['119 S.']
+[300.c] code_c=['16 cm']
+[016.a] Identifier IDN: 790190605
+[020.a] Identifier ISBN: 9783150072356
+[490.v] Series_Index: 7235
+[490.a] Series: Universal-Bibliothek
+book['series']=Universal-Bibliothek, book['series_index=']=7235
+[250.a] Edition: [Nachdr.]
+[041.a] Languages: de
+book= {'series': 'Universal-Bibliothek', 'series_index': '7235', 'pubdate': datetime.datetime(1978, 1, 1, 12, 30), 'originally_published': None, 'language': None, 'languages': ['de'], 'title': '\x98Das\x9c Gilgamesch-Epos', 'title_sort': 'Gilgamesch-Epos, \x98Das\x9c', 'subtitle': None, 'subseries': None, 'subseries_index': None, 'authors': ['e:ue: e:üe:be:re:se:.e: e:ue:.e: e:me:ie:te: e:Ae:me:.e: e:ve:re:se:.e: e:ve:oe: e:Ae:le:be:re:te: e:Se:ce:he:oe:te:te:.e: e:Ee:re:ge:.e: e:ue:.e: e:te:ie:le:we:.e: e:ue: e:ge:se:te:ae:le:te:te: e:ve:oe: e:We:oe:le:fe:re:ae:me: e:ve:oe: e:Se:oe:de:%e:%e:'], 'author_sort': None, 'edition': '[Nachdr.]', 'editor': 'n / e / Schott, Albert', 'foreword': None, 'artist': None, 'original_language': None, 'translator': None, 'extent': '119 S.', 'other_physical_details': None, 'dimensions': '16 cm', 'accompanying_material': None, 'terms_of_availability': 'kart. : DM 3.20', 'mediatype': 'ohne hilfsmittel zu benutzen', 'tags': [], 'comments': '\nISBN:\t9783150072356\nHerausgeber:\tn / e / Schott, Albert\nAuflage:\t[Nachdr.]\nMedienart:\tohne hilfsmittel zu benutzen\nUmfang:\t119 S.\nMaße:\t16 cm\nBezugsbedingungen:\tkart. : DM 3.20\nQuelle:\thttps://d-nb.info/790190605', 'record_uri': 'https://d-nb.info/790190605', 'idn': '790190605', 'urn': None, 'isbn': '9783150072356', 'gnd': None, 'ddc': [], 'ddc_subject_area': [], 'subjects_gnd': [], 'subjects_non_gnd': [], 'publisher_name': 'Reclam', 'publisher_location': 'Stuttgart', 'alternative_xmls': []}
+self.prefer_results_with_isbn=False
+Final formatted result: 
+Title               : Das Gilgamesch-Epos (790190605)
+Title sort          : Gilgamesch-Epos, Das
+Author(s)           : e:ue: e:üe:be:re:se:.e: e:ue:.e: e:me:ie:te: e:Ae:me:.e: e:ve:re:se:.e: e:ve:oe: e:Ae:le:be:re:te: e:Se:ce:he:oe:te:te:.e: e:Ee:re:ge:.e: e:ue:.e: e:te:ie:le:we:.e: e:ue: e:ge:se:te:ae:le:te:te: e:ve:oe: e:We:oe:le:fe:re:ae:me: e:ve:oe: e:Se:oe:de:%e:%e:
+Publisher           : Stuttgart : Reclam
+Series              : Universal-Bibliothek #7235
+Languages           : de
+Published           : 1978-01-01T10:30:00+00:00
+Identifiers         : dnb-idn:790190605
+Comments            : 
+ISBN:	9783150072356
+Herausgeber:	n / e / Schott, Albert
+Auflage:	[Nachdr.]
+Medienart:	ohne hilfsmittel zu benutzen
+Umfang:	119 S.
+Maße:	16 cm
+Bezugsbedingungen:	kart. : DM 3.20
+Quelle:	https://d-nb.info/790190605
+-----
+[264.b] Publisher: Reclam
+[264.c] Publication Year: 1977-01-01 12:30:00
+added_entry=False
+[245.a] code_a=['\x98Das\x9c Gilgamesch-Epos']
+[245.c] code_c=['neu übers. u. mit Anm. vers. von Albert Schott. Erg. u. teilweise neu gestaltet von Wolfram von Soden']
+[245.n] code_n=[]
+[245.p] code_p=[]
+pattern=Ausgew. und mit einem Nachw. von 
+pattern=hrsg. und eingeleitet von 
+pattern=Hrsg. u. eingel. von 
+pattern=hrsg. u. mit e. Einl. vers. von 
+pattern=Ausgew. u. bearb. von 
+pattern=[Hh]rsg. von 
+pattern=Hrsg.: 
+pattern=
+code_c=['%%e:n%%e:e%%e:u%%e: %%e:ü%%e:b%%e:e%%e:r%%e:s%%e:.%%e: %%e:u%%e:.%%e: %%e:m%%e:i%%e:t%%e: %%e:A%%e:n%%e:m%%e:.%%e: %%e:v%%e:e%%e:r%%e:s%%e:.%%e: %%e:v%%e:o%%e:n%%e: %%e:A%%e:l%%e:b%%e:e%%e:r%%e:t%%e: %%e:S%%e:c%%e:h%%e:o%%e:t%%e:t%%e:.%%e: %%e:E%%e:r%%e:g%%e:.%%e: %%e:u%%e:.%%e: %%e:t%%e:e%%e:i%%e:l%%e:w%%e:e%%e:i%%e:s%%e:e%%e: %%e:n%%e:e%%e:u%%e: %%e:g%%e:e%%e:s%%e:t%%e:a%%e:l%%e:t%%e:e%%e:t%%e: %%e:v%%e:o%%e:n%%e: %%e:W%%e:o%%e:l%%e:f%%e:r%%e:a%%e:m%%e: %%e:v%%e:o%%e:n%%e: %%e:S%%e:o%%e:d%%e:e%%e:n%%e:%%%e:%%%e:']
+[245.c] code_c_element=%%e:n%%e:e%%e:u%%e: %%e:ü%%e:b%%e:e%%e:r%%e:s%%e:.%%e: %%e:u%%e:.%%e: %%e:m%%e:i%%e:t%%e: %%e:A%%e:n%%e:m%%e:.%%e: %%e:v%%e:e%%e:r%%e:s%%e:.%%e: %%e:v%%e:o%%e:n%%e: %%e:A%%e:l%%e:b%%e:e%%e:r%%e:t%%e: %%e:S%%e:c%%e:h%%e:o%%e:t%%e:t%%e:.%%e: %%e:E%%e:r%%e:g%%e:.%%e: %%e:u%%e:.%%e: %%e:t%%e:e%%e:i%%e:l%%e:w%%e:e%%e:i%%e:s%%e:e%%e: %%e:n%%e:e%%e:u%%e: %%e:g%%e:e%%e:s%%e:t%%e:a%%e:l%%e:t%%e:e%%e:t%%e: %%e:v%%e:o%%e:n%%e: %%e:W%%e:o%%e:l%%e:f%%e:r%%e:a%%e:m%%e: %%e:v%%e:o%%e:n%%e: %%e:S%%e:o%%e:d%%e:e%%e:n%%e:%%%e:%%%e:
+[245.c] code_c_element=%%e:n%%e:e%%e:u%%e: %%e:ü%%e:b%%e:e%%e:r%%e:s%%e:.%%e: %%e:u%%e:.%%e: %%e:m%%e:i%%e:t%%e: %%e:A%%e:n%%e:m%%e:.%%e: %%e:v%%e:e%%e:r%%e:s%%e:.%%e: %%e:v%%e:o%%e:n%%e: %%e:A%%e:l%%e:b%%e:e%%e:r%%e:t%%e: %%e:S%%e:c%%e:h%%e:o%%e:t%%e:t%%e:.%%e: %%e:E%%e:r%%e:g%%e:.%%e: %%e:u%%e:.%%e: %%e:t%%e:e%%e:i%%e:l%%e:w%%e:e%%e:i%%e:s%%e:e%%e: %%e:n%%e:e%%e:u%%e: %%e:g%%e:e%%e:s%%e:t%%e:a%%e:l%%e:t%%e:e%%e:t%%e: %%e:v%%e:o%%e:n%%e: %%e:W%%e:o%%e:l%%e:f%%e:r%%e:a%%e:m%%e: %%e:v%%e:o%%e:n%%e: %%e:S%%e:o%%e:d%%e:e%%e:n%%e:%%%e:%%%e:
+[245.c] code_c after uniforming identifiers=['%%e:n%%e:e%%e:u%%e: %%e:ü%%e:b%%e:e%%e:r%%e:s%%e:.%%e: %%e:u%%e:.%%e: %%e:m%%e:i%%e:t%%e: %%e:A%%e:n%%e:m%%e:.%%e: %%e:v%%e:e%%e:r%%e:s%%e:.%%e: %%e:v%%e:o%%e:n%%e: %%e:A%%e:l%%e:b%%e:e%%e:r%%e:t%%e: %%e:S%%e:c%%e:h%%e:o%%e:t%%e:t%%e:.%%e: %%e:E%%e:r%%e:g%%e:.%%e: %%e:u%%e:.%%e: %%e:t%%e:e%%e:i%%e:l%%e:w%%e:e%%e:i%%e:s%%e:e%%e: %%e:n%%e:e%%e:u%%e: %%e:g%%e:e%%e:s%%e:t%%e:a%%e:l%%e:t%%e:e%%e:t%%e: %%e:v%%e:o%%e:n%%e: %%e:W%%e:o%%e:l%%e:f%%e:r%%e:a%%e:m%%e: %%e:v%%e:o%%e:n%%e: %%e:S%%e:o%%e:d%%e:e%%e:n%%e:%%%e:%%%e:']
+book['editor']=n
+book['editor']=n / e
+code_c after stripping=['e:ue: e:üe:be:re:se:.e: e:ue:.e: e:me:ie:te: e:Ae:me:.e: e:ve:re:se:.e: e:ve:oe: e:Ae:le:be:re:te: e:Se:ce:he:oe:te:te:.e: e:Ee:re:ge:.e: e:ue:.e: e:te:ie:le:we:ie:se: e:ue: e:ge:se:te:ae:le:te:te: e:ve:oe: e:We:oe:le:fe:re:ae:me: e:ve:oe: e:Se:oe:de:%e:%e:']
+code_c_authors=['e:ue: e:üe:be:re:se:.e: e:ue:.e: e:me:ie:te: e:Ae:me:.e: e:ve:re:se:.e: e:ve:oe: e:Ae:le:be:re:te: e:Se:ce:he:oe:te:te:.e: e:Ee:re:ge:.e: e:ue:.e: e:te:ie:le:we:ie:se: e:ue: e:ge:se:te:ae:le:te:te: e:ve:oe: e:We:oe:le:fe:re:ae:me: e:ve:oe: e:Se:oe:de:%e:%e:']
+title_parts=['\x98Das\x9c Gilgamesch-Epos']
+title_parts=['\x98Das\x9c Gilgamesch-Epos']
+[245] Title: Das Gilgamesch-Epos
+clean_title(), title=Das Gilgamesch-Epos
+[245] Title_Sort: Gilgamesch-Epos, Das
+[300] field=
+[300.a] code_a=['119 S.']
+[300.c] code_c=['15 cm']
+[016.a] Identifier IDN: 770436935
+[020.a] Identifier ISBN: 9783150072356
+[490.v] Series_Index: 7235
+[490.a] Series: Universal-Bibliothek
+book['series']=Universal-Bibliothek, book['series_index=']=7235
+[250.a] Edition: [Nachdr.]
+[041.a] Languages: de
+book= {'series': 'Universal-Bibliothek', 'series_index': '7235', 'pubdate': datetime.datetime(1977, 1, 1, 12, 30), 'originally_published': None, 'language': None, 'languages': ['de'], 'title': '\x98Das\x9c Gilgamesch-Epos', 'title_sort': 'Gilgamesch-Epos, \x98Das\x9c', 'subtitle': None, 'subseries': None, 'subseries_index': None, 'authors': ['e:ue: e:üe:be:re:se:.e: e:ue:.e: e:me:ie:te: e:Ae:me:.e: e:ve:re:se:.e: e:ve:oe: e:Ae:le:be:re:te: e:Se:ce:he:oe:te:te:.e: e:Ee:re:ge:.e: e:ue:.e: e:te:ie:le:we:ie:se: e:ue: e:ge:se:te:ae:le:te:te: e:ve:oe: e:We:oe:le:fe:re:ae:me: e:ve:oe: e:Se:oe:de:%e:%e:'], 'author_sort': None, 'edition': '[Nachdr.]', 'editor': 'n / e / Schott, Albert', 'foreword': None, 'artist': None, 'original_language': None, 'translator': None, 'extent': '119 S.', 'other_physical_details': None, 'dimensions': '15 cm', 'accompanying_material': None, 'terms_of_availability': 'kart. : DM 3.20', 'mediatype': 'ohne hilfsmittel zu benutzen', 'tags': [], 'comments': '\nISBN:\t9783150072356\nHerausgeber:\tn / e / Schott, Albert\nAuflage:\t[Nachdr.]\nMedienart:\tohne hilfsmittel zu benutzen\nUmfang:\t119 S.\nMaße:\t15 cm\nBezugsbedingungen:\tkart. : DM 3.20\nQuelle:\thttps://d-nb.info/770436935', 'record_uri': 'https://d-nb.info/770436935', 'idn': '770436935', 'urn': None, 'isbn': '9783150072356', 'gnd': None, 'ddc': [], 'ddc_subject_area': [], 'subjects_gnd': [], 'subjects_non_gnd': [], 'publisher_name': 'Reclam', 'publisher_location': 'Stuttgart', 'alternative_xmls': []}
+self.prefer_results_with_isbn=False
+Final formatted result: 
+Title               : Das Gilgamesch-Epos (770436935)
+Title sort          : Gilgamesch-Epos, Das
+Author(s)           : e:ue: e:üe:be:re:se:.e: e:ue:.e: e:me:ie:te: e:Ae:me:.e: e:ve:re:se:.e: e:ve:oe: e:Ae:le:be:re:te: e:Se:ce:he:oe:te:te:.e: e:Ee:re:ge:.e: e:ue:.e: e:te:ie:le:we:ie:se: e:ue: e:ge:se:te:ae:le:te:te: e:ve:oe: e:We:oe:le:fe:re:ae:me: e:ve:oe: e:Se:oe:de:%e:%e:
+Publisher           : Stuttgart : Reclam
+Series              : Universal-Bibliothek #7235
+Languages           : de
+Published           : 1977-01-01T10:30:00+00:00
+Identifiers         : dnb-idn:770436935
+Comments            : 
+ISBN:	9783150072356
+Herausgeber:	n / e / Schott, Albert
+Auflage:	[Nachdr.]
+Medienart:	ohne hilfsmittel zu benutzen
+Umfang:	119 S.
+Maße:	15 cm
+Bezugsbedingungen:	kart. : DM 3.20
+Quelle:	https://d-nb.info/770436935
+----- 
+
+******************************************************************************** 
+The identify phase took 3.33 seconds 
+The longest time (3.156660) was taken by: DNB_DE 
+Merging results from different sources 
+We have 10 merged results, merging took: 0.00 seconds 

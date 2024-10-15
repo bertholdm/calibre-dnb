@@ -103,6 +103,8 @@ class DNB_DE(Source):
             cfg.KEY_ARTIST_PATTERNS, [])
         self.cfg_translator_patterns = cfg.plugin_prefs[cfg.STORE_NAME].get(
             cfg.KEY_TRANSLATOR_PATTERNS, [])
+        self.cfg_foreword_patterns = cfg.plugin_prefs[cfg.STORE_NAME].get(
+            cfg.KEY_FOREWORD_PATTERNS, [])
         self.cfg_show_marc21_field_numbers = cfg.plugin_prefs[cfg.STORE_NAME].get(
             cfg.KEY_SHOW_MARC21_FIELD_NUMBERS, False)
 
@@ -177,6 +179,7 @@ class DNB_DE(Source):
                     'author_sort': None,
                     'edition': None,
                     'editor': None,
+                    'foreword': None,
                     'artist': None,
                     'original_language': None,
                     'translator': None,
@@ -398,29 +401,51 @@ class DNB_DE(Source):
                     # Extract remainder of title (Zusatz zum Titel)
                     if code_c:
 
-                        # Step 1: Mark parts by uniforming identifiers
+                        # Step 1: Cleaning and marking parts by uniforming identifiers
+                        code_c = [s + '%%' for s in code_c]  # Mark end of code c entry
+                        # code_c = list(map(lambda x: x.replace('[', ''), code_c))  # General replacings
+                        code_c = [re.sub('\[', '', code_c_element) for code_c_element in code_c]  # General replacings
+                        # code_c = list(map(lambda x: x.replace(']', ''), code_c))
+                        code_c = [re.sub('\]', '', code_c_element) for code_c_element in code_c]  # General replacings
+                        # code_c = list(map(lambda x: x.replace(';', ''), code_c))
+                        log.info("self.cfg_editor_patterns=%s" % self.cfg_editor_patterns)
+                        for pattern in self.cfg_editor_patterns:
+                            log.info("pattern={0}".format(pattern))
+                            # code_c = list(map(lambda x: x.replace(delimiter, '%%e:'), code_c))  ## Mark editor
+                            code_c_new = [re.sub(pattern, '%%e:', code_c_element) for code_c_element in code_c]   ## Mark editor
+                            if not code_c_new == code_c:
+                                code_c= code_c_new
+                                log.info("code_c={0}".format(code_c))
+                                break  # Leave for loop if replacing has taken place
+                        log.info("self.cfg_artist_patterns=%s" % self.cfg_artist_patterns)
+                        for pattern in self.cfg_artist_patterns:
+                            log.info("pattern={0}".format(pattern))
+                            code_c_new = [re.sub(pattern, '%%a:', code_c_element) for code_c_element in code_c]   ## Mark artist
+                            if not code_c_new == code_c:
+                                code_c= code_c_new
+                                log.info("code_c={0}".format(code_c))
+                                break  # Leave for loop if replacing has taken place
+                        log.info("self.cfg_translator_patterns=%s" % self.cfg_translator_patterns)
+                        for pattern in self.cfg_translator_patterns:
+                            log.info("pattern={0}".format(pattern))
+                            pattern = unicodedata_normalize("NFKC", pattern)  # Beware of German umlauts
+                            code_c_new = [re.sub(pattern, '%%t:', code_c_element) for code_c_element in code_c]   ## Mark translator
+                            if not code_c_new == code_c:
+                                code_c= code_c_new
+                                log.info("code_c={0}".format(code_c))
+                                break  # Leave for loop if replacing has taken place
+                        log.info("self.cfg_foreword_patterns=%s" % self.cfg_foreword_patterns)
+                        for pattern in self.cfg_foreword_patterns:
+                            log.info("pattern={0}".format(pattern))
+                            code_c_new = [re.sub(pattern, '%%f:', code_c_element) for code_c_element in code_c]   ## Mark foreword
+                            if not code_c_new == code_c:
+                                code_c= code_c_new
+                                log.info("code_c={0}".format(code_c))
+                                break  # Leave for loop if replacing has taken place
+
+                        # Extract original language
                         for code_c_element in code_c:
-                            log.info("[245.c] code_c_element=%s" % code_c_element)
-                            code_c = [s + '%%' for s in code_c]  # Mark end of code c entry
-                            code_c = list(map(lambda x: x.replace('[', ''), code_c))  # General replacings
-                            code_c = list(map(lambda x: x.replace(']', ''), code_c))
-                            # code_c = list(map(lambda x: x.replace(';', ''), code_c))
-                            for delimiter in ['Hrsg. von ', 'hrsg. von ', 'Hrsg.: ', 'Ausgew. und mit einem Nachw. von ',
-                                              'hrsg. und eingeleitet von ', 'Hrsg. u. eingel. von ',
-                                              'hrsg. u. mit e. Einl. vers. von ', 'Ausgew. u. bearb. von ']:
-                                code_c = list(map(lambda x: x.replace(delimiter, '%%e:'), code_c))  ## Mark editor
-                            for delimiter in ['Illustrator: ', 'Illustriert von ', 'illustriert von ', 'Ill. von ', 'Textill.:']:
-                                code_c = list(map(lambda x: x.replace(delimiter, '%%a:'), code_c))  ## Mark artist
-                            for delimiter in ['Übersetzt von', 'Dt. Übers.:', 'Übers.:']:
-                                # log.info("[delimiter=%s" % delimiter)
-                                # log.info("[delimiter=%s" % ":".join("{:02x}".format(ord(c)) for c in delimiter))
-                                delimiter = unicodedata_normalize("NFKC", delimiter)
-                                # log.info("[delimiter, normalized=%s" % ":".join("{:02x}".format(ord(c)) for c in delimiter))
-                                # log.info("[code_c[0]=%s" % code_c[0])
-                                # log.info("[code_c[0]=%s" % ":".join("{:02x}".format(ord(c)) for c in code_c[0]))
-                                code_c = list(map(lambda x: x.replace(delimiter, '%%t:'), code_c))  ## Mark translator
-                        for code_c_element in code_c:
-                            # Use regex to extracting translator
+                            # Use regex to extracting language and translator
                             for pattern in ['(\. [Aa]us (?:dem|d\.) (.*) von) (.*)%%']:
                                 log.info("[245.c] code_c_element=%s" % code_c_element)
                                 match = re.search(pattern, code_c_element)  # Search until first '%%' (non-greedy)
@@ -429,14 +454,6 @@ class DNB_DE(Source):
                                     if match.group(2) and match.group(3):
                                         book['original_language'] = match.group(2)
                                         book['original_language'].removesuffix('en')
-                        for code_c_element in code_c:
-                            # Use regex to extracting artist
-                            # Mit 95 Bildern nach Aquarellen von
-                            for pattern in ['(Mit .* Bildern .* von) (.*)%%']:
-                                log.info("[245.c] code_c_element=%s" % code_c_element)
-                                match = re.search(pattern, code_c_element)  # Search until first '%%' (non-greedy)
-                                if match:
-                                    code_c = list(map(lambda x: x.replace(match.group(1), '%%a:'), code_c))  ## Mark artist
 
                         log.info("[245.c] code_c after uniforming identifiers=%s" % code_c)
 
@@ -467,6 +484,12 @@ class DNB_DE(Source):
                                 book['translator'] = match.group(1).strip().strip('.').strip()
                                 log.info("book['translator']=%s" % book['translator'])
                                 code_c = list(map(lambda x: x.replace('%%t:' + match.group(1), ''), code_c))  ## strip match
+                        for code_c_element in code_c:
+                            match = re.search("%%f:(.*?)%%", code_c_element)  # Search until first '%%' (non-greedy)
+                            if match:
+                                book['foreword'] = match.group(1).strip().strip('.').strip()
+                                log.info("book['foreword']=%s" % book['foreword'])
+                                code_c = list(map(lambda x: x.replace('%%p:' + match.group(1), ''), code_c))  ## strip match
                         # Is there a remainder?
                         for code_c_element in code_c:
                             code_c = list(map(lambda x: x.replace('%%', ''), code_c))  ## strip delimiters
@@ -610,7 +633,7 @@ class DNB_DE(Source):
                         # [245.p] code_p=['\x98Die\x9c Teufelsfratze']
                         # ToDo: Same procedure as for code_c (+ title)...
                         code_p_split = code_p[0].split(" / ")
-                        code_p_title = code_p_split[0].strip()
+                        code_p_title = code_p_split[0].strip().strip('.')
                         book['title'] = code_p_title
                         log.info("book['title']=%s" % book['title'])
                         if len(code_p_split) > 1:
@@ -672,6 +695,7 @@ class DNB_DE(Source):
                     # Append subtitle only if set in options
                     if self.cfg_append_subtitle_to_title == True:
                         if book['edition']:
+                            book['edition'] = book['edition'].strip('[]')
                             book['title'] = book['title'] + " : " + book['edition']
                         if book['subtitle']:
                             book['title'] = book['title'] + " : " + book['subtitle']
@@ -828,7 +852,6 @@ class DNB_DE(Source):
                 # a: Uniform title (Einheitstitel)
                 for field in record.xpath("./marc21:datafield[@tag='730']", namespaces=ns):
                     for i in field.xpath("./marc21:subfield[@code='a' and string-length(text())>0]", namespaces=ns):
-                        log.info("[730.a]: %s" % i)
                         book['tags'].append(i)
                         if book['subseries']:
                             book['subseries'] = book['subseries'] + ' / ' + i
@@ -842,7 +865,6 @@ class DNB_DE(Source):
                 # c: Dimensions (Maße)
                 # e: Accompanying material (Begleitmaterial)
                 for field in record.xpath("./marc21:datafield[@tag='300']", namespaces=ns):
-                    log.info("[300] field=%s" % field.text.strip())
                     code_a = []
                     for i in field.xpath("./marc21:subfield[@code='a' and string-length(text())>0]", namespaces=ns):
                         code_a.append(i.text.strip())
@@ -1183,7 +1205,7 @@ class DNB_DE(Source):
                 # Get Edition
                 try:
                     book['edition'] = record.xpath("./marc21:datafield[@tag='250']/marc21:subfield[@code='a' "
-                                                   "and string-length(text())>0]", namespaces=ns)[0].text.strip()
+                                                   "and string-length(text())>0]", namespaces=ns)[0].text.strip().strip('[])')
                     log.info("[250.a] Edition: %s" % book['edition'])
                 except IndexError:
                     pass
@@ -1365,7 +1387,16 @@ class DNB_DE(Source):
                         if book['subseries_index']:
                             book['comments'] = book['comments'] + ' [' + book['subseries_index'] + ']'
                     if book['editor']:
+                        # Avoid such cases (from different fields): "Herausgeber: Wolfram von Soden / Soden, Wolfram von"
+                        book_editors = book['editor'].split(' / ')
+                        if len(book_editors) > 1:
+                            book_editors[1] = book_editors[1].replace('\x98', ' ').replace('\x9c', ' ').replace('  ', ' ').strip()
+                            book_editors[1] = ' '.join(book_editors[1].split(', ')[::-1]).strip()
+                            if book_editors[0] == book_editors[1]:
+                                book['editor'] = book_editors[0]
                         book['comments'] = book['comments'] + _('\nEditor:\t') + book['editor']
+                    if book['foreword']:
+                        book['comments'] = book['comments'] + _('\nForeword by:\t') + book['foreword']
                     if book['artist']:
                         book['comments'] = book['comments'] + _('\nArtist:\t') + book['artist']
                     if book['original_language']:

@@ -25,7 +25,7 @@ KEY_CAN_GET_MULTIPLE_COVERS = 'canGetMultipleCovers'
 KEY_EDITOR_PATTERNS = 'editorPatterns'
 KEY_ARTIST_PATTERNS = 'artistPatterns'
 KEY_TRANSLATOR_PATTERNS = 'translatorPatterns'
-# ToDo: ['Vorw. von Gustav Meyrink']
+KEY_FOREWORD_PATTERNS = 'forewordPatterns'
 KEY_SHOW_MARC21_FIELD_NUMBERS = 'showMarc21FieldNumbers'
 
 DEFAULT_STORE_VALUES = {
@@ -38,12 +38,16 @@ DEFAULT_STORE_VALUES = {
     KEY_STOP_AFTER_FIRST_HIT: True,
     KEY_PREFER_RESULTS_WITH_ISBN: True,
     KEY_CAN_GET_MULTIPLE_COVERS: False,
-    # ToDo: ['Hrsg. Felix Schloemp. [Die Bilder sind v. Paul Scheurich]']
-    # ToDo: 'Hrsg. von Felix Schloemp. M. e. Vorw. von Gustav Meyrink u. Bild. von Paul Schenrich']
-    KEY_EDITOR_PATTERNS: ['[Hh]rsg. von ', 'Hrsg.:', 'Ausgew. und mit einem Nachw. von ', 'hrsg. und eingeleitet von ',
-                          'Hrsg. u. eingel. von ', 'hrsg. u. mit e. Einl. vers. von ', 'Ausgew. u. bearb. von '],
-    KEY_ARTIST_PATTERNS: ['Illustrator: ', '[Ii]llustriert von ', 'Ill. von ', 'Textill.:'],
-    KEY_TRANSLATOR_PATTERNS: ['Übersetzt von ', 'Dt. Übers.:', 'Übers.:', '(\. [Aa]us (?:dem|d\.) (.*) von) (.*)%%'],
+    KEY_EDITOR_PATTERNS: ['Neu hrsg. von ', 'hrsg. und eingeleitet von ', 'Hrsg. u. eingel. von ',
+                          '[Hh]rsg. von ', 'Hrsg.:', 'Ausgew. und mit einem Nachw. von ', 'Ausgew. u. bearb. von ',
+                          'hrsg. u. mit e. Einl. vers. von ', 'Erg. u. teilweise neu gestaltet von '],
+    KEY_ARTIST_PATTERNS: ['Illustrator: ', '[Ii]llustriert von ', 'Ill. von ', 'Textill.:', 'u. Bild. von ',
+                          'm. Bild. von ', 'mit Bildern von ', 'Die Bilder sind v. ', '(Mit .* Bildern .* von) (.*)%%'],
+    # , '(\. [Aa]us (?:dem|d\.) (.*) von) (.*)%%' -- This pattern will be used in regex search for the original language
+    KEY_TRANSLATOR_PATTERNS: ['neu übers. u. mit Anm. vers. von ', 'übers. und mit Anm. versehen von ',
+                              'übers. u. mit Anm. vers. von ', 'übers. u. mit Anm. versehen von ',
+                              'Übersetzt von ', 'Dt. Übers.:', 'Übers.:'],
+    KEY_FOREWORD_PATTERNS: ['M. e. Vorw. von ', 'Vorwort von ', 'Vorw. von ', 'M. e. Geleitwort von '],
     KEY_SHOW_MARC21_FIELD_NUMBERS: False,
 }
 
@@ -178,7 +182,7 @@ class ConfigWidget(DefaultConfigWidget):
         editorPatterns_label = QLabel(
             _('Patterns to detect editors:'), self)
         editorPatterns_label.setToolTip(_('RegEx pattern to detect editors, without the editor\'s name itself. '
-                                          'One pattern per line.'))
+                                          'One pattern per line in descending check order.'))
         other_group_box_layout.addWidget(editorPatterns_label, 13, 0, 1, 1)
 
         self.editorPatterns_textarea = QPlainTextEdit(self)
@@ -191,7 +195,7 @@ class ConfigWidget(DefaultConfigWidget):
         artistPatterns_label = QLabel(
             _('Patterns to detect artists:'), self)
         artistPatterns_label.setToolTip(_('RegEx pattern to detect artists, without the artist\'s name itself. '
-                                          'One pattern per line.'))
+                                          'One pattern per line in ascending check order.'))
         other_group_box_layout.addWidget(artistPatterns_label, 14, 0, 1, 1)
 
         self.artistPatterns_textarea = QPlainTextEdit(self)
@@ -204,7 +208,7 @@ class ConfigWidget(DefaultConfigWidget):
         translatorPatterns_label = QLabel(
             _('Patterns to detect translators:'), self)
         translatorPatterns_label.setToolTip(_('RegEx pattern to detect translators, without the translator\'s name itself. '
-                                          'One pattern per line.'))
+                                          'One pattern per line in ascending check order.'))
         other_group_box_layout.addWidget(translatorPatterns_label, 15, 0, 1, 1)
 
         self.translatorPatterns_textarea = QPlainTextEdit(self)
@@ -213,17 +217,30 @@ class ConfigWidget(DefaultConfigWidget):
         other_group_box_layout.addWidget(
             self.translatorPatterns_textarea, 15, 1, 1, 1)
 
+        # Patterns for foreword (preface) detection
+        forewordPatterns_label = QLabel(
+            _('Patterns to detect foreword writer:'), self)
+        forewordPatterns_label.setToolTip(_('RegEx pattern to detect foreword writers, without the foreword writer\'s name itself. '
+                                          'One pattern per line in ascending check order.'))
+        other_group_box_layout.addWidget(forewordPatterns_label, 16, 0, 1, 1)
+
+        self.forewordPatterns_textarea = QPlainTextEdit(self)
+        self.forewordPatterns_textarea.setPlainText(
+            '\n'.join(c.get(KEY_FOREWORD_PATTERNS, DEFAULT_STORE_VALUES[KEY_FOREWORD_PATTERNS])))
+        other_group_box_layout.addWidget(
+            self.forewordPatterns_textarea, 16, 1, 1, 1)
+
         # Show MARC21 field numbers?
         showMarc21FieldNumbers_label = QLabel(
             _('Show MARC21 field numbers:'), self)
         showMarc21FieldNumbers_label.setToolTip(_('Show MARC21 field numbers in comments for reference purposes.\n'))
-        other_group_box_layout.addWidget(showMarc21FieldNumbers_label, 16, 0, 1, 1)
+        other_group_box_layout.addWidget(showMarc21FieldNumbers_label, 17, 0, 1, 1)
 
         self.showMarc21FieldNumbers_checkbox = QCheckBox(self)
         self.showMarc21FieldNumbers_checkbox.setChecked(
             c.get(KEY_SHOW_MARC21_FIELD_NUMBERS, DEFAULT_STORE_VALUES[KEY_SHOW_MARC21_FIELD_NUMBERS]))
         other_group_box_layout.addWidget(
-            self.showMarc21FieldNumbers_checkbox, 16, 1, 1, 1)
+            self.showMarc21FieldNumbers_checkbox, 17, 1, 1, 1)
 
 
     def commit(self):
@@ -240,6 +257,7 @@ class ConfigWidget(DefaultConfigWidget):
         new_prefs[KEY_EDITOR_PATTERNS] = self.editorPatterns_textarea.toPlainText().split("\n")
         new_prefs[KEY_ARTIST_PATTERNS] = self.artistPatterns_textarea.toPlainText().split("\n")
         new_prefs[KEY_TRANSLATOR_PATTERNS] = self.translatorPatterns_textarea.toPlainText().split("\n")
+        new_prefs[KEY_FOREWORD_PATTERNS] = self.forewordPatterns_textarea.toPlainText().split("\n")
         new_prefs[KEY_SHOW_MARC21_FIELD_NUMBERS] = self.showMarc21FieldNumbers_checkbox.isChecked()
 
         plugin_prefs[STORE_NAME] = new_prefs
