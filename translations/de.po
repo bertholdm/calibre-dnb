@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ISFDB3\n"
-"POT-Creation-Date: 2024-10-15 12:55+0200\n"
-"PO-Revision-Date: 2024-10-15 13:07+0200\n"
+"POT-Creation-Date: 2024-10-15 14:44+0200\n"
+"PO-Revision-Date: 2024-10-15 14:45+0200\n"
 "Last-Translator: Michael Detambel <info@michael-detambel.de>\n"
 "Language-Team: Michael Detambel\n"
 "Language: de_DE@formal\n"
@@ -18,73 +18,73 @@ msgstr ""
 msgid "Downloads metadata from the DNB (Deutsche National Bibliothek)."
 msgstr "Lädt Metadaten aus der DNB (Deutsche National Bibliothek)."
 
-#: __init__.py:1388
+#: __init__.py:1403
 msgid "ISBN:\t"
 msgstr "ISBN:\t"
 
-#: __init__.py:1390
+#: __init__.py:1405
 msgid "Subtitle:\t"
 msgstr "Untertitel:\t"
 
-#: __init__.py:1392
+#: __init__.py:1407
 msgid "Subseries:\t"
 msgstr "Unterserie:\t"
 
 # Weitere isfdb-Texte
-#: __init__.py:1403
+#: __init__.py:1418
 msgid "Editor:\t"
 msgstr "Herausgeber:\t"
 
-#: __init__.py:1405
+#: __init__.py:1420
 msgid "Foreword by:\t"
-msgstr "Vorwort, Einleitung, Geleitwort:\t"
+msgstr "Vorwort, Nachwort, Einleitung, Geleitwort:\t"
 
-#: __init__.py:1407
+#: __init__.py:1422
 msgid "Artist:\t"
 msgstr "Künstler:\t"
 
-#: __init__.py:1409
+#: __init__.py:1424
 msgid "Original language:\t"
 msgstr "Ausgangssprache:\t"
 
-#: __init__.py:1411
+#: __init__.py:1426
 msgid "Translator:\t"
 msgstr "Übersetzer:\t"
 
 # Weitere isfdb-Texte
-#: __init__.py:1413
+#: __init__.py:1428
 msgid "Edition:\t"
 msgstr "Auflage:\t"
 
-#: __init__.py:1415
+#: __init__.py:1430
 msgid "Media type:\t"
 msgstr "Medienart:\t"
 
-#: __init__.py:1417
+#: __init__.py:1432
 msgid "Extent:\t"
 msgstr "Umfang:\t"
 
-#: __init__.py:1419
+#: __init__.py:1434
 msgid "Other physical details:\t"
 msgstr "Andere physische Details:\t"
 
-#: __init__.py:1421
+#: __init__.py:1436
 msgid "Dimensions:\t"
 msgstr "Maße:\t"
 
-#: __init__.py:1423
+#: __init__.py:1438
 msgid "Accompanying material:\t"
 msgstr "Begleitmaterial:\t"
 
-#: __init__.py:1425
+#: __init__.py:1440
 msgid "Terms of availability:\t"
 msgstr "Bezugsbedingungen:\t"
 
-#: __init__.py:1427
+#: __init__.py:1442
 msgid "DDC subject area:\t"
 msgstr "DDC Sachgruppe:\t"
 
-#: __init__.py:1430
+#: __init__.py:1445
 msgid ""
 "\n"
 "GND subjects:\t"
@@ -92,33 +92,33 @@ msgstr ""
 "\n"
 "GND Einträge:\t"
 
-#: __init__.py:1433
+#: __init__.py:1448
 msgid "Non-GND subjects:\t"
 msgstr "Nicht-GND Einträge:\t"
 
-#: __init__.py:1435
+#: __init__.py:1450
 msgid "MARC21 fields:\t"
 msgstr "MARC21 Felder:\t"
 
-#: __init__.py:1445 __init__.py:1447
+#: __init__.py:1460 __init__.py:1462
 msgid "Source:\t"
 msgstr "Quelle:\t"
 
-#: config.py:120
+#: config.py:121
 msgid "Fetch all data in book record:"
 msgstr "Hole alle Daten des Katalog-Datensatzes:"
 
-#: config.py:121
+#: config.py:122
 msgid "Additional, non-Calibre book data will be stored in comments.\n"
 msgstr ""
 "Zusätzliche Angaben, die nicht für die Calibre Buchdaten verwendet werden, "
 "werden im Kommentarfeld abgelegt.\n"
 
-#: config.py:132
+#: config.py:133
 msgid "Append subtitle to title:"
 msgstr "Untertitel an Haupttitel anfügen:"
 
-#: config.py:133
+#: config.py:134
 msgid ""
 "Subtitle is appended to the main title, otherwise it will be stored in "
 "comments.\n"
@@ -126,19 +126,19 @@ msgstr ""
 "Untertitel werden an den Haupttitel angefügt, ansonsten im Kommentarfeld "
 "vermerkt.\n"
 
-#: config.py:144
+#: config.py:145
 msgid "Stop after first hit:"
 msgstr "Suche nach dem ersten Treffer abbrechen:"
 
-#: config.py:145
+#: config.py:146
 msgid "Stop search after first book record is found.\n"
 msgstr "Beende die Suche, wenn das erste Buch gefunden wurde.\n"
 
-#: config.py:156
+#: config.py:157
 msgid "Prefer results with ISBN:"
 msgstr "Ergebnisse mit ISBN bevorzugen:"
 
-#: config.py:157
+#: config.py:158
 msgid ""
 "If set to True, and this source returns multiple results for a query, some "
 "of which have ISBNs and some of which do not, the results without ISBNs will "
@@ -148,21 +148,21 @@ msgstr ""
 "Suche, solche mit ISBNs und solche ohne, werden die Ergebnisse ohne ISBNs "
 "ignorierd. (see https://manual.calibre-ebook.com/de/plugins.html)\n"
 
-#: config.py:171
+#: config.py:172
 msgid "Can get multiple covers:"
 msgstr "Mehr als ein Titelbild herunterladen:"
 
-#: config.py:172
+#: config.py:173
 msgid "If True, the plugin can return multiple covers for a given query."
 msgstr ""
 "Wenn angehakt, kann das Plugin mehr als ein Titelbild je Abfrage "
 "herunterladen."
 
-#: config.py:183
+#: config.py:184
 msgid "Patterns to detect editors:"
 msgstr "Muster für Herausgeber-Suche:"
 
-#: config.py:184
+#: config.py:185
 msgid ""
 "RegEx pattern to detect editors, without the editor's name itself. One "
 "pattern per line in descending check order."
@@ -170,11 +170,11 @@ msgstr ""
 "RegEx-Muster für die Herausgeber-Suche, ohne den Herausgebernamen selbst. "
 "Ein Muster pro Zeile in aufsteigender Prüfreihenfolge."
 
-#: config.py:196
+#: config.py:197
 msgid "Patterns to detect artists:"
 msgstr "Muster für Künstler-Suche:"
 
-#: config.py:197
+#: config.py:198
 msgid ""
 "RegEx pattern to detect artists, without the artist's name itself. One "
 "pattern per line in ascending check order."
@@ -182,11 +182,11 @@ msgstr ""
 "RegEx-Muster für die Künstler-Suche, ohne den Künstlernamen selbst. Ein "
 "Muster pro Zeile in aufsteigender Prüfreihenfolge."
 
-#: config.py:209
+#: config.py:210
 msgid "Patterns to detect translators:"
 msgstr "Muster für Übersetzer-Suche:"
 
-#: config.py:210
+#: config.py:211
 msgid ""
 "RegEx pattern to detect translators, without the translator's name itself. "
 "One pattern per line in ascending check order."
@@ -194,11 +194,11 @@ msgstr ""
 "RegEx-Muster für die Übersetzer-Suche, ohne den Übersetzernamen selbst. Ein "
 "Muster pro Zeile in aufsteigender Prüfreihenfolge."
 
-#: config.py:222
+#: config.py:223
 msgid "Patterns to detect foreword writer:"
 msgstr "Muster für Suche nach Verfasser von Einleitung, Vorwort, Geleitwort:"
 
-#: config.py:223
+#: config.py:224
 msgid ""
 "RegEx pattern to detect foreword writers, without the foreword writer's name "
 "itself. One pattern per line in ascending check order."
@@ -207,11 +207,11 @@ msgstr ""
 "Einleitung), ohne den Verfassernamen selbst. Ein Muster pro Zeile in "
 "aufsteigender Prüfreihenfolge."
 
-#: config.py:235
+#: config.py:236
 msgid "Show MARC21 field numbers:"
 msgstr "Zeige MARC21-Feldnummern:"
 
-#: config.py:236
+#: config.py:237
 msgid "Show MARC21 field numbers in comments for reference purposes.\n"
 msgstr "Zeige die MARC21-Feldnamen im Kommentar zu Verweiszwecken.\n"
 

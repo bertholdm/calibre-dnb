@@ -1385,6 +1385,9 @@ class DNB_DE(Source):
 
                 ##### Put it all together #####
 
+                # Remove duplicate authors
+                book['authors'] = list(dict.fromkeys(book['authors']))
+
                 if book['comments']:
                     book['comments'] = book['comments'] + '<p>'  # Because of 'html_sanitize()' above
                     html_comments = True
@@ -1414,7 +1417,7 @@ class DNB_DE(Source):
                                 book['editor'] = book_editors[0]
                         book['comments'] = book['comments'] + line_break + _('Editor:\t') + book['editor']
                     if book['foreword']:
-                        book['comments'] = book['comments'] + _(line_break + 'Foreword by:\t') + book['foreword']
+                        book['comments'] = book['comments'] + line_break + _('Foreword by:\t') + book['foreword']
                     if book['artist']:
                         book['comments'] = book['comments'] + line_break + _('Artist:\t') + book['artist']
                     if book['original_language']:
