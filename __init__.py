@@ -1373,17 +1373,23 @@ class DNB_DE(Source):
 
                 ##### Put it all together #####
 
-                if not book['comments']:
+                if book['comments']:
+                    book['comments'] = book['comments'] + '<p>'  # Because of 'html_sanitize()' above
+                    html_comments = True
+                    line_break = '<br />'
+                else:
                     book['comments'] = ''
+                    html_comments = False
+                    line_break = '\n'
 
                 # Put other data in comment field
                 if self.cfg_fetch_all == True:
                     if self.cfg_prefer_results_with_isbn == False and book['isbn']:
-                        book['comments'] = book['comments'] + _('\nISBN:\t') + book['isbn']
+                        book['comments'] = book['comments'] + line_break + _('ISBN:\t') + book['isbn']
                     if book['subtitle']:
-                        book['comments'] = book['comments'] + _('\nSubtitle:\t') + book['subtitle']
+                        book['comments'] = book['comments'] + line_break +_('Subtitle:\t') + book['subtitle']
                     if book['subseries']:
-                        book['comments'] = book['comments'] + _('\nSubseries:\t') + book['subseries']
+                        book['comments'] = book['comments'] + line_break + _('Subseries:\t') + book['subseries']
                         if book['subseries_index']:
                             book['comments'] = book['comments'] + ' [' + book['subseries_index'] + ']'
                     if book['editor']:
@@ -1394,46 +1400,52 @@ class DNB_DE(Source):
                             book_editors[1] = ' '.join(book_editors[1].split(', ')[::-1]).strip()
                             if book_editors[0] == book_editors[1]:
                                 book['editor'] = book_editors[0]
-                        book['comments'] = book['comments'] + _('\nEditor:\t') + book['editor']
+                        book['comments'] = book['comments'] + line_break + _('Editor:\t') + book['editor']
                     if book['foreword']:
-                        book['comments'] = book['comments'] + _('\nForeword by:\t') + book['foreword']
+                        book['comments'] = book['comments'] + _(line_break + 'Foreword by:\t') + book['foreword']
                     if book['artist']:
-                        book['comments'] = book['comments'] + _('\nArtist:\t') + book['artist']
+                        book['comments'] = book['comments'] + line_break + _('Artist:\t') + book['artist']
                     if book['original_language']:
-                        book['comments'] = book['comments'] + _('\nOriginal language:\t') + book['original_language']
+                        book['comments'] = book['comments'] + line_break + _('Original language:\t') + book['original_language']
                     if book['translator']:
-                        book['comments'] = book['comments'] + _('\nTranslator:\t') + book['translator']
+                        book['comments'] = book['comments'] + line_break + _('Translator:\t') + book['translator']
                     if book['edition']:
-                        book['comments'] = book['comments'] + _('\nEdition:\t') + book['edition']
+                        book['comments'] = book['comments'] + line_break + _('Edition:\t') + book['edition']
                     if book['mediatype']:
-                        book['comments'] = book['comments'] + _('\nMedia type:\t') + book['mediatype']
+                        book['comments'] = book['comments'] + line_break + _('Media type:\t') + book['mediatype']
                     if book['extent']:
-                        book['comments'] = book['comments'] + _('\nExtent:\t') + book['extent']
+                        book['comments'] = book['comments'] + line_break + _('Extent:\t') + book['extent']
                     if book['other_physical_details']:
-                        book['comments'] = book['comments'] + _('\nOther physical details:\t') + book['other_physical_details']
+                        book['comments'] = book['comments'] + line_break + _('Other physical details:\t') + book['other_physical_details']
                     if book['dimensions']:
-                        book['comments'] = book['comments'] + _('\nDimensions:\t') + book['dimensions']
+                        book['comments'] = book['comments'] + line_break + _('Dimensions:\t') + book['dimensions']
                     if book['accompanying_material']:
-                        book['comments'] = book['comments'] + _('\nAccompanying material:\t') + book['accompanying_material']
+                        book['comments'] = book['comments'] + line_break + _('Accompanying material:\t') + book['accompanying_material']
                     if book['terms_of_availability']:
-                        book['comments'] = (book['comments'] + _('\nTerms of availability:\t') + book['terms_of_availability'])
+                        book['comments'] = (book['comments'] + line_break + _('Terms of availability:\t') + book['terms_of_availability'])
                     if book['ddc_subject_area']:
-                        book['comments'] = (book['comments'] + _('\nDDC subject area:\t') + ', '.join(book['ddc_subject_area']))
+                        book['comments'] = (book['comments'] + line_break + _('DDC subject area:\t') + ', '.join(book['ddc_subject_area']))
                     if book['subjects_gnd']:
                         book['comments'] = book['comments'] + _(
                             '\nGND subjects:\t') + ' / '.join(book['subjects_gnd'])
                     if book['subjects_non_gnd']:
-                        book['comments'] = book['comments'] + _(
-                            '\nNon-GND subjects:\t') + ' / '.join(book['subjects_non_gnd'])
+                        book['comments'] = book['comments'] + line_break + _(
+                            'Non-GND subjects:\t') + ' / '.join(book['subjects_non_gnd'])
                     if marc21_fields and self.cfg_show_marc21_field_numbers == True:
-                        book['comments'] = book['comments'] + _('\n---\nMARC21 fields:\t') + ', '.join(marc21_fields)
+                        book['comments'] = book['comments'] + line_break + '---' + line_break + _('MARC21 fields:\t') + ', '.join(marc21_fields)
+                    if html_comments:
+                        book['comments'] = book['comments'] + '</p>'
 
                 # Indicate path to source
                 if book['idn']:
                     book['record_uri'] = 'https://d-nb.info/' + book['idn']
                 elif book['gnd']:
                     book['record_uri'] = 'https://d-nb.info/gnd/' + book['gnd']
-                book['comments'] = book['comments'] + _('\nSource:\t') + book['record_uri']
+                if html_comments:
+                    book['comments'] = book['comments'] + '<p>' + _('Source:\t') + book['record_uri'] + '</p>'
+                else:
+                    book['comments'] = book['comments'] + line_break + _('Source:\t') + book[
+                        'record_uri']
                 log.info("book= %s" % book)
 
                 if self.cfg_append_edition_to_title == True and book['edition']:
