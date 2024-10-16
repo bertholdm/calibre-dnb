@@ -509,18 +509,25 @@ class DNB_DE(Source):
                         # [245.a] code_a=['Deutsches Märchenbuch']
                         # [245.b] code_b=['Mit Illustrationen von Ludwig Richter']
                         # [245.c] code_c=['Ludwig Bechstein ; Illustrator: Ludwig Richter']
-                        # [245.n] code_n=[]
-                        # [245.p] code_p=[]
+                        # ---]
                         # 245.a] code_a=['Spannende Geschichten']
                         # [245.c] code_c=['Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer']
                         # [245.n] code_n=['17']
                         # [245.p] code_p=['Start ins Ungewisse / [Von] Heinz Helfgen']
+                        # ---
+                        # [245.a] code_a=['Soldatensaga']
+                        # [245.c] code_c=['W. E. B. Griffin']
+                        # [245.n] code_n=['1']
+                        # [245.p] code_p=['Lieutenants']
                         if code_c[0] == '':
                             code_c_authors = []
                         else:
                             for code_c_element in code_c:
                                 code_c_authors = list(map(lambda x: x.strip().strip('.').strip(';').strip(), code_c))
                         log.info("code_c_authors=%s" % code_c_authors)
+                        if code_c_authors:
+                            book['authors'].extend(code_c_authors)
+                            log.info("book['authors']=%s" % book['authors'])
 
                     # ToDo:
 
@@ -702,9 +709,9 @@ class DNB_DE(Source):
                                     code_p_authors.append(match.group(1).strip().strip('.').strip())
                                     log.info("code_p_authors=%s" % code_p_authors)
 
-                    # ToDo: Delete following 2 lines?
-                    book['authors'] = code_p_authors
-                    log.info("book['authors']=%s" % book['authors'])
+                    if code_p_authors:
+                        book['authors'].extend(code_p_authors)
+                        log.info("book['authors']=%s" % book['authors'])
 
                     # Title
                     if code_p:
