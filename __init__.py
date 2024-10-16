@@ -572,8 +572,11 @@ class DNB_DE(Source):
                         # [245.a] code_a=['\x98Ein\x9c Glas voll Mord – DuMonts Digitale Kriminal-Bibliothek']
                         # [245.b] code_b=['Inspektor Madoc-Rhys']
                         # [245.c] code_c=['Charlotte MacLeod']
-                        # [245.n] code_n=[]
-                        # [245.p] code_p=[]
+                        # ---
+                        # ToDo? (series and series index in field 830; 245.a = series in first edition):
+                        # [245.a] code_a=['Special Force One 01']
+                        # [245.b] code_b=['Der erste Einsatz']
+                        # [245.c] code_c=['Michael J. Parrish']
                         # Step 2: Identifiying parts
                         for code_a_element in code_a:
                             for delimiter in ['DuMonts Digitale Kriminal-Bibliothek']:  # main series
@@ -602,14 +605,10 @@ class DNB_DE(Source):
                     if code_a and code_b:  #  and not code_c:
                         # [245.a] code_a=['Tödliche Weihnachten – DuMonts Digitale Kriminal-Bibliothek']
                         # [245.b] code_b=['Ein mörderisches Adventspaket']
-                        # [245.n] code_n=[]
-                        # [245.p] code_p=[]
                         #
                         # [245.a] code_a=['XML und VBA lernen']
                         # [245.b] code_b=['Anfangen, anwenden, verstehen']
                         # [245.c] code_c=['René Martin']
-                        # [245.n] code_n=[]
-                        # [245.p] code_p=[]
                         for code_a_element in code_a:
                             for delimiter in ['DuMonts Digitale Kriminal-Bibliothek']:  # main series
                                 match = re.search(delimiter, code_a_element)
@@ -1235,13 +1234,16 @@ class DNB_DE(Source):
                     for i in record.xpath("./marc21:datafield[@tag='" + str(f) + "']/marc21:subfield[@code='a' and "
                                                                                  "string-length(text())>0]", namespaces=ns):
                         # skip entries starting with "(":
-                        if i.text.startswith("("):
+                        if i.text.startswith("("):  # "BISAC Subject Heading)FIC000000"
                             continue
                         # skip one-character subjects:
                         if len(i.text) < 2:
                             continue
 
-                        book['subjects_non_gnd'].extend(re.split(',|;', self.remove_sorting_characters(i.text)))
+                        # ToDo: Preserve entries with commas as one term: "<subfield code="a">Dame, König, As, Spion</subfield"
+                        # log.info("i.text=%s" % i.text)
+                        # book['subjects_non_gnd'].extend(re.split(',|;', self.remove_sorting_characters(i.text)))
+                        book['subjects_non_gnd'].append(unicodedata_normalize("NFKC", i.text))
 
                 if book['subjects_non_gnd']:
                     log.info("[600.a-655.a] Non-GND Subjects: %s" % " / ".join(book['subjects_non_gnd']))
@@ -1475,11 +1477,9 @@ class DNB_DE(Source):
                     if book['ddc_subject_area']:
                         book['comments'] = (book['comments'] + line_break + _('DDC subject area:\t') + ', '.join(book['ddc_subject_area']))
                     if book['subjects_gnd']:
-                        book['comments'] = book['comments'] + _(
-                            '\nGND subjects:\t') + ' / '.join(book['subjects_gnd'])
+                        book['comments'] = book['comments'] + line_break + _('GND subjects:\t') + ' / '.join(book['subjects_gnd'])
                     if book['subjects_non_gnd']:
-                        book['comments'] = book['comments'] + line_break + _(
-                            'Non-GND subjects:\t') + ' / '.join(book['subjects_non_gnd'])
+                        book['comments'] = book['comments'] + line_break + _('Non-GND subjects:\t') + ' / '.join(book['subjects_non_gnd'])
                     if marc21_fields and self.cfg_show_marc21_field_numbers == True:
                         book['comments'] = book['comments'] + line_break + '---' + line_break + _('MARC21 fields:\t') + ', '.join(marc21_fields)
                     if html_comments:
@@ -1857,6 +1857,9 @@ class DNB_DE(Source):
                 if i not in uniqueList:
                     uniqueList.append(i)
         return uniqueList
+
+        # Other possible approach:
+        # uniqueList = list(dict.fromkeys(listWithDuplicates))
 
 
     def execute_query(self, log, query, timeout=30):
