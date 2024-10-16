@@ -637,41 +637,75 @@ class DNB_DE(Source):
                     # [245.c] code_c=['Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer']
                     # [245.n] code_n=['145']
                     # [245.p] code_p=['SOS aus Unbekannt / [Von] Walter G. Brandecker. Textill.: H. Arlart u. G. Büsemeyer']
+                    # ---
+                    # [245.a] code_a=['Spannende Geschichten']
+                    # [245.c] code_c=['Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer']
+                    # [245.n] code_n=['119']
+                    # [245.p] code_p=['Schiffbruch zwischen Erde und Mond / [Von] Henry Gamarick. Ill.: G. Büsemeyer [u.a.]']
                     code_p_title = ''
                     code_p_authors = []
                     if code_a and code_n and code_p:  # and not and code_c ?
                         # [245.a] code_a=['Rolf Torring']
                         # [245.n] code_n=['502']
                         # [245.p] code_p=['\x98Die\x9c Teufelsfratze']
-                        # ToDo: Same procedure as for code_c (+ title)...
-                        code_p_split = code_p[0].split(" / ")
-                        code_p_title = code_p_split[0].strip().strip('.')
-                        book['title'] = code_p_title
-                        log.info("book['title']=%s" % book['title'])
-                        if len(code_p_split) > 1:
-                            code_p_authors = [code_p_split[1].strip().replace('[Von]', '').replace('[von]', '').strip()]
-                            for delimiter in ['Ill.:', 'Textill.:', 'Illustrationen', 'Zeichn.:']:
-                                code_p_authors_split = code_p_authors[0].split(delimiter)
-                                if len(code_p_authors_split) > 1:
-                                    code_p_authors = [code_p_authors_split[0].strip().strip('.')]
-                                    # Cave: book without author
-                                    # [245.a] code_a=['Spannende Geschichten']
-                                    # [245.c] code_c=['Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer']
-                                    # [245.n] code_n=['128']
-                                    # [245.p] code_p=['Die Goldgräberbank von Sacramento / Ill.: H. Arlat ; G. Büsemeyer']
-                                    if code_p_authors[0] == '':
-                                        code_p_authors = []
-                                    book['authors'] = code_p_authors
-                                    log.info("book['authors']=%s" % book['authors'])
+
+                        # ToDo: Code_p is possible repeated: $p - Name of part/section of a work (R)
+                        # $p - Name of part/section of a work
+                        # Name of a part/section of a work in a title.
+                        # In records formulated according to ISBD principles, subfield $p data follows a period (.)
+                        # when it is preceded by subfield $a, $b or another subfield $p. Subfield $p follows a comma (,)
+                        # when it follows subfield $n.
+                        # 245	10$aAdvanced calculus.$pStudent handbook.
+                        # 245	10$aInternationale Strassenkarte.$pEurope 1:2.5 Mio. :$bmit Register = International
+                        # road map.$pEurope, 1:2.5 mio : with index /$cRV Reise- und Verkehrsverlag.
+                        # 245	00$aHistorical statistics.$pSupplement /$c...
+                        # 245	00$aDissertation abstracts.$nA,$pThe humanities and social sciences.
+                        # 245	00$aDeutsche Bibliographie.$pWöchentliches Verzeichnis.$nReihe B,$pBeilage,
+                        # Erscheinungen ausserhalb des Verlagsbuchhandels :$bAmtsblatt der Deutschen Bibliothek.
+                        # Subfields $n and $p are repeated only when following a subfield $a, $b, $n, or $p.
+                        # If a title recorded in subfield $c includes the name and/or number of a part/section,
+                        # those elements are not separately subfield coded.
+                        # https://www.loc.gov/marc/bibliographic/bd245.html
+
+                        for code_p_element in code_p:
+                            code_p_element_split = code_p_element.split(" / ")
+                            code_p_title = code_p_element_split[0].strip().strip('.')
+                            book['title'] = code_p_title
+                            log.info("book['title']=%s" % book['title'])
+                            if len(code_p_element_split) > 1:
+                                code_p_element_remainder = code_p_element_split[1].strip().strip('.') + '%%'
+                                # Check the second part of code p for authors, artists, etc.
+                                for pattern in self.cfg_artist_patterns:
+                                    log.info("pattern={0}".format(pattern))
+                                    code_p_element_remainder = re.sub(pattern, '%%a:', code_p_element_remainder)  ## Mark authors
+                                    log.info("code_p_element_remainder={0}".format(code_p_element_remainder))
+                                match = re.search("%%a:(.*?)%%", code_p_element_remainder)  # Search until first '%%' (non-greedy)
+                                if match:
                                     if book['artist']:
-                                        book['artist'] = (book['artist'] + '. ' + delimiter + ' '
-                                                          + code_p_authors_split[1].strip().strip('.'))
+                                        book['artist'] = book['artist'] + ' / ' + match.group(1).strip().strip('.').strip()
                                     else:
-                                        book['artist'] = code_p_authors_split[1].strip().strip('.')
-                                    break
-                                else:
-                                    book['authors'] = code_p_authors
-                                    log.info("book['authors']=%s" % book['authors'])
+                                        book['artist'] = match.group(1).strip().strip('.').strip()
+                                    code_p_element_remainder = code_p_element_remainder.replace('%%a:' + match.group(1), '')  ## strip match
+                                    log.info("book['artist']=%s" % book['artist'])
+                                for pattern in ['\[Von\]', '\[von\]']:
+                                    log.info("pattern={0}".format(pattern))
+                                    code_p_element_remainder = re.sub(pattern, '%%w:', code_p_element_remainder)  ## Mark authors
+                                    log.info("code_p_element_remainder={0}".format(code_p_element_remainder))
+                                match = re.search("%%w:(.*?)%%", code_p_element_remainder)  # Search until first '%%' (non-greedy)
+                                # Cave: Books without authors
+                                # [245.a] code_a=['Spannende Geschichten']
+                                # [245.c] code_c=['Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer']
+                                # [245.n] code_n=['128']
+                                # [245.p] code_p=['Die Goldgräberbank von Sacramento / Ill.: H. Arlat ; G. Büsemeyer']
+                                if match:
+                                    log.info("match.group(1)={0}".format(match.group(1)))
+                                    log.info("code_p_authors={0}".format(code_p_authors))
+                                    code_p_authors.append(match.group(1).strip().strip('.').strip())
+                                    log.info("code_p_authors=%s" % code_p_authors)
+
+                    # ToDo: Delete following 2 lines?
+                    book['authors'] = code_p_authors
+                    log.info("book['authors']=%s" % book['authors'])
 
                     # Title
                     if code_p:
@@ -814,7 +848,7 @@ class DNB_DE(Source):
                         book['authors'] = code_c_authors
                     if code_p_authors:
                         book['authors'] = code_p_authors
-                    book['authors'].extend(secondary_authors)
+                book['authors'].extend(secondary_authors)
 
                 # if no "real" author was found use all involved persons as authors
                 if not book['authors']:

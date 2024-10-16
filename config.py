@@ -43,7 +43,8 @@ DEFAULT_STORE_VALUES = {
                           '[Hh]rsg. von ', 'Hrsg.:', 'Ausgew. und mit einem Nachw. von ', 'Ausgew. u. bearb. von ',
                           'hrsg. u. mit e. Einl. vers. von ', 'Erg. u. teilweise neu gestaltet von '],
     KEY_ARTIST_PATTERNS: ['Illustrator: ', '[Ii]llustriert von ', 'Ill. von ', 'Textill.:', 'u. Bild. von ',
-                          'm. Bild. von ', 'mit Bildern von ', 'Die Bilder sind v. ', '(Mit .* Bildern .* von) (.*)%%'],
+                          'm. Bild. von ', 'mit Bildern von ', 'Die Bilder sind v. ', '(Mit .* Bildern .* von) (.*)%%',
+                          'Illustrationen', 'Ill.:', 'Zeichn.:'],
     # , '(\. [Aa]us (?:dem|d\.) (.*) von) (.*)%%' -- This pattern will be used in regex search for the original language
     # ToDo: 'J. D. Salinger. [Die 1. Übers. wurde nach d. engl. Ausg. von Heinrich Böll überarb.
     KEY_TRANSLATOR_PATTERNS: ['neu übers. u. mit Anm. vers. von ', 'übers. und mit Anm. versehen von ',
