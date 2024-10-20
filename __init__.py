@@ -512,7 +512,7 @@ class DNB_DE(Source):
                                 else:
                                     book['foreword'] = match.group(1).strip().strip('.').strip()
                                 log.info("book['foreword']=%s" % book['foreword'])
-                                code_c = list(map(lambda x: x.replace('%%p:' + match.group(1), ''), code_c))  ## strip match
+                                code_c = list(map(lambda x: x.replace('%%f:' + match.group(1), ''), code_c))  ## strip match
                         # Is there a remainder?
                         for code_c_element in code_c:
                             code_c = list(map(lambda x: x.replace('%%', ''), code_c))  ## strip delimiters
@@ -735,6 +735,10 @@ class DNB_DE(Source):
                                         book['artist'] = match.group(1).strip().strip('.').strip()
                                     code_p_element_remainder = code_p_element_remainder.replace('%%a:' + match.group(1), '')  ## strip match
                                     log.info("book['artist']=%s" % book['artist'])
+                                for pattern in self.cfg_translator_patterns:
+                                    log.info("pattern={0}".format(pattern))
+                                    code_p_element_remainder = re.sub(pattern, '%%t:', code_p_element_remainder)  ## Mark authors
+                                    log.info("code_p_element_remainder={0}".format(code_p_element_remainder))
                                 for pattern in ['\[Von\]', '\[von\]', '[Vv]on']:
                                     log.info("pattern={0}".format(pattern))
                                     code_p_element_remainder = re.sub(pattern, '%%w:', code_p_element_remainder)  ## Mark authors
@@ -1243,6 +1247,10 @@ class DNB_DE(Source):
                     # Re-format series_index (book['series_index'] is of type string)
                     # to remove leading zeros before searching.
                     if book['series_index']:
+                        # ToDo: Leads to "bad character" error, if regex meta character in pattern ("Diogenes-Taschenbich")
+                        regex_meta_chars = ['[', '[', '[', '[', '[', '[', '[', '[', '[', '[', ]
+                        for regex_meta_char in regex_meta_chars:
+                            regex_safe_series = book['series'].replace(regex_meta_char, '\' + regex_meta_char)')
                         match = re.search(book['series'] + ".*" + str(int(book['series_index'])) + ".*:(.*)", book['title'])
                     else:
                         match = re.search(book['series'] + ".*:(.*)", book['title'])
@@ -1877,6 +1885,14 @@ class DNB_DE(Source):
                 # Skip series info if it starts with the first word of the publisher's name (which must be at least 4 characters long)
                 # But only, if publishers name is not qualified (publisher: DuMont, series: DuMonts Bibliothek...). So
                 # let the pattern ending with space.
+
+                # [490.a] Series: [Diogenes-Taschenbücher] Diogenes-Taschenbuch
+                match = re.search(
+                    '\[(.*)\]', series)
+                if match:
+                    series = match.group(1)
+                    return series
+
                 match = re.search(
                     '^(\w\w\w\w+) ', self.remove_sorting_characters(publisher_name))
                 if match:  # ToDo: and prefer series not start with publisher name -- there may be reasons to add such series names
