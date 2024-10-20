@@ -429,7 +429,7 @@ class DNB_DE(Source):
                             pattern = unicodedata_normalize("NFKC", pattern)  # Beware of German umlauts
                             # What type of pattern do we have:
                             if self.num_groups(pattern) > 1:
-                                # ['(\. [Aa]us (?:dem|d\.) (.*) .* von) (.*)%%']:
+                                # ['([Aa]us (?:dem|d\.) (.*) .* von) (.*)%%']:
                                 # Pattern with original_language and translator, so extract original language first
                                 for code_c_element in code_c:  # ToDo: c element is not repetitive
                                     # Use regex to extracting language
@@ -534,7 +534,7 @@ class DNB_DE(Source):
                             code_c_authors = []
                         else:
                             for code_c_element in code_c:
-                                code_c_authors = list(map(lambda x: x.strip().strip('.').strip(';').strip(), code_c))
+                                code_c_authors = list(map(lambda x: x.lstrip('von ').strip().strip('.').strip(';').strip(), code_c))
                         log.info("code_c_authors=%s" % code_c_authors)
                         if code_c_authors:
                             book['authors'].extend(code_c_authors)
@@ -546,6 +546,11 @@ class DNB_DE(Source):
                     # [245.a] ['Abdahn Effendi']
                     # [245.b] ['Eine Reiseerzählung']
                     # [245.c] ['Karl May']
+                    # ---
+                    #     <datafield tag="245" ind1="1" ind2="0">
+                    #       <subfield code="a">&#152;Der&#156; beiden Quitzows letzte Fahrten</subfield>
+                    #       <subfield code="b">historischer Roman</subfield>
+                    #       <subfield code="c">von Karl May</subfield>
                     # ---
                     # [245.a] code_a=["Appleby's End – DuMonts Digitale Kriminal-Bibliothek"]
                     # [245.b] code_b=['Inspektor-Appleby-Serie']
@@ -622,6 +627,7 @@ class DNB_DE(Source):
                         # [245.c] code_c=['Michael J. Parrish']
                         # Step 2: Identifiying parts
                         for code_a_element in code_a:
+                            # ToDo: Move to clean_series
                             for pattern in ['DuMonts Digitale Kriminal-Bibliothek']:  # main series
                                 match = re.search(pattern, code_a_element)
                                 if match:
@@ -653,14 +659,15 @@ class DNB_DE(Source):
                         # [245.b] code_b=['Anfangen, anwenden, verstehen']
                         # [245.c] code_c=['René Martin']
                         for code_a_element in code_a:
-                            for delimiter in ['DuMonts Digitale Kriminal-Bibliothek']:  # main series
-                                match = re.search(delimiter, code_a_element)
+                            # ToDo: Move to clean_series
+                            for pattern in ['DuMonts Digitale Kriminal-Bibliothek']:  # main series
+                                match = re.search(pattern, code_a_element)
                                 if match:
-                                    code_a = list(map(lambda x: x.replace(delimiter, ''), code_a))
-                                    book['series'] = delimiter
+                                    code_a = list(map(lambda x: x.replace(pattern, ''), code_a))
+                                    book['series'] = pattern
                                     for code_a_element in code_a:
                                         for general_dash in ['-', '–', '—']:  # hyphen, en dash, em dash
-                                            general_dash = delimiter = unicodedata_normalize("NFKC", general_dash)
+                                            general_dash = unicodedata_normalize("NFKC", general_dash)
                                             code_a = list(map(lambda x: x.strip().strip(general_dash.strip()), code_a))
                                     break  # Search until first match
                         if code_b[0]:
@@ -735,10 +742,13 @@ class DNB_DE(Source):
                                         book['artist'] = match.group(1).strip().strip('.').strip()
                                     code_p_element_remainder = code_p_element_remainder.replace('%%a:' + match.group(1), '')  ## strip match
                                     log.info("book['artist']=%s" % book['artist'])
+
+                                # ToDo: Extract language and translator as in code_c
                                 for pattern in self.cfg_translator_patterns:
                                     log.info("pattern={0}".format(pattern))
                                     code_p_element_remainder = re.sub(pattern, '%%t:', code_p_element_remainder)  ## Mark authors
                                     log.info("code_p_element_remainder={0}".format(code_p_element_remainder))
+
                                 for pattern in ['\[Von\]', '\[von\]', '[Vv]on']:
                                     log.info("pattern={0}".format(pattern))
                                     code_p_element_remainder = re.sub(pattern, '%%w:', code_p_element_remainder)  ## Mark authors
@@ -1246,14 +1256,18 @@ class DNB_DE(Source):
                     log.info("book['series']={0}, book['series_index=']={1}".format(book['series'], book['series_index']))
                     # Re-format series_index (book['series_index'] is of type string)
                     # to remove leading zeros before searching.
+                    # Leads to "bad character" error, if regex meta character in pattern ("Diogenes-Taschenbich")
+                    regex_meta_chars = ['[', ']', '([)', ')', '-', '.', '*', '?']
+                    regex_safe_series = book['series']
+                    for regex_meta_char in regex_meta_chars:
+                        regex_safe_series.replace(regex_meta_char, '\\' + regex_meta_char)
                     if book['series_index']:
-                        # ToDo: Leads to "bad character" error, if regex meta character in pattern ("Diogenes-Taschenbich")
-                        regex_meta_chars = ['[', '[', '[', '[', '[', '[', '[', '[', '[', '[', ]
-                        for regex_meta_char in regex_meta_chars:
-                            regex_safe_series = book['series'].replace(regex_meta_char, '\' + regex_meta_char)')
-                        match = re.search(book['series'] + ".*" + str(int(book['series_index'])) + ".*:(.*)", book['title'])
+                        # match = re.search(book['series'] + ".*" + str(int(book['series_index'])) + ".*:(.*)", book['title'])
+                        match = re.search(regex_safe_series + ".*" + str(int(book['series_index'])) + ".*:(.*)",
+                                          book['title'])
                     else:
-                        match = re.search(book['series'] + ".*:(.*)", book['title'])
+                        # match = re.search(book['series'] + ".*:(.*)", book['title'])
+                        match = re.search(regex_safe_series + ".*:(.*)", book['title'])
                     if match:
                         book['title'] = match.group(1).strip()
                         log.info("book['title'] after stripping series and index=%s" % book['title'])

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <record xmlns="http://www.loc.gov/MARC21/slim" type="Bibliographic">
+    <leader>00000nam a2200000 cb4500</leader>
+    <controlfield tag="001">930586794</controlfield>
+    <controlfield tag="003">DE-101</controlfield>
+    <controlfield tag="005">20171202181245.0</controlfield>
+    <controlfield tag="007">tu</controlfield>
+    <controlfield tag="008">930324s1992    sz ||||| |||| 00||||ger  </controlfield>
+    <datafield tag="015" ind1=" " ind2=" ">
+      <subfield code="a">93,A16,1900</subfield>
+      <subfield code="2">dnb</subfield>
+    </datafield>
+    <datafield tag="016" ind1="7" ind2=" ">
+      <subfield code="2">DE-101</subfield>
+      <subfield code="a">930586794</subfield>
+    </datafield>
+    <datafield tag="020" ind1=" " ind2=" ">
+      <subfield code="a">9783251201242</subfield>
+      <subfield code="c">Pp. : DM 59.00</subfield>
+      <subfield code="9">978-3-251-20124-2</subfield>
+    </datafield>
+    <datafield tag="020" ind1=" " ind2=" ">
+      <subfield code="a">3251201247</subfield>
+      <subfield code="c">Pp. : DM 59.00</subfield>
+      <subfield code="9">3-251-20124-7</subfield>
+    </datafield>
+    <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">(DE-599)DNB930586794</subfield>
+    </datafield>
+    <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">(OCoLC)721841165</subfield>
+    </datafield>
+    <datafield tag="040" ind1=" " ind2=" ">
+      <subfield code="a">1100</subfield>
+      <subfield code="b">ger</subfield>
+      <subfield code="c">DE-101</subfield>
+      <subfield code="d">9999</subfield>
+    </datafield>
+    <datafield tag="041" ind1=" " ind2=" ">
+      <subfield code="a">ger</subfield>
+    </datafield>
+    <datafield tag="044" ind1=" " ind2=" ">
+      <subfield code="c">XA-CH</subfield>
+    </datafield>
+    <datafield tag="082" ind1="7" ind2="4">
+      <subfield code="a">830</subfield>
+      <subfield code="a">B</subfield>
+      <subfield code="q">DE-101</subfield>
+      <subfield code="2">22sdnb</subfield>
+    </datafield>
+    <datafield tag="100" ind1="1" ind2=" ">
+      <subfield code="0">(DE-588)118818651</subfield>
+      <subfield code="0">https://d-nb.info/gnd/118818651</subfield>
+      <subfield code="0">(DE-101)118818651</subfield>
+      <subfield code="a">May, Karl</subfield>
+      <subfield code="d">1842-1912</subfield>
+      <subfield code="e">Verfasser</subfield>
+      <subfield code="4">aut</subfield>
+      <subfield code="2">gnd</subfield>
+    </datafield>
+    <datafield tag="245" ind1="1" ind2="0">
+      <subfield code="a">&#152;Der&#156; beiden Quitzows letzte Fahrten</subfield>
+      <subfield code="b">historischer Roman</subfield>
+      <subfield code="c">von Karl May</subfield>
+    </datafield>
+    <datafield tag="264" ind1=" " ind2="1">
+      <subfield code="a">Zürich</subfield>
+      <subfield code="b">Haffmans</subfield>
+      <subfield code="c">1992</subfield>
+    </datafield>
+    <datafield tag="300" ind1=" " ind2=" ">
+      <subfield code="a">681 S.</subfield>
+      <subfield code="c">20 cm</subfield>
+    </datafield>
+    <datafield tag="336" ind1=" " ind2=" ">
+      <subfield code="a">Text</subfield>
+      <subfield code="b">txt</subfield>
+      <subfield code="2">rdacontent</subfield>
+    </datafield>
+    <datafield tag="337" ind1=" " ind2=" ">
+      <subfield code="a">ohne Hilfsmittel zu benutzen</subfield>
+      <subfield code="b">n</subfield>
+      <subfield code="2">rdamedia</subfield>
+    </datafield>
+    <datafield tag="338" ind1=" " ind2=" ">
+      <subfield code="a">Band</subfield>
+      <subfield code="b">nc</subfield>
+      <subfield code="2">rdacarrier</subfield>
+    </datafield>
+    <datafield tag="490" ind1="1" ind2=" ">
+      <subfield code="a">Karl Mays Werke : Abteilung 1., Frühwerk</subfield>
+      <subfield code="v">Band 4</subfield>
+    </datafield>
+    <datafield tag="800" ind1="1" ind2=" ">
+      <subfield code="a">May, Karl</subfield>
+      <subfield code="d">1842-1912</subfield>
+      <subfield code="4">aut</subfield>
+      <subfield code="t">Karl Mays Werke</subfield>
+      <subfield code="n">Abteilung 1.</subfield>
+      <subfield code="p">Frühwerk</subfield>
+      <subfield code="v">Band 4</subfield>
+      <subfield code="w">(DE-101)94304409X</subfield>
+      <subfield code="9">11 14</subfield>
+      <subfield code="7">am</subfield>
+    </datafield>
+    <datafield tag="850" ind1=" " ind2=" ">
+      <subfield code="a">DE-101a</subfield>
+      <subfield code="a">DE-101b</subfield>
+    </datafield>
+    <datafield tag="856" ind1="4" ind2="2">
+      <subfield code="m">B:DE-101</subfield>
+      <subfield code="q">application/pdf</subfield>
+      <subfield code="u">https://d-nb.info/930586794/04</subfield>
+      <subfield code="3">Inhaltsverzeichnis</subfield>
+    </datafield>
+    <datafield tag="889" ind1=" " ind2=" ">
+      <subfield code="w">(DE-101)552139807</subfield>
+    </datafield>
+  </record>
