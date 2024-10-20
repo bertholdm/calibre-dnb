@@ -546,6 +546,10 @@ class DNB_DE(Source):
                     # [245.a] ['Abdahn Effendi']
                     # [245.b] ['Eine Reiseerzählung']
                     # [245.c] ['Karl May']
+                    # ---
+                    # [245.a] code_a=["Appleby's End – DuMonts Digitale Kriminal-Bibliothek"]
+                    # [245.b] code_b=['Inspektor-Appleby-Serie']
+                    # [245.c] code_c=['Michael Innes']
 
                     # a + c:
                     # [245.a] ['Torn 27 - Die letzte Kolonie']
@@ -608,26 +612,30 @@ class DNB_DE(Source):
                         # [245.b] code_b=['Inspektor Madoc-Rhys']
                         # [245.c] code_c=['Charlotte MacLeod']
                         # ---
+                        # [245.a] code_a=["Appleby's End – DuMonts Digitale Kriminal-Bibliothek"]
+                        # [245.b] code_b=['Inspektor-Appleby-Serie']
+                        # [245.c] code_c=['Michael Innes']
+                        # ---
                         # ToDo? (series and series index in field 830; 245.a = series in first edition):
                         # [245.a] code_a=['Special Force One 01']
                         # [245.b] code_b=['Der erste Einsatz']
                         # [245.c] code_c=['Michael J. Parrish']
                         # Step 2: Identifiying parts
                         for code_a_element in code_a:
-                            for delimiter in ['DuMonts Digitale Kriminal-Bibliothek']:  # main series
-                                match = re.search(delimiter, code_a_element)
+                            for pattern in ['DuMonts Digitale Kriminal-Bibliothek']:  # main series
+                                match = re.search(pattern, code_a_element)
                                 if match:
-                                    code_a = list(map(lambda x: x.replace(delimiter, ''), code_a))
-                                    book['series'] = delimiter
+                                    code_a = list(map(lambda x: x.replace(pattern, '').strip(), code_a))
+                                    book['series'] = pattern
                                     if code_c:
                                         book['subseries'] = code_b[0]  # ToDo: subseries_index?
                                         code_b[0] = None
                                         book['tags'].append(book['subseries'])
                                     for code_a_element in code_a:
                                         for general_dash in ['-', '–', '—']:  # hyphen, en dash, em dash
-                                            general_dash = delimiter = unicodedata_normalize("NFKC", general_dash)
+                                            general_dash = unicodedata_normalize("NFKC", general_dash)
                                             code_a = list(map(lambda x: x.strip().strip(general_dash.strip()), code_a))
-                                    book['series'] = delimiter
+                                    book['series'] = pattern
                                     break  # Search until first match
 
                             match = re.search("%%e:(.*?)%%", code_c_element)  # Search until first '%%' (non-greedy)
