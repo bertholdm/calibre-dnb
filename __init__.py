@@ -125,6 +125,9 @@ class DNB_DE(Source):
     def is_customizable(self):
         return True
 
+    def num_groups(self, regex):
+        return re.compile(regex).groups
+
     def identify(self, log, result_queue, abort, title=None, authors=[], identifiers={}, timeout=30):
         self.load_config()
 
@@ -418,36 +421,44 @@ class DNB_DE(Source):
                             log.info("pattern={0}".format(pattern))
                             code_c = [re.sub(pattern, '%%a:', code_c_element) for code_c_element in code_c]   ## Mark artist
                             log.info("code_c={0}".format(code_c))
+
+                        # Translator and original language perhaps combined:
                         log.info("self.cfg_translator_patterns=%s" % self.cfg_translator_patterns)
                         for pattern in self.cfg_translator_patterns:
                             log.info("pattern={0}".format(pattern))
                             pattern = unicodedata_normalize("NFKC", pattern)  # Beware of German umlauts
-                            code_c = [re.sub(pattern, '%%t:', code_c_element) for code_c_element in code_c]   ## Mark translator
+                            # What type of pattern do we have:
+                            if self.num_groups(pattern) > 1:
+                                # ['(\. [Aa]us (?:dem|d\.) (.*) .* von) (.*)%%']:
+                                # Pattern with original_language and translator, so extract original language first
+                                for code_c_element in code_c:  # ToDo: c element is not repetitive
+                                    # Use regex to extracting language
+                                    log.info("[245.c] code_c_element=%s" % code_c_element)
+                                    match = re.search(pattern, code_c_element)  # Search until first '%%' (non-greedy)
+                                    if match:
+                                        if len(match.groups()) > 1:
+                                            if match.group(2) and match.group(3):
+                                                book['original_language'] = match.group(2)
+                                                book['original_language'].removesuffix('en')
+                                                code_c = list(map(lambda x: x.replace(match.group(1), '%%t:'),
+                                                                  code_c))  ## Mark translator
+                            else:
+                                code_c = [re.sub(pattern, '%%t:', code_c_element) for code_c_element in code_c]   ## Mark translator
                             log.info("code_c={0}".format(code_c))
+
                         log.info("self.cfg_foreword_patterns=%s" % self.cfg_foreword_patterns)
                         for pattern in self.cfg_foreword_patterns:
                             log.info("pattern={0}".format(pattern))
                             code_c = [re.sub(pattern, '%%f:', code_c_element) for code_c_element in code_c]   ## Mark foreword
                             log.info("code_c={0}".format(code_c))
-                        log.info("self.cfg_foreword_patterns=%s" % self.cfg_foreword_patterns)
-
-                        # Extract original language
-                        for code_c_element in code_c:
-                            # Use regex to extracting language and translator
-                            for pattern in ['(\. [Aa]us (?:dem|d\.) (.*) von) (.*)%%']:
-                                log.info("[245.c] code_c_element=%s" % code_c_element)
-                                match = re.search(pattern, code_c_element)  # Search until first '%%' (non-greedy)
-                                if match:
-                                    code_c = list(map(lambda x: x.replace(match.group(1), '%%t:'), code_c))  ## Mark translator
-                                    if match.group(2) and match.group(3):
-                                        book['original_language'] = match.group(2)
-                                        book['original_language'].removesuffix('en')
 
                         log.info("[245.c] code_c after uniforming identifiers=%s" % code_c)
 
                         # Step 2: Identifiying parts (more than one part of same type possible)
                         # ToDo: 245.c is non repetitive! $c - Statement of responsibility, etc. (NR)
                         # ToDo: Put code duplication in loop? (memory issue in loop!)
+                        # ToDo: Parsing ' ; ' as seperator:
+                        # 245.c] code_c=['J.R.R. Tolkien ; mit Illustrationen von Pauline Baynes ; aus dem Englischen übertragen von Ebba-Margareta von Freymann']
                         for code_c_element in code_c:
                             match = re.search("%%e:(.*?)%%", code_c_element)  # Search until first '%%' (non-greedy)
                             if match:
@@ -509,7 +520,7 @@ class DNB_DE(Source):
                         # [245.a] code_a=['Deutsches Märchenbuch']
                         # [245.b] code_b=['Mit Illustrationen von Ludwig Richter']
                         # [245.c] code_c=['Ludwig Bechstein ; Illustrator: Ludwig Richter']
-                        # ---]
+                        # ---
                         # 245.a] code_a=['Spannende Geschichten']
                         # [245.c] code_c=['Hrsg. von Günther Bicknese. Ill. von Günter Büsemeyer']
                         # [245.n] code_n=['17']
@@ -530,6 +541,23 @@ class DNB_DE(Source):
                             log.info("book['authors']=%s" % book['authors'])
 
                     # ToDo:
+
+                    # a + b + c:
+                    # [245.a] ['Abdahn Effendi']
+                    # [245.b] ['Eine Reiseerzählung']
+                    # [245.c] ['Karl May']
+
+                    # a + c:
+                    # [245.a] ['Torn 27 - Die letzte Kolonie']
+                    # [245.c] ['Michael J. Parrish']
+                    # ---
+                    # [245.a] ['Abdahn Effendi']
+                    # [245.b] ['Reiseerzählungen und Texte aus dem Spätwerk, Band 81 der Gesammelten Werke']
+                    # [245.c] ['Karl May']
+
+                    # 245.a + 249.a:
+                    # [245.a] ['Abdahn Effendi']
+                    # [249.a] ['Schamah. 2 Erzählungen / Von Karl May. [Mit e. Vorw. hrsg. von Thomas Ostwald]. Nachdr. aus d. "Bibliothek Saturn" 1909 u. 1911']
 
                     #     <datafield tag="245" ind1="1" ind2="0">
                     #       <subfield code="a">Auf dem Jakobsweg</subfield>
@@ -628,10 +656,16 @@ class DNB_DE(Source):
                                             code_a = list(map(lambda x: x.strip().strip(general_dash.strip()), code_a))
                                     break  # Search until first match
                         if code_b[0]:
-                            if code_b[0] not in ['Roman', 'Erzählung', 'Kriminalroman']:
+                            if code_b[0] not in ['Reiseerzählung', 'Roman', 'Erzählung', 'Kriminalroman']:
                                 book['subtitle'] = code_b[0].strip('[]')
                             else:
                                 book['tags'].append(code_b[0])
+
+                    # ToDo:
+                    # <datafield tag="245" ind1="1" ind2="0">
+                    #       <subfield code="a">Durch die Wüste</subfield>
+                    #       <subfield code="c">Reiseerzählung von Karl May</subfield>
+                    #     </datafield>
 
                     # a = series, n = series index, p = title and author and perhaps more
                     # [245.a] code_a=['Spannende Geschichten']
@@ -693,10 +727,11 @@ class DNB_DE(Source):
                                         book['artist'] = match.group(1).strip().strip('.').strip()
                                     code_p_element_remainder = code_p_element_remainder.replace('%%a:' + match.group(1), '')  ## strip match
                                     log.info("book['artist']=%s" % book['artist'])
-                                for pattern in ['\[Von\]', '\[von\]']:
+                                for pattern in ['\[Von\]', '\[von\]', '[Vv]on']:
                                     log.info("pattern={0}".format(pattern))
                                     code_p_element_remainder = re.sub(pattern, '%%w:', code_p_element_remainder)  ## Mark authors
                                     log.info("code_p_element_remainder={0}".format(code_p_element_remainder))
+                                # ToDo: "von Christian Montillon. Nach einer Story von Michael J. Parrish%%"
                                 match = re.search("%%w:(.*?)%%", code_p_element_remainder)  # Search until first '%%' (non-greedy)
                                 # Cave: Books without authors
                                 # [245.a] code_a=['Spannende Geschichten']
@@ -1429,7 +1464,11 @@ class DNB_DE(Source):
                 ##### Put it all together #####
 
                 # Remove duplicate authors
+                # log.info("book['authors']=%s" % book['authors'])
+                # First, swap names line 'Doe, John':
+                book['authors'] = [' '.join(author.split(',')[::-1]).strip() for author in book['authors']]
                 book['authors'] = list(dict.fromkeys(book['authors']))
+                # ToDo: Übersetzer: Ebba-Margareta von Freymann / Freymann, Ebba-Margareta von / Freymann, Thelma von
 
                 if book['comments']:
                     book['comments'] = book['comments'] + '<p>'  # Because of 'html_sanitize()' above
