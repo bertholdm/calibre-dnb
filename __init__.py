@@ -107,6 +107,8 @@ class DNB_DE(Source):
             cfg.KEY_FOREWORD_PATTERNS, [])
         self.cfg_show_marc21_field_numbers = cfg.plugin_prefs[cfg.STORE_NAME].get(
             cfg.KEY_SHOW_MARC21_FIELD_NUMBERS, False)
+        self.cfg_show_skip_series_starting_with_publishers_name = cfg.plugin_prefs[cfg.STORE_NAME].get(
+            cfg.KEY_SKIP_SERIES_STARTING_WITH_PUBLISHERS_NAME, True)
 
 
     @classmethod
@@ -1262,8 +1264,13 @@ class DNB_DE(Source):
                     for regex_meta_char in regex_meta_chars:
                         regex_safe_series.replace(regex_meta_char, '\\' + regex_meta_char)
                     if book['series_index']:
+                        # Check for safe series index
+                        # <datafield tag="490" ind1="1" ind2=" ">
+                        # <subfield code="a">[Diogenes-Taschenbücher] Diogenes-Taschenbuch</subfield>
+                        # <subfield code="v">75,17</subfield>
+                        book['series_index'] = book['series_index'].replace(',', '.')
                         # match = re.search(book['series'] + ".*" + str(int(book['series_index'])) + ".*:(.*)", book['title'])
-                        match = re.search(regex_safe_series + ".*" + str(int(book['series_index'])) + ".*:(.*)",
+                        match = re.search(regex_safe_series + ".*" + str(float(book['series_index'])) + ".*:(.*)",
                                           book['title'])
                     else:
                         # match = re.search(book['series'] + ".*:(.*)", book['title'])
@@ -1895,6 +1902,8 @@ class DNB_DE(Source):
                 if publisher_name == series:
                     log.info("[Series Cleaning] Series %s is equal to publisher, ignoring" % series)
                     return None
+
+                # Optional:
 
                 # Skip series info if it starts with the first word of the publisher's name (which must be at least 4 characters long)
                 # But only, if publishers name is not qualified (publisher: DuMont, series: DuMonts Bibliothek...). So

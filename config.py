@@ -27,6 +27,7 @@ KEY_ARTIST_PATTERNS = 'artistPatterns'
 KEY_TRANSLATOR_PATTERNS = 'translatorPatterns'
 KEY_FOREWORD_PATTERNS = 'forewordPatterns'
 KEY_SHOW_MARC21_FIELD_NUMBERS = 'showMarc21FieldNumbers'
+KEY_SKIP_SERIES_STARTING_WITH_PUBLISHERS_NAME = 'skipSeriesStartingWithPublishersName'
 
 DEFAULT_STORE_VALUES = {
     KEY_GUESS_SERIES: True,
@@ -55,6 +56,7 @@ DEFAULT_STORE_VALUES = {
     KEY_FOREWORD_PATTERNS: ['M. e. Vorw. von ', 'Vorwort von ', 'Vorw. von ', 'M. e. Geleitwort von ', 'Nachwort von ',
                             'Nachw. von '],
     KEY_SHOW_MARC21_FIELD_NUMBERS: False,
+    KEY_SKIP_SERIES_STARTING_WITH_PUBLISHERS_NAME: True,
 }
 
 # This is where all preferences for this plugin will be stored
@@ -248,6 +250,19 @@ class ConfigWidget(DefaultConfigWidget):
         other_group_box_layout.addWidget(
             self.showMarc21FieldNumbers_checkbox, 17, 1, 1, 1)
 
+        # Skip series starting with publisher's name?
+        skipSeriesStartingWithPublishersName_label = QLabel(
+            _('Skip series starting with publisher\'s name:'), self)
+        skipSeriesStartingWithPublishersName_label.setToolTip(_('Skip series info if it starts with the first word of the publisher\'s '
+                                                 'name (which must be at least 4 characters long).\n'))
+        other_group_box_layout.addWidget(skipSeriesStartingWithPublishersName_label, 18, 0, 1, 1)
+
+        self.skipSeriesStartingWithPublishersName_checkbox = QCheckBox(self)
+        self.skipSeriesStartingWithPublishersName_checkbox.setChecked(
+            c.get(KEY_SKIP_SERIES_STARTING_WITH_PUBLISHERS_NAME, DEFAULT_STORE_VALUES[KEY_SKIP_SERIES_STARTING_WITH_PUBLISHERS_NAME]))
+        other_group_box_layout.addWidget(
+            self.skipSeriesStartingWithPublishersName_checkbox, 18, 1, 1, 1)
+
 
     def commit(self):
         DefaultConfigWidget.commit(self)
@@ -265,5 +280,6 @@ class ConfigWidget(DefaultConfigWidget):
         new_prefs[KEY_TRANSLATOR_PATTERNS] = self.translatorPatterns_textarea.toPlainText().split("\n")
         new_prefs[KEY_FOREWORD_PATTERNS] = self.forewordPatterns_textarea.toPlainText().split("\n")
         new_prefs[KEY_SHOW_MARC21_FIELD_NUMBERS] = self.showMarc21FieldNumbers_checkbox.isChecked()
+        new_prefs[KEY_SKIP_SERIES_STARTING_WITH_PUBLISHERS_NAME] = self.skipSeriesStartingWithPublishersName_checkbox.isChecked()
 
         plugin_prefs[STORE_NAME] = new_prefs
