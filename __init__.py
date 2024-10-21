@@ -532,11 +532,19 @@ class DNB_DE(Source):
                         # [245.c] code_c=['W. E. B. Griffin']
                         # [245.n] code_n=['1']
                         # [245.p] code_p=['Lieutenants']
+                        # ---
+                        # [245.a] code_a=['\x98Das\x9c Buch der verschollenen Geschichten']
+                        # [245.c] code_c=['J.R.R. Tolkien ; Christopher Tolkien ; aus dem Englischen übersetzt von Hans J. Schütz']
+                        # [245.n] code_n=['1']
                         if code_c[0] == '':
                             code_c_authors = []
                         else:
-                            for code_c_element in code_c:
-                                code_c_authors = list(map(lambda x: x.lstrip('von ').strip().strip('.').strip(';').strip(), code_c))
+                            # code_c after stripping=['J.R.R. Tolkien ; Christopher Tolkien ; ']
+                            code_c_authors_str = code_c[0].lstrip('von ').strip().strip('.').strip()
+                            if ' ; ' in code_c_authors_str:
+                                code_c_authors = [x.strip() for x in code_c_authors_str.split(' ; ')]
+                                log.info("code_c_authors=%s" % code_c_authors)
+                                code_c_authors[:] = [item for item in code_c_authors if item != '']
                         log.info("code_c_authors=%s" % code_c_authors)
                         if code_c_authors:
                             book['authors'].extend(code_c_authors)
@@ -557,6 +565,7 @@ class DNB_DE(Source):
                     # [245.a] code_a=["Appleby's End – DuMonts Digitale Kriminal-Bibliothek"]
                     # [245.b] code_b=['Inspektor-Appleby-Serie']
                     # [245.c] code_c=['Michael Innes']
+                    # ---
 
                     # a + c:
                     # [245.a] ['Torn 27 - Die letzte Kolonie']
