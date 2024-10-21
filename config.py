@@ -49,7 +49,9 @@ DEFAULT_STORE_VALUES = {
                           'Zeichn.:'],
     # , '(\. [Aa]us (?:dem|d\.) (.*) von) (.*)%%' -- This pattern will be used in regex search for the original language
     # ToDo: 'J. D. Salinger. [Die 1. Übers. wurde nach d. engl. Ausg. von Heinrich Böll überarb.
-    KEY_TRANSLATOR_PATTERNS: ['([Aa]us (?:dem|d\.) (.*).* von) (.*)%%', 'neu übers. u. mit Anm. vers. von ',
+    # ToDo: 'Aus dem Engl. von Werner Schmitz unter Mitarb. von Karsten Singelmann',
+    KEY_TRANSLATOR_PATTERNS: ['([Aa]us (?:dem|d\.) (.*).* von) (.*)%%',
+                              'neu übers. u. mit Anm. vers. von ',
                               'übers. und mit Anm. versehen von ', 'übers. u. mit Anm. vers. von ',
                               'übers. u. mit Anm. versehen von ', 'nach dem Text von ', 'ins .* übers.* von ',
                               'Übersetzt von ', 'Dt. Übers.:', 'Dt. von ', 'Übers.:'],
