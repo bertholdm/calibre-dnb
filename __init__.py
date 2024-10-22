@@ -107,7 +107,7 @@ class DNB_DE(Source):
             cfg.KEY_FOREWORD_PATTERNS, [])
         self.cfg_show_marc21_field_numbers = cfg.plugin_prefs[cfg.STORE_NAME].get(
             cfg.KEY_SHOW_MARC21_FIELD_NUMBERS, False)
-        self.cfg_show_skip_series_starting_with_publishers_name = cfg.plugin_prefs[cfg.STORE_NAME].get(
+        self.cfg_skip_series_starting_with_publishers_name = cfg.plugin_prefs[cfg.STORE_NAME].get(
             cfg.KEY_SKIP_SERIES_STARTING_WITH_PUBLISHERS_NAME, True)
 
 
@@ -1930,8 +1930,9 @@ class DNB_DE(Source):
                 if match:  # ToDo: and prefer series not start with publisher name -- there may be reasons to add such series names
                     pubcompany = match.group(1)
                     if re.search('^\W*' + pubcompany, series, flags=re.IGNORECASE):
-                        log.info("[Series Cleaning] Series %s starts with publisher, ignoring" % series)
-                        return None
+                        if self.cfg_skip_series_starting_with_publishers_name == True:
+                            log.info("[Series Cleaning] Series %s starts with publisher, ignoring" % series)
+                            return None
 
             # do not accept some other unwanted series names
             # TODO: Has issues with Umlauts in regex (or series string?)
