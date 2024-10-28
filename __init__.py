@@ -539,6 +539,10 @@ class DNB_DE(Source):
                         if code_c[0] == '':
                             code_c_authors = []
                         else:
+                            # [245.c] code_c=['ein Märchen von Marie von Ebner-Eschenbach ; Buchschmuck von Hanns Anker']
+                            match = re.search("^.* von (.*)", code_c[0])
+                            if match:
+                                code_c[0] = match.group(1)
                             # code_c after stripping=['J.R.R. Tolkien ; Christopher Tolkien ; ']
                             code_c_authors_str = code_c[0].lstrip('von ').strip().strip('.').strip()
                             if ' ; ' in code_c_authors_str:
@@ -1267,23 +1271,20 @@ class DNB_DE(Source):
                     log.info("book['series']={0}, book['series_index=']={1}".format(book['series'], book['series_index']))
                     # Re-format series_index (book['series_index'] is of type string)
                     # to remove leading zeros before searching.
-                    # Leads to "bad character" error, if regex meta character in pattern ("Diogenes-Taschenbich")
-                    regex_meta_chars = ['[', ']', '([)', ')', '-', '.', '*', '?']
-                    regex_safe_series = book['series']
-                    for regex_meta_char in regex_meta_chars:
-                        regex_safe_series.replace(regex_meta_char, '\\' + regex_meta_char)
                     if book['series_index']:
                         # Check for safe series index
                         # <datafield tag="490" ind1="1" ind2=" ">
                         # <subfield code="a">[Diogenes-Taschenbücher] Diogenes-Taschenbuch</subfield>
                         # <subfield code="v">75,17</subfield>
                         book['series_index'] = book['series_index'].replace(',', '.')
+                        # [490.a] Series: K[unst] i[m] D[ruck]
+                        book['series_index'] = book['series_index'].replace('[', '').replace(']', '')
                         # match = re.search(book['series'] + ".*" + str(int(book['series_index'])) + ".*:(.*)", book['title'])
-                        match = re.search(regex_safe_series + ".*" + str(float(book['series_index'])) + ".*:(.*)",
+                        match = re.search(book['series'] + ".*" + str(float(book['series_index'])) + ".*:(.*)",
                                           book['title'])
                     else:
                         # match = re.search(book['series'] + ".*:(.*)", book['title'])
-                        match = re.search(regex_safe_series + ".*:(.*)", book['title'])
+                        match = re.search(book['series'] + ".*:(.*)", book['title'])
                     if match:
                         book['title'] = match.group(1).strip()
                         log.info("book['title'] after stripping series and index=%s" % book['title'])
@@ -1912,19 +1913,24 @@ class DNB_DE(Source):
                     log.info("[Series Cleaning] Series %s is equal to publisher, ignoring" % series)
                     return None
 
-                # Optional:
+                # Leads to "bad character" error, if regex meta character in pattern ("Diogenes-Taschenbuch")
+                regex_meta_chars = ['[', ']', '([)', ')', '-', '.', '*', '?']
+                for regex_meta_char in regex_meta_chars:
+                    series.replace(regex_meta_char, '\\' + regex_meta_char)
+                log.info("regex_safe series=%s" % series)
+                return series
 
+                # # [490.a] Series: [Diogenes-Taschenbücher] Diogenes-Taschenbuch
+                # match = re.search(
+                #     '\[(.*)\]', series)
+                # if match:
+                #     series = match.group(1)
+                #     return series
+
+                # Optional:
                 # Skip series info if it starts with the first word of the publisher's name (which must be at least 4 characters long)
                 # But only, if publishers name is not qualified (publisher: DuMont, series: DuMonts Bibliothek...). So
                 # let the pattern ending with space.
-
-                # [490.a] Series: [Diogenes-Taschenbücher] Diogenes-Taschenbuch
-                match = re.search(
-                    '\[(.*)\]', series)
-                if match:
-                    series = match.group(1)
-                    return series
-
                 match = re.search(
                     '^(\w\w\w\w+) ', self.remove_sorting_characters(publisher_name))
                 if match:  # ToDo: and prefer series not start with publisher name -- there may be reasons to add such series names
