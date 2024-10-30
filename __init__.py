@@ -187,6 +187,8 @@ class DNB_DE(Source):
                     'foreword': None,
                     'artist': None,
                     'original_language': None,
+                    'original_pubdate': None,
+                    'original_version_note': None,
                     'translator': None,
                     'extent': None,
                     'other_physical_details': None,
@@ -306,13 +308,36 @@ class DNB_DE(Source):
                         except (IndexError, AttributeError):
                             pass
 
-                # ToDo: At least fetch original pubdate
+
                 ##### Field 534 - "Original Version Note" #####
-                # or:
+                for field in record.xpath("./marc21:datafield[@tag='534']", namespaces=ns):
+                    field_534 = []
+                    for i in field.xpath("./marc21:subfield[string-length(text())>0]", namespaces=ns):
+                        field_534.append(field.xpath("./marc21:subfield/name()", namespaces=ns) + ':' + i.text.strip())
+                    book['original_version_note'] = ' / '.join(field_534)
+
+
+                ##### Field 008 - "Control Field 008" #####
                 # <controlfield tag="008">240627r20241795xx u||p|o ||| 0||||1ger  </controlfield
                 # gives in DBB catalog GUI:
                 # Zeitliche Einordnung	Erscheinungsdatum: 2024 Original: 1795
                 # see: https://www.loc.gov/marc/archive/2000/concise/ecbd008s.html
+                # Character Positions
+                # All materials
+                # 00-05 - Date entered on file
+                # 06 - Type of date/Publication status
+                # 07-10 - Date 1
+                # 11-14 - Date 2
+                # 15-17 - Place of publication, production, or execution
+                # 18-34 - [See one of the seven separate 008/18-34 configuration sections for these elements.]
+                # 35-37 - Language
+                # 38 - Modified record
+                # 39 - Cataloging source
+                if record.xpath("./marc21:controlfield[@tag='008']", namespaces=ns):
+                    date2 = record.xpath("./marc21:controlfield[@tag='008']/text()", namespaces=ns)
+                    date2 = ''.join(date2)[11:14].strip()
+                    if date2 != '':
+                        book['original_pubdate'] = date2
 
 
                 ##### Field 245: "Title Statement" #####
@@ -1551,6 +1576,10 @@ class DNB_DE(Source):
                         book['comments'] = book['comments'] + line_break + _('Artist:\t') + book['artist']
                     if book['original_language']:
                         book['comments'] = book['comments'] + line_break + _('Original language:\t') + book['original_language']
+                    if book['original_pubdate']:
+                        book['comments'] = book['comments'] + line_break + _('Original pubdate:\t') + book['original_pubdate']
+                    if book['original_version_note']:
+                        book['comments'] = book['comments'] + line_break + _('Original version note:\t') + book['original_version_note']
                     if book['translator']:
                         book['comments'] = book['comments'] + line_break + _('Translator:\t') + book['translator']
                     if book['edition']:
