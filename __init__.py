@@ -109,6 +109,8 @@ class DNB_DE(Source):
             cfg.KEY_SHOW_MARC21_FIELD_NUMBERS, False)
         self.cfg_skip_series_starting_with_publishers_name = cfg.plugin_prefs[cfg.STORE_NAME].get(
             cfg.KEY_SKIP_SERIES_STARTING_WITH_PUBLISHERS_NAME, True)
+        self.cfg_unwanted_series_names = cfg.plugin_prefs[cfg.STORE_NAME].get(
+            cfg.KEY_UNWANTED_SERIES_NAMES, [])
 
 
     @classmethod
@@ -335,7 +337,9 @@ class DNB_DE(Source):
                 # 39 - Cataloging source
                 if record.xpath("./marc21:controlfield[@tag='008']", namespaces=ns):
                     date2 = record.xpath("./marc21:controlfield[@tag='008']/text()", namespaces=ns)
-                    date2 = ''.join(date2)[11:14].strip()
+                    # log.info("date2=%s" % date2)
+                    # ['170608r20171917gw |||||o|||| 00||||ger  ']
+                    date2 = ''.join(date2)[11:15].strip()
                     if date2 != '':
                         book['original_pubdate'] = date2
 
@@ -483,7 +487,7 @@ class DNB_DE(Source):
 
                         # Step 2: Identifiying parts (more than one part of same type possible)
                         # ToDo: 245.c is non repetitive! $c - Statement of responsibility, etc. (NR)
-                        # ToDo: Put code duplication in loop? (memory issue in loop!)
+                        # ToDo: Put code duplication in loop? (memory issue!)
                         # ToDo: Parsing ' ; ' as seperator:
                         # 245.c] code_c=['J.R.R. Tolkien ; mit Illustrationen von Pauline Baynes ; aus dem Englischen übertragen von Ebba-Margareta von Freymann']
                         for code_c_element in code_c:
@@ -591,11 +595,6 @@ class DNB_DE(Source):
                     #       <subfield code="b">historischer Roman</subfield>
                     #       <subfield code="c">von Karl May</subfield>
                     # ---
-                    # [245.a] code_a=["Appleby's End – DuMonts Digitale Kriminal-Bibliothek"]
-                    # [245.b] code_b=['Inspektor-Appleby-Serie']
-                    # [245.c] code_c=['Michael Innes']
-                    # ---
-
                     # a + c:
                     # [245.a] ['Torn 27 - Die letzte Kolonie']
                     # [245.c] ['Michael J. Parrish']
@@ -668,6 +667,9 @@ class DNB_DE(Source):
                         # Step 2: Identifiying parts
                         for code_a_element in code_a:
                             # ToDo: Move to clean_series
+                            # [245.a] code_a=["Appleby's End – DuMonts Digitale Kriminal-Bibliothek"]
+                            # [245.b] code_b=['Inspektor-Appleby-Serie']
+                            # [245.c] code_c=['Michael Innes']
                             for pattern in ['DuMonts Digitale Kriminal-Bibliothek']:  # main series
                                 match = re.search(pattern, code_a_element)
                                 if match:
@@ -1354,7 +1356,7 @@ class DNB_DE(Source):
                         if len(i.text) < 2:
                             continue
 
-                        # ToDo: Preserve entries with commas as one term: "<subfield code="a">Dame, König, As, Spion</subfield"
+                        # Preserve entries with commas as one term: "<subfield code="a">Dame, König, As, Spion</subfield"
                         # log.info("i.text=%s" % i.text)
                         # book['subjects_non_gnd'].extend(re.split(',|;', self.remove_sorting_characters(i.text)))
                         book['subjects_non_gnd'].append(unicodedata_normalize("NFKC", i.text))
@@ -1537,10 +1539,17 @@ class DNB_DE(Source):
 
                 # Remove duplicate authors
                 # log.info("book['authors']=%s" % book['authors'])
-                # First, swap names line 'Doe, John':
+                # First, swap names like 'Doe, John':
                 book['authors'] = [' '.join(author.split(',')[::-1]).strip() for author in book['authors']]
                 book['authors'] = list(dict.fromkeys(book['authors']))
-                # ToDo: Übersetzer: Ebba-Margareta von Freymann / Freymann, Ebba-Margareta von / Freymann, Thelma von
+                if book['translator']:
+                    # Remove double translators: Ebba-Margareta von Freymann / Freymann, Ebba-Margareta von / Freymann, Thelma von
+                    translators = book['translator'].split(' / ')
+                    # Sswap names like 'Doe, John':
+                    translators = [' '.join(translator.split(',')[::-1]).strip() for translator in translators]
+                    log.info("translators=%s" % translators)
+                    translators = list(dict.fromkeys(translators))
+                    book['translator'] = ' / '.join(translators)
 
                 if book['comments']:
                     book['comments'] = book['comments'] + '<p>'  # Because of 'html_sanitize()' above
@@ -1970,17 +1979,10 @@ class DNB_DE(Source):
                             return None
 
             # do not accept some other unwanted series names
-            # TODO: Has issues with Umlauts in regex (or series string?)
-            # Perhaps we should do it with unicodedata_normalize("NFKC", string)
             # TODO: Make user configurable
-            for i in [
-                '^Roman$', '^Science-fiction$',
-                '^\[Ariadne\]$', '^Ariadne$', '^atb$', '^BvT$', '^Bastei L', '^bb$', '^Beck Paperback', '^Beck\-.*berater', '^Beck\'sche Reihe', '^Bibliothek Suhrkamp$', '^BLT$',
-                '^DLV-Taschenbuch$', '^Edition Suhrkamp$', '^Edition Lingen Stiftung$', '^Edition C', '^Edition Metzgenstein$', '^ETB$', '^dtv', '^Ein Goldmann',
-                '^Oettinger-Taschenbuch$', '^Haymon-Taschenbuch$', '^Mira Taschenbuch$', '^Suhrkamp-Taschenbuch$', '^Bastei-L', '^Hey$', '^btb$', '^bt-Kinder', '^Ravensburger',
-                '^Sammlung Luchterhand$', '^blanvalet$', '^KiWi$', '^Piper$', '^C.H. Beck', '^Rororo', '^Goldmann$', '^Moewig$', '^Fischer Klassik$', '^hey! shorties$', '^Ullstein',
-                '^Unionsverlag', '^Ariadne-Krimi', '^C.-Bertelsmann', '^Phantastische Bibliothek$', '^Beck Paperback$', '^Beck\'sche Reihe$', '^Knaur', '^Volk-und-Welt',
-                '^Allgemeine', '^Premium', '^Horror-Bibliothek$']:
+            for i in self.cfg_unwanted_series_names:
+                # TODO: Has issues with Umlauts in regex (or series string?)
+                # Perhaps we should do it with unicodedata_normalize("NFKC", string)
                 if re.search(unicodedata_normalize("NFKC", i), series, flags=re.IGNORECASE):
                     log.info("[Series Cleaning] Series %s contains unwanted string %s, ignoring" % (series, i))
                     return None

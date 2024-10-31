@@ -28,6 +28,7 @@ KEY_TRANSLATOR_PATTERNS = 'translatorPatterns'
 KEY_FOREWORD_PATTERNS = 'forewordPatterns'
 KEY_SHOW_MARC21_FIELD_NUMBERS = 'showMarc21FieldNumbers'
 KEY_SKIP_SERIES_STARTING_WITH_PUBLISHERS_NAME = 'skipSeriesStartingWithPublishersName'
+KEY_UNWANTED_SERIES_NAMES = 'unwantedSeriesNames'
 
 DEFAULT_STORE_VALUES = {
     KEY_GUESS_SERIES: True,
@@ -46,21 +47,35 @@ DEFAULT_STORE_VALUES = {
     KEY_ARTIST_PATTERNS: ['Illustrator: ', '[Ii]llustriert von ', 'Textill.:', 'u. Bild. von ', 'm. Bild. von ',
                           'mit Bildern von ', 'Mit [0-9]+ Ill. von ', 'Ill. von ', 'Die Bilder sind v. ',
                           '(Mit .* Bildern .* von) (.*)%%', 'mit .* Illustrationen von ', 'Illustrationen', 'Ill.:',
-                          'Zeichn.:', 'Buchschmuck von '],
+                          'Zeichn.:', 'Buchschmuck von ', 'Holzschn. von '],
     # , '(\. [Aa]us (?:dem|d\.) (.*) von) (.*)%%' -- This pattern will be used in regex search for the original language
     # ToDo: 'J. D. Salinger. [Die 1. Übers. wurde nach d. engl. Ausg. von Heinrich Böll überarb.
-    # ToDo: 'Aus dem Engl. von Werner Schmitz unter Mitarb. von Karsten Singelmann',
+    # ToDo(?): 'Aus dem Engl. von Werner Schmitz unter Mitarb. von Karsten Singelmann',
     KEY_TRANSLATOR_PATTERNS: ['([Aa]us d\. (.*) übertr. von) (.*)%%', '([Aa]us (?:dem|d\.) (.*).* von) (.*)%%',
+                              '([Aa]us dem (.*) neu übers. von) (.*)%%', '([Aa]us (?:dem|d\.) (.*) übers\. von) (.*)%%',
                               'neu übers. u. mit Anm. vers. von ', 'ins Deutsche übertragen von',
                               '[Ii]ns Deutsche übertragen .* von ',
                               'übers. und mit Anm. versehen von ', 'übers. u. mit Anm. vers. von ',
+                              '([Aa]us dem (.*) übers. und mit einem Nachw. vers. von) (.*)%%',
                               'übers. u. mit Anm. versehen von ', 'nach dem Text von ', 'ins .* übers.* von ',
-                              '[Üü]bers. von ', '[Üü]bersetzt von ', 'Dt. Übers.:', 'Dt. von ', 'Übers.:',
+                              '[Üü]bers. von ', '[Üü]bersetzt von ', 'Dt. Übers.:', 'Dt. von ', 'Übers.:', 'Übersetzer: ',
                               'Übersetzung:', 'übertragen von '],
-    KEY_FOREWORD_PATTERNS: ['M. e. Vorw. von ', 'Vorwort von ', 'Vorw. von ', 'M. e. Geleitwort von ', 'Nachwort von ',
-                            'Nachw. von '],
+    KEY_FOREWORD_PATTERNS: ['M. e. Vorw. von ', 'Vorwort von ', 'Vorw. von ', 'M. e. Geleitwort von ',
+                            'Aus dem .* übers. und mit einem Nachw. vers. von ', 'Nachwort von ', 'Nachw. von '],
     KEY_SHOW_MARC21_FIELD_NUMBERS: False,
     KEY_SKIP_SERIES_STARTING_WITH_PUBLISHERS_NAME: True,
+    # unwanted series names
+    KEY_UNWANTED_SERIES_NAMES: ['^Roman$', '^Science-fiction$', '^\[Ariadne\]$', '^Ariadne$', '^atb$', '^BvT$',
+                                '^Bastei L', '^bb$', '^Beck Paperback', '^Beck\-.*berater', '^Beck\'sche Reihe',
+                                '^Bibliothek Suhrkamp$', '^BLT$', '^DLV-Taschenbuch$', '^Edition Suhrkamp$',
+                                '^Edition Lingen Stiftung$', '^Edition C', '^Edition Metzgenstein$', '^ETB$', '^dtv',
+                                '^Ein Goldmann', '^Oettinger-Taschenbuch$', '^Haymon-Taschenbuch$', '^Mira Taschenbuch$',
+                                '^Suhrkamp-Taschenbuch$', '^Bastei-L', '^Hey$', '^btb$', '^bt-Kinder', '^Ravensburger',
+                                '^Sammlung Luchterhand$', '^blanvalet$', '^KiWi$', '^Piper$', '^C.H. Beck', '^Rororo',
+                                '^Goldmann$', '^Moewig$', '^Fischer Klassik$', '^hey! shorties$', '^Ullstein',
+                                '^Unionsverlag', '^Ariadne-Krimi', '^C.-Bertelsmann', '^Phantastische Bibliothek$',
+                                '^Beck Paperback$', '^Beck\'sche Reihe$', '^Knaur', '^Volk-und-Welt', '^Allgemeine',
+                                '^Premium', '^Horror-Bibliothek$'],
 }
 
 # This is where all preferences for this plugin will be stored
@@ -267,6 +282,19 @@ class ConfigWidget(DefaultConfigWidget):
         other_group_box_layout.addWidget(
             self.skipSeriesStartingWithPublishersName_checkbox, 18, 1, 1, 1)
 
+        # Patterns for uwanted series names
+        unwantedSeriesNames_label = QLabel(
+            _('Patterns for unwanted series names:'), self)
+        unwantedSeriesNames_label.setToolTip(_('RegEx pattern to detect unwanted series names. '
+                                          'One pattern per line in ascending check order.'))
+        other_group_box_layout.addWidget(unwantedSeriesNames_label, 17, 0, 1, 1)
+
+        self.unwantedSeriesNames_textarea = QPlainTextEdit(self)
+        self.unwantedSeriesNames_textarea.setPlainText(
+            '\n'.join(c.get(KEY_FOREWORD_PATTERNS, DEFAULT_STORE_VALUES[KEY_UNWANTED_SERIES_NAMES])))
+        other_group_box_layout.addWidget(
+            self.unwantedSeriesNames_textarea, 17, 1, 1, 1)
+
 
     def commit(self):
         DefaultConfigWidget.commit(self)
@@ -285,5 +313,6 @@ class ConfigWidget(DefaultConfigWidget):
         new_prefs[KEY_FOREWORD_PATTERNS] = self.forewordPatterns_textarea.toPlainText().split("\n")
         new_prefs[KEY_SHOW_MARC21_FIELD_NUMBERS] = self.showMarc21FieldNumbers_checkbox.isChecked()
         new_prefs[KEY_SKIP_SERIES_STARTING_WITH_PUBLISHERS_NAME] = self.skipSeriesStartingWithPublishersName_checkbox.isChecked()
+        new_prefs[KEY_UNWANTED_SERIES_NAMES] = sself.unwantedSeriesNames_textarea.toPlainText().split("\n")
 
         plugin_prefs[STORE_NAME] = new_prefs
