@@ -60,7 +60,7 @@ DEFAULT_STORE_VALUES = {
                               'übers. u. mit Anm. versehen von ', 'nach dem Text von ', 'ins .* übers.* von ',
                               '[Üü]bers. von ', '[Üü]bersetzt von ', 'Dt. Übers.:', 'Dt. von ', 'Übers.:', 'Übersetzer: ',
                               'Übersetzung:', 'übertragen von '],
-    KEY_FOREWORD_PATTERNS: ['M. e. Vorw. von ', 'Vorwort von ', 'Vorw. von ', 'M. e. Geleitwort von ',
+    KEY_FOREWORD_PATTERNS: ['Mit einem Vorw. von ', 'M. e. Vorw. von ', 'Vorwort von ', 'Vorw. von ', 'M. e. Geleitwort von ',
                             'Aus dem .* übers. und mit einem Nachw. vers. von ', 'Nachwort von ', 'Nachw. von '],
     KEY_SHOW_MARC21_FIELD_NUMBERS: False,
     KEY_SKIP_SERIES_STARTING_WITH_PUBLISHERS_NAME: True,
@@ -315,6 +315,6 @@ class ConfigWidget(DefaultConfigWidget):
         new_prefs[KEY_FOREWORD_PATTERNS] = self.forewordPatterns_textarea.toPlainText().split("\n")
         new_prefs[KEY_SHOW_MARC21_FIELD_NUMBERS] = self.showMarc21FieldNumbers_checkbox.isChecked()
         new_prefs[KEY_SKIP_SERIES_STARTING_WITH_PUBLISHERS_NAME] = self.skipSeriesStartingWithPublishersName_checkbox.isChecked()
-        new_prefs[KEY_UNWANTED_SERIES_NAMES] = sself.unwantedSeriesNames_textarea.toPlainText().split("\n")
+        new_prefs[KEY_UNWANTED_SERIES_NAMES] = self.unwantedSeriesNames_textarea.toPlainText().split("\n")
 
         plugin_prefs[STORE_NAME] = new_prefs

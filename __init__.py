@@ -1344,11 +1344,11 @@ class DNB_DE(Source):
                             continue
                         # <datafield tag="653" ind1=" " ind2=" ">
                         #   <subfield code="a">Emil; Klassiker; Krimi; Kästner</subfield>
-                        if ';' in i.text:
-                            subjects = [x.strip() for x in i.text.split(';')]
-                            book['subjects_gnd'].extend(subjects)
-                        else:
-                            book['subjects_gnd'].append(i.text)
+                            if ';' in i.text:
+                                subjects = [x.strip() for x in i.text.split(';')]
+                                book['subjects_gnd'].extend(subjects)
+                            else:
+                                book['subjects_gnd'].append(i.text)
 
                 if book['subjects_gnd']:
                     log.info("[689.a] GND Subjects: %s" % " / ".join(book['subjects_gnd']))
@@ -1367,10 +1367,15 @@ class DNB_DE(Source):
                         if len(i.text) < 2:
                             continue
 
+                        # book['subjects_non_gnd'].extend(re.split(',|;', self.remove_sorting_characters(i.text)))
                         # Preserve entries with commas as one term: "<subfield code="a">Dame, König, As, Spion</subfield"
                         # log.info("i.text=%s" % i.text)
-                        # book['subjects_non_gnd'].extend(re.split(',|;', self.remove_sorting_characters(i.text)))
-                        book['subjects_non_gnd'].append(unicodedata_normalize("NFKC", i.text))
+                        if ';' in i.text:
+                            subjects = [x.strip() for x in i.text.split(';')]
+                            book['subjects_non_gnd'].extend(re.split('|;', unicodedata_normalize("NFKC",
+                                                                                                 self.remove_sorting_characters(subjects))))
+                        else:
+                            book['subjects_non_gnd'].append(unicodedata_normalize("NFKC", i.text))
 
                 if book['subjects_non_gnd']:
                     log.info("[600.a-655.a] Non-GND Subjects: %s" % " / ".join(book['subjects_non_gnd']))
