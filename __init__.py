@@ -1337,7 +1337,13 @@ class DNB_DE(Source):
                         # skip entries starting with "(":
                         if i.text.startswith("("):
                             continue
-                        book['subjects_gnd'].append(i.text)
+                        # <datafield tag="653" ind1=" " ind2=" ">
+                        #   <subfield code="a">Emil; Klassiker; Krimi; Kästner</subfield>
+                        if ';' in i.text:
+                            subjects = [x.strip() for x in i.text.split(';')]
+                            book['subjects_gnd'].extend(subjects)
+                        else:
+                            book['subjects_gnd'].append(i.text)
 
                 if book['subjects_gnd']:
                     log.info("[689.a] GND Subjects: %s" % " / ".join(book['subjects_gnd']))

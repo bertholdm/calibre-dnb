@@ -109,11 +109,12 @@ class ConfigWidget(DefaultConfigWidget):
 
         # Append Edition to Title
         append_edition_to_title_label = QLabel(
-            'Append Edition to Title:', self)
-        append_edition_to_title_label.setToolTip('For some books DNB has information about the edition.\n'
-                                                 'This plugin can fetch this information and append it to the book\'s title,\n'
-                                                 'e.g. "Mord am Tegernsee : Ein Bayern-Krimi : 2. Aufl.".\n'
-                                                 'Of course this only works reliable if you search for a book with a known unique identifier such as dnb-idn or ISBN.')
+            _('Append Edition to Title:'), self)
+        append_edition_to_title_label.setToolTip(_('For some books DNB has information about the edition.\n'
+                                                   'This plugin can fetch this information and append it to the '
+                                                   'book\'s title, e.g. "Mord am Tegernsee : Ein Bayern-Krimi : 2. Aufl.".\n'
+                                                   'Of course this only works reliable if you search for a book with a '
+                                                   'known unique identifier such as dnb-idn or ISBN.'))
         other_group_box_layout.addWidget(
             append_edition_to_title_label, 1, 0, 1, 1)
 
@@ -124,16 +125,17 @@ class ConfigWidget(DefaultConfigWidget):
             self.append_edition_to_title_checkbox, 1, 1, 1, 1)
 
         # Fetch Subjects
-        fetch_subjects_label = QLabel('Fetch Subjects:', self)
-        fetch_subjects_label.setToolTip('DNB provides several types of subjects:\n'
+        fetch_subjects_label = QLabel(_('Fetch Subjects:'), self)
+        fetch_subjects_label.setToolTip(_('DNB provides several types of subjects:\n'
                                         ' - Standardized subjects according to the GND\n'
                                         ' - Subjects delivered by the publisher\n'
-                                        'You can choose which ones to fetch.')
+                                        'You can choose which ones to fetch.'))
         other_group_box_layout.addWidget(fetch_subjects_label, 2, 0, 1, 1)
 
         self.fetch_subjects_radios_group = QButtonGroup(other_group_box)
-        titles = ['only GND subjects', 'GND subjects if available, otherwise non-GND subjects', 'GND and non-GND subjects',
-                  'non-GND subjects if available, otherwise GND subjects', 'only non-GND subjects', 'none']
+        titles = [_('only GND subjects'), _('GND subjects if available, otherwise non-GND subjects'),
+                  _('GND and non-GND subjects'), _('non-GND subjects if available, otherwise GND subjects'),
+                  _('only non-GND subjects'), _('none')]
         self.fetch_subjects_radios = [
             QRadioButton(title) for title in titles]
         for i, radio in enumerate(self.fetch_subjects_radios):
@@ -273,7 +275,7 @@ class ConfigWidget(DefaultConfigWidget):
         skipSeriesStartingWithPublishersName_label = QLabel(
             _('Skip series starting with publisher\'s name:'), self)
         skipSeriesStartingWithPublishersName_label.setToolTip(_('Skip series info if it starts with the first word of the publisher\'s '
-                                                 'name (which must be at least 4 characters long).\n'))
+                                                 'name (which must be at least 4 characters long).'))
         other_group_box_layout.addWidget(skipSeriesStartingWithPublishersName_label, 18, 0, 1, 1)
 
         self.skipSeriesStartingWithPublishersName_checkbox = QCheckBox(self)

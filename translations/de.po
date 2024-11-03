@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ISFDB3\n"
-"POT-Creation-Date: 2024-10-16 16:23+0200\n"
-"PO-Revision-Date: 2024-10-16 16:23+0200\n"
+"POT-Creation-Date: 2024-11-03 12:04+0100\n"
+"PO-Revision-Date: 2024-11-03 12:06+0100\n"
 "Last-Translator: Michael Detambel <info@michael-detambel.de>\n"
 "Language-Team: Michael Detambel\n"
 "Language: de_DE@formal\n"
@@ -18,103 +18,169 @@ msgstr ""
 msgid "Downloads metadata from the DNB (Deutsche National Bibliothek)."
 msgstr "Lädt Metadaten aus der DNB (Deutsche National Bibliothek)."
 
-#: __init__.py:1439
+#: __init__.py:1566
 msgid "ISBN:\t"
 msgstr "ISBN:\t"
 
-#: __init__.py:1441
+#: __init__.py:1568
 msgid "Subtitle:\t"
 msgstr "Untertitel:\t"
 
-#: __init__.py:1443
+#: __init__.py:1570
 msgid "Subseries:\t"
 msgstr "Unterserie:\t"
 
 # Weitere isfdb-Texte
-#: __init__.py:1454
+#: __init__.py:1581
 msgid "Editor:\t"
 msgstr "Herausgeber:\t"
 
-#: __init__.py:1456
+#: __init__.py:1583
 msgid "Foreword by:\t"
 msgstr "Vorwort, Nachwort, Einleitung, Geleitwort:\t"
 
-#: __init__.py:1458
+#: __init__.py:1585
 msgid "Artist:\t"
 msgstr "Künstler:\t"
 
-#: __init__.py:1460
+#: __init__.py:1587
 msgid "Original language:\t"
 msgstr "Ausgangssprache:\t"
 
-#: __init__.py:1462
+#: __init__.py:1589
+msgid "Original pubdate:\t"
+msgstr "Ausgangssprache:\t"
+
+#: __init__.py:1591
+msgid "Original version note:\t"
+msgstr "Ursprungsversion:\t"
+
+#: __init__.py:1593
 msgid "Translator:\t"
 msgstr "Übersetzer:\t"
 
 # Weitere isfdb-Texte
-#: __init__.py:1464
+#: __init__.py:1595
 msgid "Edition:\t"
 msgstr "Auflage:\t"
 
-#: __init__.py:1466
+#: __init__.py:1597
 msgid "Media type:\t"
 msgstr "Medienart:\t"
 
-#: __init__.py:1468
+#: __init__.py:1599
 msgid "Extent:\t"
 msgstr "Umfang:\t"
 
-#: __init__.py:1470
+#: __init__.py:1601
 msgid "Other physical details:\t"
 msgstr "Andere physische Details:\t"
 
-#: __init__.py:1472
+#: __init__.py:1603
 msgid "Dimensions:\t"
 msgstr "Maße:\t"
 
-#: __init__.py:1474
+#: __init__.py:1605
 msgid "Accompanying material:\t"
 msgstr "Begleitmaterial:\t"
 
-#: __init__.py:1476
+#: __init__.py:1607
 msgid "Terms of availability:\t"
 msgstr "Bezugsbedingungen:\t"
 
-#: __init__.py:1478
+#: __init__.py:1609
 msgid "DDC subject area:\t"
 msgstr "DDC Sachgruppe:\t"
 
-#: __init__.py:1480
+#: __init__.py:1611
 msgid "GND subjects:\t"
 msgstr "GND Einträge:\t"
 
-#: __init__.py:1482
+#: __init__.py:1613
 msgid "Non-GND subjects:\t"
 msgstr "Nicht-GND Einträge:\t"
 
-#: __init__.py:1484
+#: __init__.py:1615
 msgid "MARC21 fields:\t"
 msgstr "MARC21 Felder:\t"
 
-#: __init__.py:1494 __init__.py:1496
+#: __init__.py:1625 __init__.py:1627
 msgid "Source:\t"
 msgstr "Quelle:\t"
 
-#: config.py:123
+#: config.py:112
+msgid "Append Edition to Title:"
+msgstr "Ausgabe an Haupttitel anfügen:"
+
+#: config.py:113
+msgid ""
+"For some books DNB has information about the edition.\n"
+"This plugin can fetch this information and append it to the book's title, e."
+"g. \"Mord am Tegernsee : Ein Bayern-Krimi : 2. Aufl.\".\n"
+"Of course this only works reliable if you search for a book with a known "
+"unique identifier such as dnb-idn or ISBN."
+msgstr ""
+"Für manche Bücher bietet die DNB Informationen über die Ausgabe.\n"
+"Dieses Plugin kann diese Informationen ziehen und an den Buchtitel anhängen, "
+"wie z. B. \"Mord am Tegernsee : Ein Bayern-Krimi : 2. Aufl.\".\n"
+"Natürlich funktioniert das nur zuverlässig für Bücher mit bekannten, "
+"eindeutigen Identifikatoren, wie einer dnb-idn oder ISBN."
+
+#: config.py:128
+msgid "Fetch Subjects:"
+msgstr "Wähle Einträge:"
+
+#: config.py:129
+msgid ""
+"DNB provides several types of subjects:\n"
+" - Standardized subjects according to the GND\n"
+" - Subjects delivered by the publisher\n"
+"You can choose which ones to fetch."
+msgstr ""
+"DNB bietet verschiedene Arten von Bucheinträgen:\n"
+" - Standardeinträge gemäß GND\n"
+" - Einträge, die vom Verlag bereitgestellt wurden\n"
+"Sie haben die Wahl, welche geholt werden sollen."
+
+#: config.py:136
+msgid "only GND subjects"
+msgstr "Nur GND Einträge"
+
+#: config.py:136
+msgid "GND subjects if available, otherwise non-GND subjects"
+msgstr "GND-Einträge, falls vorhanden, sonst nicht-GND-Einträge"
+
+#: config.py:137
+msgid "GND and non-GND subjects"
+msgstr "GND- und Nicht-GND Einträge"
+
+#: config.py:137
+msgid "non-GND subjects if available, otherwise GND subjects"
+msgstr "Nicht-GND-Einträge, falls vorhanden, sonst GND-Einträge"
+
+#: config.py:138
+msgid "only non-GND subjects"
+msgstr "Nur nicht-GND Einträge"
+
+#: config.py:138
+msgid "none"
+msgstr "nichts"
+
+#: config.py:149
 msgid "Fetch all data in book record:"
 msgstr "Hole alle Daten des Katalog-Datensatzes:"
 
-#: config.py:124
+#: config.py:150
 msgid "Additional, non-Calibre book data will be stored in comments.\n"
 msgstr ""
 "Zusätzliche Angaben, die nicht für die Calibre Buchdaten verwendet werden, "
 "werden im Kommentarfeld abgelegt.\n"
 
-#: config.py:135
+#: config.py:161
 msgid "Append subtitle to title:"
 msgstr "Untertitel an Haupttitel anfügen:"
 
-#: config.py:136
+#: config.py:162
 msgid ""
 "Subtitle is appended to the main title, otherwise it will be stored in "
 "comments.\n"
@@ -122,19 +188,19 @@ msgstr ""
 "Untertitel werden an den Haupttitel angefügt, ansonsten im Kommentarfeld "
 "vermerkt.\n"
 
-#: config.py:147
+#: config.py:173
 msgid "Stop after first hit:"
 msgstr "Suche nach dem ersten Treffer abbrechen:"
 
-#: config.py:148
+#: config.py:174
 msgid "Stop search after first book record is found.\n"
 msgstr "Beende die Suche, wenn das erste Buch gefunden wurde.\n"
 
-#: config.py:159
+#: config.py:185
 msgid "Prefer results with ISBN:"
 msgstr "Ergebnisse mit ISBN bevorzugen:"
 
-#: config.py:160
+#: config.py:186
 msgid ""
 "If set to True, and this source returns multiple results for a query, some "
 "of which have ISBNs and some of which do not, the results without ISBNs will "
@@ -144,21 +210,21 @@ msgstr ""
 "Suche, solche mit ISBNs und solche ohne, werden die Ergebnisse ohne ISBNs "
 "ignorierd. (see https://manual.calibre-ebook.com/de/plugins.html)\n"
 
-#: config.py:174
+#: config.py:200
 msgid "Can get multiple covers:"
 msgstr "Mehr als ein Titelbild herunterladen:"
 
-#: config.py:175
+#: config.py:201
 msgid "If True, the plugin can return multiple covers for a given query."
 msgstr ""
 "Wenn angehakt, kann das Plugin mehr als ein Titelbild je Abfrage "
 "herunterladen."
 
-#: config.py:186
+#: config.py:212
 msgid "Patterns to detect editors:"
 msgstr "Muster für Herausgeber-Suche:"
 
-#: config.py:187
+#: config.py:213
 msgid ""
 "RegEx pattern to detect editors, without the editor's name itself. One "
 "pattern per line in descending check order."
@@ -166,11 +232,11 @@ msgstr ""
 "RegEx-Muster für die Herausgeber-Suche, ohne den Herausgebernamen selbst. "
 "Ein Muster pro Zeile in aufsteigender Prüfreihenfolge."
 
-#: config.py:199
+#: config.py:225
 msgid "Patterns to detect artists:"
 msgstr "Muster für Künstler-Suche:"
 
-#: config.py:200
+#: config.py:226
 msgid ""
 "RegEx pattern to detect artists, without the artist's name itself. One "
 "pattern per line in ascending check order."
@@ -178,11 +244,11 @@ msgstr ""
 "RegEx-Muster für die Künstler-Suche, ohne den Künstlernamen selbst. Ein "
 "Muster pro Zeile in aufsteigender Prüfreihenfolge."
 
-#: config.py:212
+#: config.py:238
 msgid "Patterns to detect translators:"
 msgstr "Muster für Übersetzer-Suche:"
 
-#: config.py:213
+#: config.py:239
 msgid ""
 "RegEx pattern to detect translators, without the translator's name itself. "
 "One pattern per line in ascending check order."
@@ -190,11 +256,11 @@ msgstr ""
 "RegEx-Muster für die Übersetzer-Suche, ohne den Übersetzernamen selbst. Ein "
 "Muster pro Zeile in aufsteigender Prüfreihenfolge."
 
-#: config.py:225
+#: config.py:251
 msgid "Patterns to detect foreword writer:"
 msgstr "Muster für Suche nach Verfasser von Einleitung, Vorwort, Geleitwort:"
 
-#: config.py:226
+#: config.py:252
 msgid ""
 "RegEx pattern to detect foreword writers, without the foreword writer's name "
 "itself. One pattern per line in ascending check order."
@@ -203,13 +269,37 @@ msgstr ""
 "Einleitung), ohne den Verfassernamen selbst. Ein Muster pro Zeile in "
 "aufsteigender Prüfreihenfolge."
 
-#: config.py:238
+#: config.py:264
 msgid "Show MARC21 field numbers:"
 msgstr "Zeige MARC21-Feldnummern:"
 
-#: config.py:239
+#: config.py:265
 msgid "Show MARC21 field numbers in comments for reference purposes.\n"
 msgstr "Zeige die MARC21-Feldnamen im Kommentar zu Verweiszwecken.\n"
+
+#: config.py:276
+msgid "Skip series starting with publisher's name:"
+msgstr "Überspringe Serien-Informationen, die mit dem Verlagsnamens beginnen:"
+
+#: config.py:277
+msgid ""
+"Skip series info if it starts with the first word of the publisher's name "
+"(which must be at least 4 characters long)."
+msgstr ""
+"Überspringe Serien-Informationen, die mit dem ersten Wort des Verlagsnamens "
+"beginnen (der mindestens 4 Zeichen umfassen muss)."
+
+#: config.py:289
+msgid "Patterns for unwanted series names:"
+msgstr "Muster für unerwünschte Serien-Bezeichnungen::"
+
+#: config.py:290
+msgid ""
+"RegEx pattern to detect unwanted series names. One pattern per line in "
+"ascending check order."
+msgstr ""
+"RegEx-Muster für die Suche nach unerwünschten Serien-Bezeichnungen. Ein "
+"Muster pro Zeile in aufsteigender Prüfreihenfolge."
 
 #~ msgid "Downloads metadata and covers from ISFDB (https://www.isfdb.org/)"
 #~ msgstr "Lädt Metadaten und Buchumschläge von ISFDB (https://www.isfdb.org/)"
