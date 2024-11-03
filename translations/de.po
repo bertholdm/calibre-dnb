@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ISFDB3\n"
 "POT-Creation-Date: 2024-11-03 12:04+0100\n"
-"PO-Revision-Date: 2024-11-03 12:06+0100\n"
+"PO-Revision-Date: 2024-11-03 13:33+0100\n"
 "Last-Translator: Michael Detambel <info@michael-detambel.de>\n"
 "Language-Team: Michael Detambel\n"
 "Language: de_DE@formal\n"
@@ -49,7 +49,7 @@ msgstr "Ausgangssprache:\t"
 
 #: __init__.py:1589
 msgid "Original pubdate:\t"
-msgstr "Ausgangssprache:\t"
+msgstr "Erstveröffentlichung:\t"
 
 #: __init__.py:1591
 msgid "Original version note:\t"

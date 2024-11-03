@@ -47,6 +47,11 @@ except ImportError:
 from lxml.html import fromstring, tostring
 from calibre.utils.cleantext import clean_ascii_chars
 
+# ToDo: Using PyMarc library? https://pymarc.readthedocs.io/en/latest/
+# import sys
+# sys.path.append("C:\\anaconda3\\Lib\\site-packages")
+# from pymarc.reader import MARCReader
+
 load_translations()
 
 
@@ -59,7 +64,6 @@ class DNB_DE(Source):
     author = 'Citronalco'
     version = (3, 2, 4)
     minimum_calibre_version = (3, 48, 0)
-
     capabilities = frozenset(['identify', 'cover'])
     touched_fields = frozenset(['title', 'title_sort', 'authors', 'author_sort', 'publisher', 'pubdate', 'languages', 'tags', 'identifier:urn',
                                 'identifier:idn', 'identifier:isbn', 'identifier:ddc', 'series', 'series_index', 'comments'])
@@ -218,6 +222,7 @@ class DNB_DE(Source):
                 ##### For plugin extending purposes, document all fields in MARC21 record for this book here
                 marc21_fields = record.xpath("//marc21:datafield/@tag", namespaces=ns)
 
+
                 ##### Field 336: "Content Type" #####
                 # Skip Audio Books
                 mediatype = None  # Avoid "error message "UnboundLocalError: cannot access local variable 'mediatype'
@@ -323,7 +328,7 @@ class DNB_DE(Source):
                 # <controlfield tag="008">240627r20241795xx u||p|o ||| 0||||1ger  </controlfield
                 # gives in DBB catalog GUI:
                 # Zeitliche Einordnung	Erscheinungsdatum: 2024 Original: 1795
-                # see: https://www.loc.gov/marc/archive/2000/concise/ecbd008s.html
+                # see: https://www.loc.gov/marc/archive/2000/concise/ecbd008s.html and https://www.oclc.org/bibformats/en/2xx/245.html
                 # Character Positions
                 # All materials
                 # 00-05 - Date entered on file
@@ -346,11 +351,8 @@ class DNB_DE(Source):
 
                 ##### Field 245: "Title Statement" #####
                 # Get Title, Series, Series_Index, Subtitle
-                # Subfields:
-                # a: title
-                # b: subtitle 1
-                # n: number of part
-                # p: name of part
+                # Subfields: a: title, b: subtitle 1, n: number of part, p: name of part
+                # See: https://www.loc.gov/marc/bibliographic/bd245.html
 
                 # Examples:
                 # a = "The Endless Book", n[0] = 2, p[0] = "Second Season", n[1] = 3, p[1] = "Summertime", n[2] = 4, p[2] = "The Return of Foobar"	Example: dnb-id 1008774839
@@ -396,6 +398,7 @@ class DNB_DE(Source):
                     no_added_entry = not added_entry
                     log.info("added_entry=%s" % added_entry)
 
+                # ToDo: Why looping? Field 245 and most of his subfields are non-repetive (NR)
                 for field in record.xpath("./marc21:datafield[@tag='245']", namespaces=ns):
                     title_parts = []
 
@@ -1048,7 +1051,9 @@ class DNB_DE(Source):
                 # Example: dnb-idn:1256023949
                 for x in [record] + book['alternative_xmls']:
                     try:
-                        url = x.xpath("./marc21:datafield[@tag='856']/marc21:subfield[@code='u' and string-length(text())>21]", namespaces=ns)[0].text.strip()
+                        url = x.xpath("./marc21:datafield[@tag='856']/marc21:subfield[@code='u' "
+                                      "and string-length(text())>21]", namespaces=ns)[0].text.strip()
+                        # Or: check <subfield code="3">Inhaltstext</subfield
                         if url.startswith("http://deposit.dnb.de/") or url.startswith("https://deposit.dnb.de/"):
                             br = self.browser
                             log.info('[856.u] Trying to download Comments from: %s' % url)
