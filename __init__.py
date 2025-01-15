@@ -1371,9 +1371,12 @@ class DNB_DE(Source):
                         # Preserve entries with commas as one term: "<subfield code="a">Dame, König, As, Spion</subfield"
                         # log.info("i.text=%s" % i.text)
                         if ';' in i.text:
+                            new_subjects = []
                             subjects = [x.strip() for x in i.text.split(';')]
-                            book['subjects_non_gnd'].extend(re.split('|;', unicodedata_normalize("NFKC",
-                                                                                                 self.remove_sorting_characters(subjects))))
+                            for subject in subjects:
+                                subject = unicodedata_normalize("NFKC", subject)
+                                new_subjects.append(subject)
+                            book['subjects_non_gnd'].extend(new_subjects)
                         else:
                             book['subjects_non_gnd'].append(unicodedata_normalize("NFKC", i.text))
 
@@ -1416,7 +1419,7 @@ class DNB_DE(Source):
                     guessed_title = None
 
                     parts = re.split(
-                        "[:]", self.remove_sorting_characters(book['title']))
+                        "[:]", self.remove_sorting_characters(log, book['title']))
 
                     if len(parts) == 2:
                         # make sure only one part of the two parts contains digits
@@ -1653,24 +1656,26 @@ class DNB_DE(Source):
                     book['title'] = book['title'] + " (" + book['idn'] + ")"
 
                 if book['authors']:
-                    authors = list(map(lambda i: self.remove_sorting_characters(i), book['authors']))
+                    # Remove duplicate authors
+                    authors = list(dict.fromkeys(authors))
+                    # authors = list(map(lambda i: self.remove_sorting_characters(log, i, book['authors'])))
                 else:
                     authors = []
 
                 if authors:
                     mi = Metadata(
-                        self.remove_sorting_characters(book['title']),
+                        self.remove_sorting_characters(log, book['title']),
                         list(map(lambda i: re.sub("^(.+), (.+)$", r"\2 \1", i), authors))
                     )
                 else:
                     mi = Metadata(
-                        self.remove_sorting_characters(book['title']),
+                        self.remove_sorting_characters(log, book['title']),
                         authors
                     )
 
                 # mi.author_sort = " & ".join(authors)  # Let Calibre itself doing the sort
 
-                mi.title_sort = self.remove_sorting_characters(book['title_sort'])
+                mi.title_sort = self.remove_sorting_characters(log, book['title_sort'])
 
                 if book['languages']:
                     mi.languages = book['languages']
@@ -1678,10 +1683,10 @@ class DNB_DE(Source):
 
                 mi.pubdate = book['pubdate']
                 mi.publisher = " : ".join(filter(
-                    None, [book['publisher_location'], self.remove_sorting_characters(book['publisher_name'])]))
+                    None, [book['publisher_location'], self.remove_sorting_characters(log, book['publisher_name'])]))
 
                 if book['series']:
-                    mi.series = self.remove_sorting_characters(book['series'].replace(',', '.'))
+                    mi.series = self.remove_sorting_characters(log, book['series'].replace(',', '.'))
                     mi.series_index = book['series_index'] or "0"
 
                 mi.comments = book['comments']
@@ -1918,8 +1923,9 @@ class DNB_DE(Source):
 
 
     # remove sorting word markers
-    def remove_sorting_characters(self, text):
+    def remove_sorting_characters(self, log, text):
         if text:
+            log.info("remove_sorting_characters(), text=%s" % text)
             return ''.join([c for c in text if ord(c) != 152 and ord(c) != 156])
         else:
             return None
@@ -1931,7 +1937,7 @@ class DNB_DE(Source):
         if title:
             # remove name of translator from title
             match = re.search(
-                '^(.+) [/:] [Aa]us dem .+? von(\s\w+)+$', self.remove_sorting_characters(title))
+                '^(.+) [/:] [Aa]us dem .+? von(\s\w+)+$', self.remove_sorting_characters(log, title))
             if match:
                 title = match.group(1)
                 book['translator'] = title = match.group(2)
@@ -1940,7 +1946,7 @@ class DNB_DE(Source):
             # For clarity reason, no use of non-capturing groups for alternatives
             # <subfield code="c">von Gérard de Villiers. [Übers.: Jürgen Hofmann]</subfield>
             match = re.search(
-                '^(.+) [/:.] \[Übers\.:(\s\w+)+\]$', self.remove_sorting_characters(title))
+                '^(.+) [/:.] \[Übers\.:(\s\w+)+\]$', self.remove_sorting_characters(log, title))
             if match:
                 title = match.group(1)
                 book['translator'] = title = match.group(2)
@@ -1986,7 +1992,7 @@ class DNB_DE(Source):
                 # But only, if publishers name is not qualified (publisher: DuMont, series: DuMonts Bibliothek...). So
                 # let the pattern ending with space.
                 match = re.search(
-                    '^(\w\w\w\w+) ', self.remove_sorting_characters(publisher_name))
+                    '^(\w\w\w\w+) ', self.remove_sorting_characters(log, publisher_name))
                 if match:  # ToDo: and prefer series not start with publisher name -- there may be reasons to add such series names
                     pubcompany = match.group(1)
                     if re.search('^\W*' + pubcompany, series, flags=re.IGNORECASE):
