@@ -294,7 +294,7 @@ class ConfigWidget(DefaultConfigWidget):
 
         self.unwantedSeriesNames_textarea = QPlainTextEdit(self)
         self.unwantedSeriesNames_textarea.setPlainText(
-            '\n'.join(c.get(KEY_FOREWORD_PATTERNS, DEFAULT_STORE_VALUES[KEY_UNWANTED_SERIES_NAMES])))
+            '\n'.join(c.get(KEY_UNWANTED_SERIES_NAMES, DEFAULT_STORE_VALUES[KEY_UNWANTED_SERIES_NAMES])))
         other_group_box_layout.addWidget(
             self.unwantedSeriesNames_textarea, 17, 1, 1, 1)
 
