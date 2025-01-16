@@ -290,13 +290,13 @@ class ConfigWidget(DefaultConfigWidget):
             _('Patterns for unwanted series names:'), self)
         unwantedSeriesNames_label.setToolTip(_('RegEx pattern to detect unwanted series names. '
                                           'One pattern per line in ascending check order.'))
-        other_group_box_layout.addWidget(unwantedSeriesNames_label, 17, 0, 1, 1)
+        other_group_box_layout.addWidget(unwantedSeriesNames_label, 19, 0, 1, 1)
 
         self.unwantedSeriesNames_textarea = QPlainTextEdit(self)
         self.unwantedSeriesNames_textarea.setPlainText(
             '\n'.join(c.get(KEY_UNWANTED_SERIES_NAMES, DEFAULT_STORE_VALUES[KEY_UNWANTED_SERIES_NAMES])))
         other_group_box_layout.addWidget(
-            self.unwantedSeriesNames_textarea, 17, 1, 1, 1)
+            self.unwantedSeriesNames_textarea, 19, 1, 1, 1)
 
 
     def commit(self):
